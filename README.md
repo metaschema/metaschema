@@ -8,14 +8,14 @@ I was very intrigued by this year FireBase roll in the [Google io 2016].
 I have been looking for a serverless platform with database and integrated security (...yes if you have no server you shall manage no user, so it has to be integrated).
 
 Firebase seems like a comfortable starting point for somethings, the features that attract me the most are:
-1-Obviously and foremost : the realtime database + logins providers + data access rules
-2-Integrated Analytics
-3-Cloud console integrated with google services.
+- Obviously and foremost : the realtime database + logins providers + data access rules
+- Integrated Analytics
+- Cloud console integrated with google services.
 
 Previously I have been successfully using other nosql db accessible via rest api (for example https://www.clusterpoint.com).
 The difficulties I have found using others rest nosql dbs basically end up being two :
-P1-Users login not integrated / data access rules missing / near impossible security model.
-P2-The need of different tools and server - possibly also taking part in security and users login. Because the other db services are just db services one could never bring home any real life project with "just it".
+- P1-Users login not integrated / data access rules missing / near impossible security model.
+- P2-The need of different tools and server - possibly also taking part in security and users login. Because the other db services are just db services one could never bring home any real life project with "just it".
 
 --
 
