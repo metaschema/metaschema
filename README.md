@@ -1,2 +1,32 @@
 # firebase-oxygen
-super light, standalone, pure firebase db model wrapper that supports document linking in different collections and stextual searches as in LIKE "%foo%", until forther tools are developed
+light, standalone, pure firebase db model wrapper
+- supports document linking in different collections
+- textual searches as in LIKE "%foo%", [until forther tools are developed]
+
+I was very intrigued by this year FireBase roll in the [Google io 2016]
+I have been looking for a serverless platform with database and integrated security*
+*(...yes if you have no server you shall manage no user, so it has to be integrated).
+
+Firebase seems like a nice starting point for somethings, the things that attract me the most are:
+1-Obviously and foremost : the realtime database + logins providers + data access rules
+2-Integrated Analytics
+3-Cloud console integrated with google services.
+
+Previously I have been successfully using other nosql db accessible via rest api (for example https://www.clusterpoint.com).
+The difficulties I have found using others rest nosql dbs basically end up being two :
+#1-Users login not integrated / data access rules missing / near impossible security model.
+#2-The need of different tools and server - possibly also taking part in security and users login. Because the other db services are just db services one could never bring home any real life project with "just it".
+
+--
+
+With Firebase all this is solved, plus it's awesome (realtime listeners and stuff...), but we end up with just a couple of "small" things to implement.
+-Relations
+-Texual searches
+
+I have found many negative answers, I have found many "in the future it will be possible" answers and I have found a post on the old firebase blog, that suggested deploying an instance of elastic search with some third party.
+That seemed to work well, but I'd have again the problem #2.
+Anyway this suggestion was inspiring, so i thought - What would the elastic search code do why would it need an instance on it's own? This solution wraps inserts and updates so that it can "index" your data, after that a mongodb server is used to store the index data, and to query it.
+
+So I made a small library to help me do this just easily.
+
+
