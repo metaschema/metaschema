@@ -110,41 +110,46 @@
 	<div id="prelogindiv">Checking login status...</div>
 	<div id="logindiv" style="display:none">
 	<div class="info">Choose provider and auth mode</div>
-	Login with :
-	<input type="button" value="google" onclick="app.login(this.value)">Google</input>
-	<input type="button" value="facebook" onclick="app.login(this.value)">Facebook</input>
-	<input type="button" value="twitter" onclick="app.login(this.value)">Twitter</input>
-	<input type="button" value="github" onclick="app.login(this.value)">Github</input>
+		Login with :
+		<input type="button" value="google" onclick="app.login(this.value)">Google</input><input type="button" value="facebook" onclick="app.login(this.value)">Facebook</input>
+		<input type="button" value="twitter" onclick="app.login(this.value)">Twitter</input><input type="button" value="github" onclick="app.login(this.value)">Github</input>
 	</div>
-		<div id="oxygenconsole" style="display:none">
+	<div id="oxygenconsole" style="display:none">
 		<input type="button" onclick="app.logout()" value="LOGOFF">
 	 <div class="testitem"><h3>reindex db</h3>
-		<div id="scanned1">
-		
-		</div>
+		<div id="scanned1"> </div>
 		<!--<input type="button" id="rescan" value="destroy index" onclick="app.scandb()" />
 		<input type="button" id="rescan" value="rebuild index" onclick="app.scandb()" />			-->
-		</div>
-	 <div class="testitem"><h3>query documents</h3>
-	 	<div class="info">This demo is days old - if you don't know what to do, search for aa then dd, then aa dd</div>
+	</div>
+	<div class="testitem"><h3>query documents</h3>
+		<div class="info">This demo is days old - if you don't know what to do, search for aa then dd, then aa dd</div>
 		<div><span id="scanned2"> </span><input type="button" value="get collection" onclick="app.getcollection()" /></div>
   <form onsubmit="var v=app.search(this.firstChild.value);return false;"><input type="text" placeholder="search..." /><input type="submit" value="search"/></form>
 		<div id="results"> </div>
-		</div>
-	 <div class="testitem"><h3>edit documents</h3>
-	 	<div class="info">This demo is days old - if you don't know what to do, click new document and add {"desc":"aa bb cc"}, then click new doc again and add {"desc":"aa bb cc dd"}, then click new doc again and add {"desc":"dd"}</div>
+	</div>
+	<div class="testitem"><h3>edit documents</h3>
+		<div class="info">This demo is days old - if you don't know what to do, click new document and add {"desc":"aa bb cc"}, then click new doc again and add {"desc":"aa bb cc dd"}, then click new doc again and add {"desc":"dd"}</div>
 		<div id="collectiondiv"><input id="collection" type="text" value="testdata" placeholder="testdata" /> - collection name </div>
-		<input id="dockey" type="text" readonly="readonly" value="new doc" /><input onclick="app.prenewUI()" id="newdoc-butt" disabled="disabled" type="button" value="make new JSON doc" /><br/>
-		<textarea id="details"></textarea><input type="button" value="save" onclick="app.save_clicked()"/>
+		<input id="dockey" type="text" readonly="readonly" value="new doc" />
+		<input onclick="app.prenewUI()" id="newdoc-butt" disabled="disabled" type="button" value="make new JSON doc" /><br/>
+		<textarea id="details" placeholder="document json..."></textarea><br/>
+		<input type="button" value="save" onclick="app.save_clicked()"/>
 		<input type="button" id="seelog" value="see log" onclick="app.seelog_clicked()" disabled="disabled"/>
 		<input type="button" id="seever" value="see log" onclick="app.seever_clicked()" disabled="disabled"/>
 		<div id="subcollections"> </div>
-		</div>
-	 <div class="testitem">
+	</div>
+	<div class="testitem">
 		<h3>delete documents</h3>
-		</div>
-		<div class="testitem">
+		key:<input id="deldockey" type="text" placeholder="testdata-XSQWSQ...." />
+		<input type="button" id="delete-butt" value="remove" onclick="f$.db.del(gid('deldockey').value)"/>
+	</div>
+	<div class="testitem">
 		<h3>link / unlink documents</h3>
+		key:<input id="doclink1" type="text" placeholder="testdata-XSQWSQ...." />
+		key:<input id="doclink2" type="text" placeholder="testdata-HKETDF...." /><br/>
+		<textarea id="relationj" placeholder="Some optional json data for the relation..."></textarea><br/>
+		<input type="button" id="link-butt" value="link" onclick="f$.db.link(gid('doclink1').value,gid('doclink2').value,JSON.parse(gid('relationj').value);)"/>
+		<input type="button" id="unlink-butt" value="unlink" onclick="f$.db.unlink(gid('doclink1').value,gid('doclink2').value)"/>
 		</div>
 		</div>
 </div>

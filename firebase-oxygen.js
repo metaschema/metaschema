@@ -59,7 +59,7 @@ db:{db:function(ref){return firebase.database().ref(ref)},
 			this.getone(k,function(d){delete d.$key;var verk=_this._add(f$.oxyprefix+"ver",k,d);
 			_this.db(k.replace('-','/-')).set(doc);_this._add(f$.oxyprefix+'log',k,{text:log});});},
 	/*COLLECTIONS end*//*RELATIONS start*/
-	link:function(k1,k2,json){if(f$.inoe(k1)||(f$.inoe(k2))){console.log('only valid keys')}else{
+	link:function(k1,k2,json){if(!json){json={role:'default'}}if(f$.inoe(k1)||(f$.inoe(k2))){console.log('only valid keys')}else{
 		var _this=this;this.getone(k1,function(d){_this.getone(k2,function(dd){
 			_this.db(k1.replace('-','/-')+'/rels/'+k2).set(json);_this._add(f$.oxyprefix+'log',k1,{text:'Linked with '+dd.title+'['+k2+']'});
 			_this.db(k2.replace('-','/-')+'/rels/'+k1).set(json);_this._add(f$.oxyprefix+'log',k2,{text:'Linked with '+d.title+'['+k1+']'});
