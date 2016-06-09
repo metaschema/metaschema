@@ -28,3 +28,21 @@ However those concepts can be built on top of existing api calls and with a simp
 Note infact that if one's data is "indexed" then she shouldn't really need "LIKE%foo%" queries anymore... the index is infact build to avoid it. So once the data is indexed the queries that firebase provides should be more than enough.
 
 So I made a small library to help me do this couple this just easily, and this demo to test it.
+
+Things that work : 
+-Loading on the fly of code snippet in the form the one firebase gives now (3.0).
+-Login in our or other firebase project - given the access the js origin (rawgit.com as the time of wrinting this document - or localhost if you can)
+-Works in localhost - and it' suggested to use localhost if you want to test the demo with your firebase project, as it's default in firebase access rules, so it doesn't require inserting rawgit.com in the javascript allowed origins.
+-Saving a new or updating an existing json document in an existing or new collection.
+-Textually search in the documents that have been inserted using oxygen.
+-Logout
+
+Things that half work
+-LINKING and UNLINKING - working the API not tested in the UI.
+-Delete is not deleting all, the text index(es) have yet to be cleaned on delete
+-Document versions and logs actually get automatically saved in the db - but the UI of the demo does not allow seeing them (the buttons are not working)
+
+Things that don't work : 
+-reindexing of existing tables is not implemented
+-various other text index implementations are missing (#hashed words - titles, -$rels.*.title)
+-no trash is implemented
