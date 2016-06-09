@@ -1,4 +1,11 @@
 //OXYGEN for firebase by Hideki Yamamoto
+/*TODO URGENT!!!!!!
+	-Add index for _subcollections 	
+	-Add index only for hashed words 	
+	-Add index only for title words* - use for autocomplete	
+	-Actually perform  Z=Y-X  during the indexing to remove old entries. 
+	-CLEAN INDEXES ON DOCUMENT REMOVAL
+*/
 f$={oxyprefix:'oxy',
 inoe:function(v){if(!v)return true;if(typeof v!='string')return true;if(v.length==0)return true;return false;},
 login:function(provider,method){if(!method){method='redirect'}
@@ -85,6 +92,8 @@ var _this=this;this.getone(k1,function(d){_this.getone(k2,function(dd){
 		}_this.db('/'+f$.oxyprefix+'ndex_inv/'+k).set(xx);});
 		for(var j in xx){if(xx[j].v!=''){this.db('/'+f$.oxyprefix+'ndex/'+xx[j].v+'/keys/'+k).set({ct:xx[j].c});}} 
  },
+	/*TODO:Add index only for hashed words */
+	/*TODO:Add index only for title words - use for autocomplete*/
 	relevantText:function(o){var s=JSON.stringify(o);var out={};var c=0;var cw='';var ct=1;
 		s=s.replace(/,"([^"]*)":/g,'');s=s.replace(/{"([^"]*)":/g,'');
 		s=s.replace(/","/g,' ');s=s.replace(/""/g,' ');s=s.replace(/"/g,' ');
