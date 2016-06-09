@@ -1,7 +1,7 @@
 # firebase-oxygen
 light, standalone, pure firebase db model wrapper
 - supports document linking in different collections
-- textual searches as in LIKE "%foo%", [until forther tools are developed]
+- textual searches as in LIKE "%foo%", [until new native query tools are developed]
 - DEMO : http://rawgit.com/hidekiyamamoto/firebase-oxygen/master/index.html
 
 I was very intrigued by this year FireBase roll in the [Google io 2016].
