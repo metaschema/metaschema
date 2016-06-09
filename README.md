@@ -14,8 +14,8 @@ Firebase seems like a nice starting point for somethings, the things that attrac
 
 Previously I have been successfully using other nosql db accessible via rest api (for example https://www.clusterpoint.com).
 The difficulties I have found using others rest nosql dbs basically end up being two :
-#1-Users login not integrated / data access rules missing / near impossible security model.
-#2-The need of different tools and server - possibly also taking part in security and users login. Because the other db services are just db services one could never bring home any real life project with "just it".
+P1-Users login not integrated / data access rules missing / near impossible security model.
+P2-The need of different tools and server - possibly also taking part in security and users login. Because the other db services are just db services one could never bring home any real life project with "just it".
 
 --
 
@@ -24,7 +24,7 @@ With Firebase all this is solved, plus it's awesome (realtime listeners and stuf
 -Texual searches
 
 I have found many negative answers, I have found many "in the future it will be possible" answers and I have found a post on the old firebase blog, that suggested deploying an instance of elastic search with some third party.
-That seemed to work well, but I'd have again the problem #2.
+That seemed to work well, but I'd have again the problem P2.
 Anyway this suggestion was inspiring, so i thought - What would the elastic search code do why would it need an instance on it's own? This solution wraps inserts and updates so that it can "index" your data, after that a mongodb server is used to store the index data, and to query it.
 
 So I made a small library to help me do this just easily.
