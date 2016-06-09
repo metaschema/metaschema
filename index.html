@@ -1,0 +1,129 @@
+<!doctype html>
+<html><head>
+  <meta charset="utf-8">
+  <meta name="description" content="firebase-moredb : search with text and link documents across collections in firebase">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>firebase oxygen - demo</title>
+  <style>
+   .step{}
+			.testitem{border-bottom:dashed 1px black}
+			input[type=text]{width:250px}
+			textarea{width:50%}
+  </style>
+		<!--firebase-oxygen library-->
+		<script src="./firebase-oxygen.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+  <script>		
+		 window.app={
+				/*--------------------------------CODE FOR HANDLING OTHERS FIREBASE PROJECTS*/
+				load_demo:function(){
+					var e=document.createElement('script');
+					e.setAttribute('src','https://www.gstatic.com/firebasejs/live/3.0/firebase.js');
+					document.getElementsByTagName('head')[0].appendChild(e);
+					setTimeout('app._load_demo()',1000);
+				},_load_demo:function(){
+					var config = {
+						apiKey: "AIzaSyB7bg1dvnBcZw65eVkGVrBHXl3wNi_qhDo",
+						authDomain: "project-8282006050481252420.firebaseapp.com",
+						databaseURL: "https://project-8282006050481252420.firebaseio.com",
+						storageBucket: "project-8282006050481252420.appspot.com",
+				};firebase.initializeApp(config);setTimeout('app.scandb()',500);},
+   load_user:function(){
+				 var e=document.createElement('script');
+					e.setAttribute('src','https://www.gstatic.com/firebasejs/live/3.0/firebase.js');
+					document.getElementsByTagName('head')[0].appendChild(e);
+					setTimeout('app._load_user()',1000);
+   },_load_user:function(){
+     var scr=document.getElementById('codesnippet').value;
+					scr=scr.replace('<script src="https:\/\/www.gstatic.com\/firebasejs\/live\/3.0\/firebase.js"><\/script>','');
+					scr=scr.replace('<script>','');scr=scr.replace('<\/script>','');
+					eval(scr);
+					setTimeout('app.scandb()',500);
+   },
+			/*--------------------------------RELEVANT CODE FOR AN EXAMPLE APPLICATION*/
+			 scandb:function(){
+					document.getElementById('scanned1').innerHTML='';
+					document.getElementById('scanned2').innerHTML='';
+					firebase.database().ref('/').on('child_added',app._scandb);
+				},
+				_scandb:function(d){var k=d.key;if(!(k.indexOf(f$.oxyprefix)==0)){
+				 var s='<input type="checkbox" value="" />'+d.key;
+					document.getElementById('scanned1').innerHTML+=s;
+				 s='<input type="radio" value="d.key" />'+d.key;
+					document.getElementById('scanned2').innerHTML+=s;
+				}},
+			 search:function(exp,_collection){document.getElementById('results').innerHTML='';f$.db.find(exp,app._search,_collection);},
+			 _search:function(d){var s='<input onclick="app.open(\''+d.$key+'\');" type="button" value="'+d.title+' ['+d.$key+']" />';document.getElementById('results').innerHTML+=s;},
+			 open:function($key){f$.db.getone($key,app._open);},
+			 _open:function(d){app.nonewUI(d.$key);document.getElementById('details').value=JSON.stringify(d);},
+								seelog_clicked:function(){
+				 document.getElementById('subcollections').innerHTML='';					
+					var k=document.getElementById('dockey').value;},
+				seever_clicked:function(){
+					document.getElementById('subcollections').innerHTML='';
+					var k=document.getElementById('dockey').value;},			
+				save_clicked:function(){
+					var e=document.getElementById('dockey');
+					var J=JSON.parse(document.getElementById('details').value);
+					if(e.value=='new doc'){app.nonewUI(f$.db.add(document.getElementById('collection').value,J));}
+					else{if(!J.$key){alert('$key property must be present in the document');}else{f$.db.set(J)}}},
+					
+				prenewUI:function(){
+					document.getElementById('newdoc-butt').setAttribute('disabled','disabled');								
+					document.getElementById('seelog').setAttribute('disabled','disabled');
+					document.getElementById('seever').setAttribute('disabled','disabled');
+					document.getElementById('collectiondiv').style.display='';
+					document.getElementById('details').value='';
+					document.getElementById('dockey').value='new doc';					
+				},
+				nonewUI:function(key){
+					document.getElementById('newdoc-butt').removeAttribute('disabled');					
+					document.getElementById('seelog').removeAttribute('disabled');	
+					document.getElementById('seever').removeAttribute('disabled');
+					document.getElementById('collectiondiv').style.display='none';
+					document.getElementById('dockey').value=key;
+				},				
+			};
+  </script>
+</head><body>
+<h1>firebase oxygen - demo</h1>
+<div id="start" class="step">
+		This demo is completely static - will work with http://localhost <br/>
+  <input type="button" onclick="app.load_demo();document.getElementById('demomode').style.display='';this.parentNode.style.display='none';" value="connect to our firebase demo"/>
+  <input type="button" onclick="document.getElementById('step1').style.display='';this.parentNode.style.display='none';" value="connect to your firebase project" />
+</div>
+<div id="step1" class="step" style="display:none">
+  <h1>firebase oxygen - load your project - step1</h1>
+  <form onsubmit="var v=app.load_user();document.getElementById('demomode').style.display='';this.parentNode.style.display='none';return false;"><textarea id="codesnippet" placeholder="paste code snippet from your firebase project..."> </textarea><input type="submit" value="load firebase"></form>
+  <a href="#" onclick="return false;">how do I get a code snippet?</a>
+</div>
+<div id="demomode" class="step" style="display:none">
+	 <div class="testitem"><h3>reindex db</h3>
+		<div id="scanned1">
+		
+		</div>
+		<input type="button" id="rescan" value="destroy index" onclick="app.scandb()" />
+		<input type="button" id="rescan" value="rebuild index" onclick="app.scandb()" />			
+		</div>
+	 <div class="testitem"><h3>query documents</h3>
+		<div><span id="scanned2"> </span><input type="button" value="get collection" onclick="app.getcollection()" /></div>
+  <form onsubmit="var v=app.search(this.firstChild.value);return false;"><input type="text" placeholder="search..." /><input type="submit" value="search"/></form>
+		<div id="results"> </div>
+		</div>
+	 <div class="testitem"><h3>edit documents</h3>
+		<div id="collectiondiv"><input id="collection" type="text" value="testdata" placeholder="testdata" /> - collection name </div>
+		<input id="dockey" type="text" readonly="readonly" value="new doc" /><input onclick="app.prenewUI()" id="newdoc-butt" disabled="disabled" type="button" value="make new JSON doc" /><br/>
+		<textarea id="details"></textarea><input type="button" value="save" onclick="app.save_clicked()"/>
+		<input type="button" id="seelog" value="see log" onclick="app.seelog_clicked()" disabled="disabled"/>
+		<input type="button" id="seever" value="see log" onclick="app.seever_clicked()" disabled="disabled"/>
+		<div id="subcollections"> </div>
+		</div>
+	 <div class="testitem">
+		<h3>delete documents</h3>
+		</div>
+		<div class="testitem">
+		<h3>link / unlink documents</h3>
+		</div>
+
+</div>
+</body>
