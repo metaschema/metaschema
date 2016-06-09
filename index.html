@@ -45,10 +45,10 @@
 					f$.initAuth(function(authorized){console.log(authorized)});
 				 firebase.auth().onAuthStateChanged(function(user){
 					gid('prelogindiv').style.display='none';
-						if(user){gid('oxygenconsole').style.display='';gid('logindiv').style.display='none';console.log('log in');}
+						if(user){gid('oxygenconsole').style.display='';gid('logindiv').style.display='none';console.log('log in');
+						setTimeout('app.scandb()',500);}
 						else{gid('oxygenconsole').style.display='none';gid('logindiv').style.display='';console.log('log off');}
 					});
-					app.scandb();
 				},
 				login:function(provider){f$.login(provider);},
 				logout:function(provider){f$.logout();},
