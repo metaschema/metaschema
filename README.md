@@ -20,17 +20,11 @@ The difficulties I have found using others rest nosql dbs basically end up being
 --
 
 With Firebase all this is solved, plus it's awesome (realtime listeners and stuff...), but we end up with just a couple of "small" things to implement.
--Relations
--Texual searches
+- Relations
+- Texual searches
 
-I have found many negative answers, I have found many "in the future it will be possible" answers and I have found a post on the old firebase blog, that suggested deploying an instance of elastic search with some third party.
-That seemed to work well, but I'd have again the problem P2.
-Anyway this suggestion was inspiring, so I thought
+I know great things can be implemented without those concepts - but some can't.
+However those concepts can be built on top of existing api calls and with a simple data model.
+Note infact that of one's data is "indexed" then she should not really need "LIKE" queries anymore... the index is infact build to avoid it. So once the data is indexed the queries that firebase provides should be more than enough.
 
-What would the elastic search code do? Yhy would it need an instance on it's own? This solution wraps inserts and updates so that it can "index" your data, after that a mongodb server is used to store the index data, and to query it.
-
-Note very well that one data is "indexed" then you should not REALLY need "LIKE" queries anymore... the index is infact build to avoid it. So once the data is indexed the queries that firebase provides should be more than enough.
-
-So I made a small library to help me do this just easily.
-
-
+So I made a small library to help me do this couple this just easily, and this demo to test it.
