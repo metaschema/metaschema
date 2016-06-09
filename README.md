@@ -2,6 +2,7 @@
 light, standalone, pure firebase db model wrapper
 - supports document linking in different collections
 - textual searches as in LIKE "%foo%", [until forther tools are developed]
+- DEMO : http://rawgit.com/hidekiyamamoto/firebase-oxygen/master/index.html
 
 I was very intrigued by this year FireBase roll in the [Google io 2016].
 I have been looking for a serverless platform with database and integrated security (...yes if you have no server you shall manage no user, so it has to be integrated).
