@@ -24,7 +24,11 @@ With Firebase all this is solved, plus it's awesome (realtime listeners and stuf
 
 I have found many negative answers, I have found many "in the future it will be possible" answers and I have found a post on the old firebase blog, that suggested deploying an instance of elastic search with some third party.
 That seemed to work well, but I'd have again the problem P2.
-Anyway this suggestion was inspiring, so i thought - What would the elastic search code do why would it need an instance on it's own? This solution wraps inserts and updates so that it can "index" your data, after that a mongodb server is used to store the index data, and to query it.
+Anyway this suggestion was inspiring, so I thought
+
+What would the elastic search code do? Yhy would it need an instance on it's own? This solution wraps inserts and updates so that it can "index" your data, after that a mongodb server is used to store the index data, and to query it.
+
+Note very well that one data is "indexed" then you should not REALLY need "LIKE" queries anymore... the index is infact build to avoid it. So once the data is indexed the queries that firebase provides should be more than enough.
 
 So I made a small library to help me do this just easily.
 
