@@ -1,45 +1,44 @@
 <!doctype html>
 <html><head>
-  <meta charset="utf-8">
-  <meta name="description" content="firebase-moredb : search with text and link documents across collections in firebase">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>firebase oxygen - demo</title>
-  <style>
-   .step{}
-			.testitem{border-bottom:dashed 1px black}
-			input[type=text]{width:250px}
-			textarea{width:50%}
+  	<meta charset="utf-8">
+  	<meta name="description" content="firebase-moredb : search with text and link documents across collections in firebase">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<title>firebase oxygen - demo</title>
+	<style>
+		.step{}
+		.testitem{border-bottom:dashed 1px black}
+		input[type=text]{width:250px}
+		textarea{width:50%}
   </style>
-		<!--firebase-oxygen library-->
-		<script src="./firebase-oxygen.js"></script>
-		<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+	<!--firebase-oxygen library-->
+	<script src="./firebase-oxygen.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
   <script>		
-		 window.app={
-				/*--------------------------------CODE FOR HANDLING OTHERS FIREBASE PROJECTS*/
-				load_demo:function(){
-					var e=document.createElement('script');
-					e.setAttribute('src','https://www.gstatic.com/firebasejs/live/3.0/firebase.js');
-					document.getElementsByTagName('head')[0].appendChild(e);
-					setTimeout('app._load_demo()',1000);
-				},_load_demo:function(){
-					var config = {
-						apiKey: "AIzaSyB7bg1dvnBcZw65eVkGVrBHXl3wNi_qhDo",
-						authDomain: "project-8282006050481252420.firebaseapp.com",
-						databaseURL: "https://project-8282006050481252420.firebaseio.com",
-						storageBucket: "project-8282006050481252420.appspot.com",
+		window.app={
+/*--------------------------------CODE FOR HANDLING OTHERS FIREBASE PROJECTS*/
+			load_demo:function(){
+				var e=document.createElement('script');
+				e.setAttribute('src','https://www.gstatic.com/firebasejs/live/3.0/firebase.js');
+				document.getElementsByTagName('head')[0].appendChild(e);
+				setTimeout('app._load_demo()',1000);
+			},_load_demo:function(){
+				var config = {
+					apiKey: "AIzaSyB7bg1dvnBcZw65eVkGVrBHXl3wNi_qhDo",
+					authDomain: "project-8282006050481252420.firebaseapp.com",
+					databaseURL: "https://project-8282006050481252420.firebaseio.com",
+					storageBucket: "project-8282006050481252420.appspot.com",
 				};firebase.initializeApp(config);setTimeout('app.scandb()',500);},
-   load_user:function(){
-				 var e=document.createElement('script');
-					e.setAttribute('src','https://www.gstatic.com/firebasejs/live/3.0/firebase.js');
-					document.getElementsByTagName('head')[0].appendChild(e);
-					setTimeout('app._load_user()',1000);
-   },_load_user:function(){
-     var scr=document.getElementById('codesnippet').value;
-					scr=scr.replace('<script src="https:\/\/www.gstatic.com\/firebasejs\/live\/3.0\/firebase.js"><\/script>','');
-					scr=scr.replace('<script>','');scr=scr.replace('<\/script>','');
-					eval(scr);
-					setTimeout('app.scandb()',500);
-   },
+   		load_user:function(){
+				var e=document.createElement('script');
+				e.setAttribute('src','https://www.gstatic.com/firebasejs/live/3.0/firebase.js');
+				document.getElementsByTagName('head')[0].appendChild(e);
+				setTimeout('app._load_user()',1000);
+   		},_load_user:function(){
+   			var scr=document.getElementById('codesnippet').value;
+				scr=scr.replace('<script src="https:\/\/www.gstatic.com\/firebasejs\/live\/3.0\/firebase.js"><\/script>','');
+				scr=scr.replace('<script>','');scr=scr.replace('<\/script>','');
+				eval(scr);
+				setTimeout('app.scandb()',500);},
 			/*--------------------------------RELEVANT CODE FOR AN EXAMPLE APPLICATION*/
 			 scandb:function(){
 					document.getElementById('scanned1').innerHTML='';
