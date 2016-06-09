@@ -12,7 +12,7 @@ Firebase seems like a comfortable starting point for somethings, the features th
 - Integrated Analytics
 - Cloud console integrated with google services.
 
-Previously I have been successfully using other nosql db accessible via rest api (for example https://www.clusterpoint.com).
+Previously I have been successfully using many other nosql db accessible via rest api (one excellent example https://www.clusterpoint.com).
 The difficulties I have found using others rest nosql dbs basically end up being two :
 - P1-Users login not integrated / data access rules missing / near impossible security model.
 - P2-The need of different tools and server - possibly also taking part in security and users login. Because the other db services are just db services one could never bring home any real life project with "just it".
