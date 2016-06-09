@@ -13,7 +13,8 @@
 	<!--firebase-oxygen library-->
 	<script src="./firebase-oxygen.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
-  <script>		
+  <script>
+		window.gid=function(id){return document.getElementById(id);}
 		window.app={loggedin:false,
 /*--------------------------------CODE FOR HANDLING OTHERS FIREBASE PROJECTS - remove if you insert your own*/
 			load_demo:function(){
@@ -34,7 +35,7 @@
 				document.getElementsByTagName('head')[0].appendChild(e);
 				setTimeout('app._load_user()',1000);
    		},_load_user:function(){
-   			var scr=document.getElementById('codesnippet').value;
+   			var scr=gid('codesnippet').value;
 				scr=scr.replace('<script src="https:\/\/www.gstatic.com\/firebasejs\/live\/3.0\/firebase.js"><\/script>','');
 				scr=scr.replace('<script>','');scr=scr.replace('<\/script>','');
 				eval(scr);
@@ -43,55 +44,53 @@
 			 init:function(){
 					f$.initAuth(function(authorized){console.log(authorized)});
 				 firebase.auth().onAuthStateChanged(function(user){
-					document.getElementById('prelogindiv').style.display='none';
-						if(user){document.getElementById('oxygenconsole').style.display='';document.getElementById('logindiv').style.display='none';console.log('log in');}
-						else{document.getElementById('oxygenconsole').style.display='none';document.getElementById('logindiv').style.display='';console.log('log off');}
+					gid('prelogindiv').style.display='none';
+						if(user){gid('oxygenconsole').style.display='';gid('logindiv').style.display='none';console.log('log in');}
+						else{gid('oxygenconsole').style.display='none';gid('logindiv').style.display='';console.log('log off');}
 					});
 					app.scandb();
 				},
 				login:function(provider){f$.login(provider);},
 				logout:function(provider){f$.logout();},
 			 scandb:function(){
-					document.getElementById('scanned1').innerHTML='';
-					document.getElementById('scanned2').innerHTML='';
+					gid('scanned1').innerHTML='';
+					gid('scanned2').innerHTML='';
 					firebase.database().ref('/').on('child_added',app._scandb);
 				},
 				_scandb:function(d){var k=d.key;if(!(k.indexOf(f$.oxyprefix)==0)){
 				 var s='<input type="checkbox" value="" />'+d.key;
-					document.getElementById('scanned1').innerHTML+=s;
+					gid('scanned1').innerHTML+=s;
 				 s='<input type="radio" value="d.key" />'+d.key;
-					document.getElementById('scanned2').innerHTML+=s;
+					gid('scanned2').innerHTML+=s;
 				}},
-			 search:function(exp,_collection){document.getElementById('results').innerHTML='';f$.db.find(exp,app._search,_collection);},
-			 _search:function(d){var s='<input onclick="app.open(\''+d.$key+'\');" type="button" value="'+d.title+' ['+d.$key+']" />';document.getElementById('results').innerHTML+=s;},
+			 search:function(exp,_collection){gid('results').innerHTML='';f$.db.find(exp,app._search,_collection);},
+			 _search:function(d){var s='<input onclick="app.open(\''+d.$key+'\');" type="button" value="'+d.title+' ['+d.$key+']" />';gid('results').innerHTML+=s;},
 			 open:function($key){f$.db.getone($key,app._open);},
-			 _open:function(d){app.nonewUI(d.$key);document.getElementById('details').value=JSON.stringify(d);},
+			 _open:function(d){app.nonewUI(d.$key);gid('details').value=JSON.stringify(d);},
 								seelog_clicked:function(){
-				 document.getElementById('subcollections').innerHTML='';					
-					var k=document.getElementById('dockey').value;},
+				 gid('subcollections').innerHTML='';					
+					var k=gid('dockey').value;},
 				seever_clicked:function(){
-					document.getElementById('subcollections').innerHTML='';
-					var k=document.getElementById('dockey').value;},			
+					gid('subcollections').innerHTML='';
+					var k=gid('dockey').value;},			
 				save_clicked:function(){
-					var e=document.getElementById('dockey');
-					var J=JSON.parse(document.getElementById('details').value);
-					if(e.value=='new doc'){app.nonewUI(f$.db.add(document.getElementById('collection').value,J));}
+					var e=gid('dockey');
+					var J=JSON.parse(gid('details').value);
+					if(e.value=='new doc'){app.nonewUI(f$.db.add(gid('collection').value,J));}
 					else{if(!J.$key){alert('$key property must be present in the document');}else{f$.db.set(J)}}},
 					
 				prenewUI:function(){
-					document.getElementById('newdoc-butt').setAttribute('disabled','disabled');								
-					document.getElementById('seelog').setAttribute('disabled','disabled');
-					document.getElementById('seever').setAttribute('disabled','disabled');
-					document.getElementById('collectiondiv').style.display='';
-					document.getElementById('details').value='';
-					document.getElementById('dockey').value='new doc';					
+					gid('newdoc-butt').setAttribute('disabled','disabled');				
+					gid('seelog').setAttribute('disabled','disabled');gid('seever').setAttribute('disabled','disabled');
+					gid('collectiondiv').style.display='';
+					gid('details').value='';
+					gid('dockey').value='new doc';					
 				},
 				nonewUI:function(key){
-					document.getElementById('newdoc-butt').removeAttribute('disabled');					
-					document.getElementById('seelog').removeAttribute('disabled');	
-					document.getElementById('seever').removeAttribute('disabled');
-					document.getElementById('collectiondiv').style.display='none';
-					document.getElementById('dockey').value=key;
+					gid('newdoc-butt').removeAttribute('disabled');					
+					gid('seelog').removeAttribute('disabled');gid('seever').removeAttribute('disabled');
+					gid('collectiondiv').style.display='none';
+					gid('dockey').value=key;
 				},				
 			};
   </script>
@@ -99,12 +98,12 @@
 <h1>firebase oxygen - demo</h1>
 <div id="start" class="step">
 		This demo is completely static - will work with http://localhost <br/>
-  <input type="button" onclick="app.load_demo();document.getElementById('demomode').style.display='';this.parentNode.style.display='none';" value="connect to our firebase demo"/>
-  <input type="button" onclick="document.getElementById('step1').style.display='';this.parentNode.style.display='none';" value="connect to your firebase project" />
+  <input type="button" onclick="app.load_demo();gid('demomode').style.display='';this.parentNode.style.display='none';" value="connect to our firebase demo"/>
+  <input type="button" onclick="gid('step1').style.display='';this.parentNode.style.display='none';" value="connect to your firebase project" />
 </div>
 <div id="step1" class="step" style="display:none">
   <h1>firebase oxygen - load your project - step1</h1>
-  <form onsubmit="var v=app.load_user();document.getElementById('demomode').style.display='';this.parentNode.style.display='none';return false;"><textarea id="codesnippet" placeholder="paste code snippet from your firebase project..."> </textarea><input type="submit" value="load firebase"></form>
+  <form onsubmit="var v=app.load_user();gid('demomode').style.display='';this.parentNode.style.display='none';return false;"><textarea id="codesnippet" placeholder="paste code snippet from your firebase project..."> </textarea><input type="submit" value="load firebase"></form>
   <a href="#" onclick="return false;">how do I get a code snippet?</a>
 </div>
 <div id="demomode" class="step" style="display:none">
