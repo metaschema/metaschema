@@ -1,6 +1,35 @@
 //OXYGEN for firebase by Hideki Yamamoto
 f$={oxyprefix:'oxy',
 inoe:function(v){if(!v)return true;if(typeof v!='string')return true;if(v.length==0)return true;return false;},
+login:function(provider,method){if(!method){method='redirect'}
+	if (!firebase.auth().currentUser){var provider;
+		if(provider=='twitter'){provider=new firebase.auth.TwitterAuthProvider();}
+		else if(provider=='google'){provider=new firebase.auth.GoogleAuthProvider();provider.addScope('https://www.googleapis.com/auth/plus.login');}
+		else if(provider=='github'){provider=new firebase.auth.GithubAuthProvider();provider.addScope('repo');}
+		else if(provider=='facebook'){provider=new firebase.auth.FacebookAuthProvider();provider.addScope('user_likes');}
+		if(method=='redirect'){firebase.auth().signInWithRedirect(provider);}
+	}else{console.log('Already logged in');}	
+},
+logout:function(){firebase.auth().signOut();},
+initAuth:function(nextToken){
+ firebase.auth().getRedirectResult().then(function(result){
+ if(result.credential){nextToken(result.credential.accessToken);}else{
+									nextToken(false);
+        }								
+        // The signed-in user info.
+        var user = result.user;
+      }).catch(function(error) {
+        var errorCode = error.code;var errorMessage = error.message;
+        var email = error.email;
+        var credential = error.credential;
+        if (errorCode === 'auth/account-exists-with-different-credential') {
+          alert('You have already signed up with a different auth provider for that email.');
+          // If you are using multiple auth providers on your app you should handle linking
+          // the user's accounts here.
+        }else{console.error(error);}
+      });
+},
+
 	/*-----------FIREBASE DATABASE NAMESPACE - start----------------*/
 db:{db:function(ref){return firebase.database().ref(ref)},
 	start:function(key,event,next){this.db(key.replace('-','/-')).on(event,function(d){var v=d.val();if(v){v.$key=key.split('-')[0]+d.key;next(v);}});},

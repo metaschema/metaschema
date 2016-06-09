@@ -14,8 +14,8 @@
 	<script src="./firebase-oxygen.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
   <script>		
-		window.app={
-/*--------------------------------CODE FOR HANDLING OTHERS FIREBASE PROJECTS*/
+		window.app={loggedin:false,
+/*--------------------------------CODE FOR HANDLING OTHERS FIREBASE PROJECTS - remove if you insert your own*/
 			load_demo:function(){
 				var e=document.createElement('script');
 				e.setAttribute('src','https://www.gstatic.com/firebasejs/live/3.0/firebase.js');
@@ -27,7 +27,7 @@
 					authDomain: "project-8282006050481252420.firebaseapp.com",
 					databaseURL: "https://project-8282006050481252420.firebaseio.com",
 					storageBucket: "project-8282006050481252420.appspot.com",
-				};firebase.initializeApp(config);setTimeout('app.scandb()',500);},
+				};firebase.initializeApp(config);setTimeout('app.init()',500);},
    		load_user:function(){
 				var e=document.createElement('script');
 				e.setAttribute('src','https://www.gstatic.com/firebasejs/live/3.0/firebase.js');
@@ -38,8 +38,20 @@
 				scr=scr.replace('<script src="https:\/\/www.gstatic.com\/firebasejs\/live\/3.0\/firebase.js"><\/script>','');
 				scr=scr.replace('<script>','');scr=scr.replace('<\/script>','');
 				eval(scr);
-				setTimeout('app.scandb()',500);},
+				setTimeout('app.init()',500);},
 			/*--------------------------------RELEVANT CODE FOR AN EXAMPLE APPLICATION*/
+			 init:function(){
+					f$.initAuth(function(authorized){console.log(authorized)});
+				 firebase.auth().onAuthStateChanged(function(user){
+						if(user){document.getElementById('oxygenconsole').style.display='';document.getElementById('logindiv').style.display='none';console.log('log in');}
+						else{document.getElementById('oxygenconsole').style.display='none';document.getElementById('logindiv').style.display='';console.log('log off');}
+					});
+					app.scandb();
+				},
+				login:function(provider){
+					var mode='redirect';if(document.getElementById('login_popoupmode').checked){m='popup'}
+					f$.login(provider,mode);
+				},
 			 scandb:function(){
 					document.getElementById('scanned1').innerHTML='';
 					document.getElementById('scanned2').innerHTML='';
@@ -98,9 +110,16 @@
 </div>
 <div id="demomode" class="step" style="display:none">
 	<!--<a href="google-popup.html">Google Sign In using Popup</a>-->
-	<div class="info">This demo is days old - login only works with our demo database - yours will work only if you set a rul to allow access without login</div>
-	<a href="google-redirect.html">Google Sign In using Redirect</a>
-	<a href="google-credentials.html">Google Sign In using OAuth Credentials (via Google Sign-in Button)</a>
+	<div id="logindiv">
+	<div class="info">Choose provider and auth mode</div>
+	<input type="radio" name="loginmode" value="redirect" checked="checked"/><input type="radio" name="loginmode" value="popup" id="login_popoupmode" />
+	Login with :
+	<input type="button" value="google" onclick="app.login(this.value)">Google</input>
+	<input type="button" value="facebook" onclick="app.login(this.value)">Facebook</input>
+	<input type="button" value="twitter" onclick="app.login(this.value)">Twitter</input>
+	<input type="button" value="github" onclick="app.login(this.value)">Github</input>
+	</div>
+		<div id="oxygenconsole" style="display:none">
 	 <div class="testitem"><h3>reindex db</h3>
 		<div id="scanned1">
 		
@@ -129,6 +148,6 @@
 		<div class="testitem">
 		<h3>link / unlink documents</h3>
 		</div>
-
+		</div>
 </div>
 </body>
