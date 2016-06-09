@@ -3,9 +3,8 @@ light, standalone, pure firebase db model wrapper
 - supports document linking in different collections
 - textual searches as in LIKE "%foo%", [until forther tools are developed]
 
-I was very intrigued by this year FireBase roll in the [Google io 2016]
-I have been looking for a serverless platform with database and integrated security*
-*(...yes if you have no server you shall manage no user, so it has to be integrated).
+I was very intrigued by this year FireBase roll in the [Google io 2016].
+I have been looking for a serverless platform with database and integrated security (...yes if you have no server you shall manage no user, so it has to be integrated).
 
 Firebase seems like a nice starting point for somethings, the things that attract me the most are:
 1-Obviously and foremost : the realtime database + logins providers + data access rules
