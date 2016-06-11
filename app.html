@@ -37,19 +37,21 @@
 	</div>
 	<div id="metaschema-app" style="display:none"><section id="leftwrap"><div class="top-bar"><button
 				onclick="app.add_tag()" class="fa-tagplus" title="Add a new tag..."><i class="fa fa-tag"> </i><i class="fa fa-plus-circle"> </i>
-				</button><button onclick="app.refreshtree()" title="Refresh the tag tree"><i class="fa fa-refresh"> </i></button>
+				</button><button onclick="app.refreshtree()" title="Refresh the tag tree"><i class="fa fa-refresh"> </i></button><button
+				onclick="app.crossearch()" title="Cross search with tags"><i class="fa fa-binoculars"> </i></button>
 			</div>
 			<div id="tag-tree">loading...</div>
 		</section><section id="mainwrap">
 			<div class="top-bar">
-			 <button onclick="app.toggletree(this)" title="Toggle the tag tree"><i class="fa fa-dedent"></i>
+			 <button onclick="app.toggletree(this)" title="Toggle the tag tree" class="pushed"><i class="fa fa-dedent"></i>
 				</button><button onclick="app.gotohome(this.firstChild);"  title="Switch between home view and results view"><i class="fa fa-home"></i>
 				</button><button class="fa-docplus" title="Add document"><i class="fa fa-file"> </i><i class="fa fa-plus-circle"> </i>
 				</button><input type="text" id="pattern" placeholder="search pattern..."/><button onclick="app.search(this.firstChild);" title="perform search"><i class="fa fa-search"></i>
 				</button>
-				<div class="fr">
-				<a href="#" onclick="app.logout();return false;" title="logout"><i class="fa fa-key"></i></a>
-				<a href="#"><i class="fa fa-user" id="username"></i></a></div></div>
+				<div class="fr"><i class="fa fa-user" id="username"></i><button onclick="app.logout();return false;" title="perform search"><i class="fa fa-key"></i>
+				</button><button onclick="app.logout();return false;" title="user"><i class="fa fa-user"></i>
+				</button><button onclick="" title="info"><i class="fa fa-diamond"></i>
+				</button></div></div>
 		</section><section id="rightwrap" class="fly-out">
 		<!--roba a scomparsa laterale -->
 		</section></div></body>
