@@ -1,0 +1,57 @@
+<!doctype html>
+<html><head>
+	<meta charset="utf-8">
+	<meta name="description" content="firebase-moredb : search with text and link documents across collections in firebase">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>metaschema</title>
+	<!--firebase code snippet-->
+	<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+	<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyB7bg1dvnBcZw65eVkGVrBHXl3wNi_qhDo",
+    authDomain: "project-8282006050481252420.firebaseapp.com",
+    databaseURL: "https://project-8282006050481252420.firebaseio.com",
+    storageBucket: "project-8282006050481252420.appspot.com",
+  };
+  firebase.initializeApp(config);
+	</script>
+	<!--fontawesome hotlink by github cdn-->
+	<link href="https://cdn.rawgit.com/FortAwesome/Font-Awesome/master/css/font-awesome.min.css" rel="stylesheet" />
+	<!--firebase oxygen library-->	
+	<script src="firebase-oxygen.js"></script>
+	<!--firebase oxygen library-->	
+	<script src="metaschema-render.js"></script>
+	<!--style for this app-->	
+	<link href="app.css" rel="stylesheet" />
+	<!--script for this app-->
+	<script type="text/javascript" src="app.js"></script>
+</head><body onload="app.init()">
+	<div id="prelogindiv">Checking login status...</div>
+	<div id="logindiv" style="display:none">
+	<div class="info"><h3>login</h3></div>
+		<button onclick="app.login('google')"><i class="fa fa-google"></i></button>
+		<button onclick="app.login('facebook')"><i class="fa fa-facebook"></i></button>
+		<button onclick="app.login('twitter')"><i class="fa fa-twitter"></i></button>
+		<button onclick="app.login('github')"><i class="fa fa-github"></i></button>
+	</div>
+	<div id="metaschema-app" style="display:none"><section id="leftwrap"><div class="top-bar"><button
+				onclick="app.add_tag()" class="fa-tagplus"><i class="fa fa-tag"> </i><i class="fa fa-plus-circle"> </i>
+				</button><button onclick="app.refreshtree()"><i class="fa fa-refresh"> </i></button>
+			</div>
+			<div id="tag-tree">loading...</div>
+		</section><section id="mainwrap">
+			<div class="top-bar">
+			 <button onclick="app.toggletree(this)"><i class="fa fa-dedent"></i>
+				</button><button onclick="app.gotohome()"><i class="fa fa-home"></i>
+				</button><button class="fa-docplus"><i class="fa fa-file"> </i><i class="fa fa-plus-circle"> </i>
+				</button><button onclick="gid('mainwrap').classList.toggle('homeview')"><i class="fa fa-bars"></i>
+				</button>
+				<div class="fr">
+				<a href="#" onclick="app.logout();return false;" title="logout"><i class="fa fa-key"></i></a>
+				<a href="#"><i class="fa fa-user" id="username"></i></a>
+				</div>
+			</div>
+		</section><section id="rightwrap" class="fly-out">
+		<!--roba a scomparsa laterale -->
+		</section></div></body>

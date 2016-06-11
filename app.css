@@ -1,0 +1,38 @@
+/* -------------------------------------------- general utilities --- */
+*{padding: 0;	margin: 0;	vertical-align: top;	outline: 0px;}
+body{background-color:black;color:white}
+button,input[type="button"]{cursor: pointer;text-align:center !important;	}
+a{text-decoration:none}
+i{color:#0F0;}
+.fl{float:left}.fr{float:right}
+/* --------------------------------------------------- login area --- */
+#logindiv {position:absolute;text-align:center;left:0;right:0;top:40%}
+#logindiv button {font-size:34px;width:48px;height:50px;background-color:rgba(240,240,255,0);color:#0F0;padding-top: 8px;border:1px solid #0F0;}
+/* --------------------------------------------- application area --- */
+#mainwrap{position:absolute;left:250px;top:0px;right:0px;bottom:0px;}
+.noleft #mainwrap{left:0}
+#leftwrap{position:absolute;width:250px;}
+.noleft #leftwrap{display:none}
+
+.top-bar{height:50px;}
+#rightwrap{top:50px;right:0px;bottom:0px;position:absolute;}
+#rightwrap.fly-out{display:none}
+/* ----------------------------------------------- topbar buttons --- */
+.top-bar button,#logindiv button {transition: 800ms ease;-webkit-transition: 800ms ease;
+	font-size:34px;width:48px;height:50px;
+	background-color:rgba(240,240,255,0);color:#0F0;
+	padding-top: 8px;
+	border:1px solid #0F0;
+	transition: 800ms ease;-webkit-transition: 800ms ease;
+}
+.top-bar button:hover{background-color:rgba(240,240,255,1);color:#0F0;}
+.top-bar button.fl{margin-right:2px;}
+.top-bar button.fa-tagplus .fa-plus-circle {font-size: 15px;margin-top: 13px;margin-left: -19px;color:#060606;position:absolute;transition: 800ms ease;-webkit-transition: 800ms ease;}
+.top-bar button.fa-docplus .fa-plus-circle {font-size: 15px;margin-top: 16px;margin-left: -17px;color:#060606;position:absolute;transition: 800ms ease;-webkit-transition: 800ms ease;}
+.top-bar button:hover .fa-plus-circle {color:#f6f6f6;}
+/* ----------------------------------------------------- tag tree --- */
+.treeleaf{margin-left:4px}
+input[type=text]{width:250px}
+textarea{width:50%}
+
+.testitem{border-bottom:dashed 1px black}
