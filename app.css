@@ -1,8 +1,9 @@
 /* -------------------------------------------- general utilities --- */
 *{padding: 0;	margin: 0;	vertical-align: top;	outline: 0px;}
-body{background-color:black;color:white}
+body{background-color:black;color:white;color:#0F0;}
 button,input[type="button"]{cursor: pointer;text-align:center !important;	}
-a{text-decoration:none}
+a{text-decoration:none;color:#0F0;}
+a:hover{color:#9F9;}
 i{color:#0F0;}
 .fl{float:left}.fr{float:right}
 /* --------------------------------------------------- login area --- */
@@ -30,6 +31,7 @@ i{color:#0F0;}
 .top-bar button.fa-tagplus .fa-plus-circle {font-size: 15px;margin-top: 13px;margin-left: -19px;color:#060606;position:absolute;transition: 800ms ease;-webkit-transition: 800ms ease;}
 .top-bar button.fa-docplus .fa-plus-circle {font-size: 15px;margin-top: 16px;margin-left: -17px;color:#060606;position:absolute;transition: 800ms ease;-webkit-transition: 800ms ease;}
 .top-bar button:hover .fa-plus-circle {color:#f6f6f6;}
+.top-bar #pattern {font-size:34px;padding-top: 4px;padding-bottom: 4px;padding-left: 8px;}
 /* ----------------------------------------------------- tag tree --- */
 .treeleaf{margin-left:4px}
 input[type=text]{width:250px}

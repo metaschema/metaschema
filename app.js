@@ -28,7 +28,7 @@ window.app={loggedin:false,dbCollections:[],
 		refreshtree:function(){gid('tag-tree').innerHTML='';
 			firebase.database().ref('/tag').orderByChild("parent").startAt('root').endAt('root').on('child_added',function(snap){var v=snap.val();v.$key='tag-'+snap.key;
 					var s='<div class="treenode" id="T'+v.$key
-					s+='"><a href="#" onclick="app.leaftoggle(\''+v.$key+'\',this.firstChild)"><i class="fa fa-plus-circle"></i></a>';
+					s+='"><a href="#" onclick="app.leaftoggle(\''+v.$key+'\',this.firstChild)"><i class="fa fa-plus-circle"></i></a> ';
 					s+='<a href="#" onclick="app.open(\''+v.$key+'\');">'+v.doctitle+'</a>';
 					s+='<a class="color" href="#" onclick="" style="background-color:#ffffff;"> </a></div>';
 					gid('tag-tree').innerHTML+=s;
@@ -40,7 +40,7 @@ window.app={loggedin:false,dbCollections:[],
 			if(flag){
 			firebase.database().ref('/tag').orderByChild("parent").startAt(k).endAt(k).on('child_added',function(snap){var v=snap.val();v.$key='tag-'+snap.key;
 					var s='<div class="treenode" id="T'+v.$key
-					s+='"><a href="#" onclick="app.leaftoggle(\''+v.$key+'\',this.firstChild)"><i class="fa fa-plus-circle"></i></a>';
+					s+='"><a href="#" onclick="app.leaftoggle(\''+v.$key+'\',this.firstChild)"><i class="fa fa-plus-circle"></i></a> ';
 					s+='<a href="#" onclick="app.open(\''+v.$key+'\')">'+v.doctitle+'</a>';
 					s+='<a class="color" href="#" onclick="" style="background-color:#ffffff;"> </a></div>';
 					gid('TC'+$key).innerHTML+=s;
@@ -65,5 +65,9 @@ window.app={loggedin:false,dbCollections:[],
 					var J=JSON.parse(gid('details').value);
 					if(e.value=='new doc'){app.nonewUI(f$.db.add(gid('collection').value,J));}
 					else{if(!J.$key){alert('$key property must be present in the document');}else{f$.db.set(J)}}},
-
+		gotohome:function(button){
+			gid('mainwrap').classList.toggle('homeview');
+			button.classList.toggle('fa-home');
+			button.classList.toggle('fa-bars');
+		}
 			};
