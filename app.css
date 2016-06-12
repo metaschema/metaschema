@@ -48,4 +48,4 @@ textarea{width:50%}
 
 .testitem{border-bottom:dashed 1px black}
 /* ----------------------------------------------------- dialog --- */
-.dialog{border:2px solid #0F0;padding:10px}
+.dialog{border:2px solid #0F0;padding:10px;background:#000;left:40%;top:20%;}

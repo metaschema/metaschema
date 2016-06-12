@@ -18,14 +18,21 @@ T={
 	treeleaf:`<div id="TCX%KEY" class="treeleaf">%CTC</div>`,
 	reldialog:`<div class="dialog" id="%UID" draggable="true">%COLL1 - %NAME1<br/>%COLL2 - %NAME2<br/>
 	%JDOC<br/><button><i class="fa fa-link"></i></button><button><i class="fa fa-unlink"></i></button><button>cancel</button></div>`,
-	
+	newdialog:`<dialog class="dialog newobject" id="newdialog" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);">
+	<select id="collname" onchange="if(this.options[this.selectedIndex].value=='other'){this.nextSibling.style.display=''}else{this.nextSibling.style.display='none'}"><option value="other">other</option></select><span><br/>
+	<input type="text" id="othercollname" placeholder="new object collection" style="width:100px;"/></span><button><i class="fa fa-bolt"></i></button><button onclick="this.parentElement.close()"><i class="fa fa-times"></i></button></dialog>`,
+	seldialog:`<dialog class="dialog selobject" id="seldialog" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);">
+	<select id="collname"><option value="other">other</option></select><span><br/>
+	<input type="text" id="othercollname" placeholder="new object collection" style="width:100px;"/></span><button><i class="fa fa-bolt"></i></button><button onclick="this.parentElement.close()"><i class="fa fa-times"></i></button></dialog>`,
 };
 /* --------------------------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------------------- APP CODE --- */
 window.app={loggedin:false,dbCollections:[],
 	init:function(){var _this=this;f$.initAuth();firebase.auth().onAuthStateChanged(function(user){gid('prelogindiv').style.display='none';
 		if(user){_this.loggedinit(user);gid('metaschema-app').style.display='';gid('logindiv').style.display='none';}
-		else{gid('metaschema-app').style.display='none';gid('logindiv').style.display='';console.log('log off');}});},
+		else{gid('metaschema-app').style.display='none';gid('logindiv').style.display='';console.log('log off');}});
+		var s=T.newdialog;gid('hiddentarget').innerHTML+=s;
+		},
 	login:function(provider){f$.login(provider);},logout:function(provider){f$.logout();},
 	loggedinit:function(user){console.log('ok');
 		var uname=user.email;
@@ -39,7 +46,11 @@ window.app={loggedin:false,dbCollections:[],
 					//if not hidewelcomedialog show welcome dialog / assistent
 	},
 	scandb:function(){this.dbCollections=[];firebase.database().ref('/').on('child_added',app._scandb);},
-	_scandb:function(d){var k=d.key;if(!(k.indexOf(f$.oxyprefix)==0)){app.dbCollections[app.dbCollections.length]=d.key;}},
+	_scandb:function(d){var k=d.key;if(!(k.indexOf(f$.oxyprefix)==0)){
+		app.dbCollections[app.dbCollections.length]=d.key;
+		var o=document.createElement('option');o.value=d.key;o.innerHTML=d.key;
+		var sel=gid('collname');sel.insertBefore(o,sel.firstChild);sel.selectedIndex=0;
+	}},
 /* --------------------------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------------------- TAG TREE --- */
 	toggletree:function(button){document.body.classList.toggle('noleft');button.classList.toggle('pushed');
@@ -71,15 +82,13 @@ window.app={loggedin:false,dbCollections:[],
 			var s=T.reldialog.replace(/%UID/g,uid());
 			s=s.replace(/%COLL1/g,dragobj.c).replace(/%TITLE1/g,dragobj.n);
 			s=s.replace(/%COLL2/g,dragobj.c).replace(/%TITLE2/g,dragobj.n);
-			var d=document.createElement('div');
-			d.innerHTML=s;
-			gid('mainwrap').appendChild(d);
+			var d=document.createElement('div');d.innerHTML=s;gid('mainwrap').appendChild(d);
 		}},
 	/* --------------------------------------------------------------------------------------------------------------------------- */
 	/*-------------------------------------------------------------------------------------------------------------------- TOP BAR */
 	gototab:function(tab,button){var tabs=document.getElementsByClassName('tabs-b');for(var t=0;t<tabs.length;t++){tabs[t].classList.remove('pushed');}button.classList.add('pushed');gid(tab).classList.add(tab);
 	if(!tab=='homeview'){gid('mainwrap').classList.remove('homeview');}if(!tab=='resultsview'){gid('mainwrap').classList.remove('resultsview');}if(!tab=='detailsview'){gid('mainwrap').classList.remove('detailsview');}},
-	
+	newobj:function(){gid('newdialog').showModal()},
 	search:function(exp,_collection){gid('resultsview').innerHTML='';f$.db.find(exp,app._search,_collection);},
 	_search:function(d){var s='<input onclick="app.open(\''+d.$key+'\');" type="button" value="'+d.doctitle+' ['+d.$key+']" />';gid('resultsview').innerHTML+=s;},
 	
@@ -97,4 +106,27 @@ window.app={loggedin:false,dbCollections:[],
 					var J=JSON.parse(gid('details').value);
 					if(e.value=='new doc'){app.nonewUI(f$.db.add(gid('collection').value,J));}
 					else{if(!J.$key){alert('$key property must be present in the document');}else{f$.db.set(J)}}},
+/* -------------------------------------------------------------------------------------------------------------------- */
+		dialog_drag_start:function(event) 
+    {
+    var style = window.getComputedStyle(event.target, null);
+    var str = (parseInt(style.getPropertyValue("left")) - event.clientX) + ',' + (parseInt(style.getPropertyValue("top")) - event.clientY)+ ',' + event.target.id;
+    event.dataTransfer.setData("Text",str);
+    },
+
+		dialog_drop:function(event) 
+    {
+    var offset = event.dataTransfer.getData("Text").split(',');
+    var dm = document.getElementById(offset[2]);
+    dm.style.left = (event.clientX + parseInt(offset[0],10)) + 'px';
+    dm.style.top = (event.clientY + parseInt(offset[1],10)) + 'px';
+    event.preventDefault();
+    return false;
+    },
+
+  dialog_drag_over:function(event)
+    {
+    event.preventDefault();
+    return false;
+    }   
 };
