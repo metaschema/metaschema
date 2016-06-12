@@ -39,7 +39,7 @@
 	</div>
 	<div id="hiddentarget"> </div>
 	<div id="metaschema-app" style="display:none"><section id="leftwrap"><div class="top-bar"><button
-				onclick="app.add_tag()" class="fa-tagplus" title="Add a new tag..."><i class="fa fa-tag"> </i><i class="fa fa-plus-circle"> </i>
+				onclick="gid('newtagdialog').showModal()" class="fa-tagplus" title="Add a new tag..."><i class="fa fa-tag"> </i><i class="fa fa-plus-circle"> </i>
 				</button><button onclick="app.refreshtree()" title="Refresh the tag tree"><i class="fa fa-refresh"> </i></button><button
 				onclick="app.crossearch()" title="Cross search with tags"><i class="fa fa-binoculars"> </i></button>
 			</div>
@@ -55,7 +55,6 @@
 				</button><button onclick="gid('seldialog').showModal()" title="select collections"><i class="fa fa-check-square-o"></i>
 				</button>
 				<div class="fr"><button onclick="app.logout();return false;" title="perform search"><i class="fa fa-key"></i>
-				</button><button onclick="app.logout();return false;" title="user"><i class="fa fa-user"></i>
 				</button><button class="button" onclick="toggleFullScreen();this.classList.toggle('pushed');this.childNodes[0].classList.toggle('fa-expand');this.childNodes[0].classList.toggle('fa-compress');" title="fullscreen..."><i class="fa fa-expand"> </i>
 				</button><button onclick="" title="info"><i class="fa fa-diamond"></i></button></div></div>
 				<div id="homeview"><i class="fr fa fa-user" id="username"></i></div>
