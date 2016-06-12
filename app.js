@@ -130,3 +130,5 @@ window.app={loggedin:false,dbCollections:[],
     return false;
     }   
 };
+    
+}

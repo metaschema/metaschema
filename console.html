@@ -64,7 +64,7 @@
 				_scandb:function(d){var k=d.key;if(!(k.indexOf(f$.oxyprefix)==0)){
 				 var s='<input type="checkbox" value="" />'+d.key;
 					gid('scanned1').innerHTML+=s;
-				 s='<input type="radio" value="d.key" />'+d.key;
+				 s='<input type="radio" name="collections" value="d.key" />'+d.key;
 					gid('scanned2').innerHTML+=s;
 				}},
 			 search:function(exp,_collection){gid('results').innerHTML='';f$.db.find(exp,app._search,_collection);},
@@ -134,7 +134,7 @@
 	<div class="testitem"><div class="_heading _2">Query existing documents</div>
 	<div class="_heading _4">Description of query functionality</div><br>
 		<div class="info">This demo is days old - if you don't know what to do, search for aa then dd, then aa dd</div>
-		<div><span id="scanned2"> </span><input type="button" value="get collection" onclick="app.getcollection()" /></div>
+		<div><span id="scanned2"> </span><input type="button" value="Get collection childs" onclick="app.getcollection(this)" /></div>
   <form onsubmit="var v=app.search(this.firstChild.value);return false;"><input type="text" placeholder="search..." /><input type="submit" value="search"/></form>
 		<div id="results"> </div>
 	</div><br>
