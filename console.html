@@ -4,6 +4,10 @@
   	<meta name="description" content="firebase-moredb : search with text and link documents across collections in firebase">
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   	<title>firebase oxygen - demo</title>
+  	<link href="console.css" rel="stylesheet" />
+  	<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+  	<link href='https://fonts.googleapis.com/css?family=Oxygen+Mono' rel='stylesheet' type='text/css'>
+  	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
 	<style>
 		.step{}
 		.testitem{border-bottom:dashed 1px black}
@@ -95,11 +99,15 @@
 			};
   </script>
 </head><body>
-<h1>firebase oxygen - demo</h1>
-<div id="start" class="step">
-		This demo is completely static - will work with http://localhost <br/>
-  <input type="button" onclick="app.load_demo();gid('demomode').style.display='';this.parentNode.style.display='none';" value="connect to our firebase demo"/>
-  <input type="button" onclick="gid('step1').style.display='';this.parentNode.style.display='none';" value="connect to your firebase project" />
+
+<div id="start" class="step"><br>
+    <img src="img/header_img.png" style="height: 4em;"/>
+<div class="_heading _1">DEMO</div><br>
+<div class="_heading _3">A simple demo for <a href="#">Oxygen</a>. Connect to our demo <a href="https://firebase.google.com/" target="_blank" style="color:#ffa611" target="_blank">Firebase</a> database or try Oxygen on your Firebase database.</div>
+<div class="_heading _4">(This demo is completely static - will work with http://localhost)</div>
+		 <br/>
+  <input type="button" onclick="app.load_demo();gid('demomode').style.display='';this.parentNode.style.display='none';" value="Use our Firebase "/>
+  <input type="button" onclick="gid('step1').style.display='';this.parentNode.style.display='none';" value="Connect your Firebase" />
 </div>
 <div id="step1" class="step" style="display:none">
   <h1>firebase oxygen - load your project - step1</h1>
@@ -111,23 +119,27 @@
 	<div id="logindiv" style="display:none">
 	<div class="info">Choose provider and auth mode</div>
 		Login with :
-		<input type="button" value="google" onclick="app.login(this.value)">Google</input><input type="button" value="facebook" onclick="app.login(this.value)">Facebook</input>
-		<input type="button" value="twitter" onclick="app.login(this.value)">Twitter</input><input type="button" value="github" onclick="app.login(this.value)">Github</input>
+		<input type="button" value="Google" onclick="app.login(this.value)"/><input type="button" value="Facebook" onclick="app.login(this.value)"/>
+		<input type="button" value="Twitter" onclick="app.login(this.value)"/><input type="button" value="Github" onclick="app.login(this.value)"/>
 	</div>
 	<div id="oxygenconsole" style="display:none">
-		<input type="button" onclick="app.logout()" value="LOGOFF">
-	 <div class="testitem"><h3>reindex db</h3>
+		<input type="button" onclick="app.logout()" value="LOGOFF" style="float:right;">
+		<img src="img/header_img.png" style="height: 4em;"/>
+	 <div class="testitem"><div class="_heading _2">Reindex db</div>
+	 <div class="_heading _4">Select the collections in your database that you want to index</div><br>
 		<div id="scanned1"> </div>
 		<!--<input type="button" id="rescan" value="destroy index" onclick="app.scandb()" />
 		<input type="button" id="rescan" value="rebuild index" onclick="app.scandb()" />			-->
-	</div>
-	<div class="testitem"><h3>query documents</h3>
+	</div><br>
+	<div class="testitem"><div class="_heading _2">Query existing documents</div>
+	<div class="_heading _4">Description of query functionality</div><br>
 		<div class="info">This demo is days old - if you don't know what to do, search for aa then dd, then aa dd</div>
 		<div><span id="scanned2"> </span><input type="button" value="get collection" onclick="app.getcollection()" /></div>
   <form onsubmit="var v=app.search(this.firstChild.value);return false;"><input type="text" placeholder="search..." /><input type="submit" value="search"/></form>
 		<div id="results"> </div>
-	</div>
-	<div class="testitem"><h3>edit documents</h3>
+	</div><br>
+	<div class="testitem"><div class="_heading _2">Edit existing documents</div>
+	<div class="_heading _4">Description of edit funcionality</div><br>
 		<div class="info">This demo is days old - if you don't know what to do, click new document and add {"desc":"aa bb cc"}, then click new doc again and add {"desc":"aa bb cc dd"}, then click new doc again and add {"desc":"dd"}</div>
 		<div id="collectiondiv"><input id="collection" type="text" value="testdata" placeholder="testdata" /> - collection name </div>
 		<input id="dockey" type="text" readonly="readonly" value="new doc" />
@@ -137,19 +149,21 @@
 		<input type="button" id="seelog" value="see log" onclick="app.seelog_clicked()" disabled="disabled"/>
 		<input type="button" id="seever" value="see log" onclick="app.seever_clicked()" disabled="disabled"/>
 		<div id="subcollections"> </div>
-	</div>
+	</div><br>
 	<div class="testitem">
-		<h3>delete documents</h3>
+		<div class="_heading _2">Delete documents</div>
+		<div class="_heading _4">Description of delete funcionality</div><br>
 		key:<input id="deldockey" type="text" placeholder="testdata-XSQWSQ...." />
 		<input type="button" id="delete-butt" value="remove" onclick="f$.db.del(gid('deldockey').value)"/>
-	</div>
+	</div><br>
 	<div class="testitem">
-		<h3>link / unlink documents</h3>
+		<div class="_heading _2">Link / Unlink documents</div>
+		<div class="_heading _4">Description of link and unlink functionality</div><br>
 		key:<input id="doclink1" type="text" placeholder="testdata-XSQWSQ...." />
 		key:<input id="doclink2" type="text" placeholder="testdata-HKETDF...." /><br/>
 		<textarea id="relationj" placeholder="Some optional json data for the relation...">{"role":"default"}</textarea><br/>
-		<input type="button" id="link-butt" value="link" onclick="f$.db.link(gid('doclink1').value,gid('doclink2').value,JSON.parse(gid('relationj').value))"/>
-		<input type="button" id="unlink-butt" value="unlink" onclick="f$.db.unlink(gid('doclink1').value,gid('doclink2').value)"/>
+		<input type="button" id="link-butt" value="Link" onclick="f$.db.link(gid('doclink1').value,gid('doclink2').value,JSON.parse(gid('relationj').value))"/>
+		<input type="button" id="unlink-butt" value="Unlink" onclick="f$.db.unlink(gid('doclink1').value,gid('doclink2').value)"/>
 		</div>
 		</div>
 </div>
