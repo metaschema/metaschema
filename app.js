@@ -53,7 +53,7 @@ window.app={loggedin:false,dbCollections:[],
 	}},
     getcollection:function(e){var cn=e.previousElementSibling.childNodes;for(var icn=0;icn<cn.length;icn++){
         if(cn[icn].getAttribute('checked')=='true'){
-            var col=cn[icn].value;
+            var col=cn[icn].value;console.log(col);
         }else{}
     }},
 /* --------------------------------------------------------------------------------------------------------------------------- */
