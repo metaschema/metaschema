@@ -48,4 +48,6 @@ textarea{width:50%}
 
 .testitem{border-bottom:dashed 1px black}
 /* ----------------------------------------------------- dialog --- */
-.dialog{border:2px solid #0F0;padding:10px;background:#000;color:#0F0;left:40%;top:20%;}
+.dialog{font-size:18px;border:2px solid #0F0;padding:10px;padding-left:0;background:#000;color:#0F0;left:40%;top:20%;}
+.dialog button,.dialog select,.dialog input{background-color:transparent;color:#0F0;font-size:24px;border:none;margin-left:10px}
+.dialog .input[type="text"]{border:1px dashed #0F0}

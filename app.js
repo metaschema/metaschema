@@ -19,14 +19,14 @@ T={
 		reldialog:`<div class="dialog" id="%UID" draggable="true">%COLL1 - %NAME1<br/>%COLL2 - %NAME2<br/>
 		%JDOC<br/><button><i class="fa fa-link"></i></button><button><i class="fa fa-unlink"></i></button><button>cancel</button></div>`,
 	newdialog:`<dialog class="dialog newobject" id="newdialog" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);">
-		<span style="display:none"><input type="text" id="othercollname" placeholder="new object collection"/><br/></span><select
+		<span style="display:none"><input type="text" id="othercollname" placeholder="collection"/><br/></span><select
 		id="collname" onchange="if(this.options[this.selectedIndex].value=='other'){this.previousSibling.style.display=''}else{this.previousSibling.style.display='none'}"><option value="other">other</option>
 		</select><button><i class="fa fa-bolt"></i></button><button onclick="this.parentElement.close()"><i class="fa fa-times"></i></button></dialog>`,
 	seldialog:`<dialog class="dialog selobject" id="seldialog" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);">
-	 <button onclick="this.parentElement.close()"><i class="fa fa-check-square"></i></button></dialog>`,
+	 <button onclick="this.parentElement.close()" tittle="ok / close"><i class="fa fa-check-square"></i></button></dialog>`,
 	newtagdialog:`<dialog class="dialog newobject" id="newdialog" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);">
 		</dialog>`,
-		selcheck:`<input type="checkbox" class="selcheck" value="%KEY" /> %KEY`,
+		selcheck:`<input type="checkbox" class="selcheck" value="%KEY" style="zoom:2" /> %KEY`,
 };
 /* --------------------------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------------------- APP CODE --- */
