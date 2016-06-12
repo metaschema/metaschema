@@ -130,6 +130,8 @@ window.app={loggedin:false,dbCollections:[],
     dm.style.left = (event.clientX + parseInt(offset[0],10)) + 'px';
     dm.style.top = (event.clientY + parseInt(offset[1],10)) + 'px';
     event.preventDefault();
+    document.body.setAttribute('ondrop','')
+    document.body.setAttribute('ondragover','')
     return false;},
   dialog_drag_over:function(event)
     {
