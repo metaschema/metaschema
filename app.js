@@ -26,7 +26,7 @@ T={
 	 <button onclick="this.parentElement.close()" tittle="ok / close"><i class="fa fa-check-square"></i></button></dialog>`,
 	newtagdialog:`<dialog class="dialog newobject" id="newdialog" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);">
 		</dialog>`,
-		selcheck:`<input type="checkbox" class="selcheck" value="%KEY" style="zoom:2" /> %KEY`,
+		selcheck:`<input type="checkbox" class="selcheck" checked="checked" value="%KEY" style="zoom:2" /> %KEY`,
 };
 /* --------------------------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------------------- APP CODE --- */
