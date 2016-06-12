@@ -17,7 +17,7 @@ The difficulties I have found using others rest nosql dbs basically end up being
 - P1-Users login not integrated / data access rules missing / near impossible security model (without a third party (see P2)).
 - P2-The need of different tools and server - adding drastically to the overall complexity of managing a small project.
 
---
+--/
 
 With Firebase all this is solved, plus it's awesome (realtime listeners and stuff...), but we end up with just a couple of things to implement.
 - Relations
@@ -29,7 +29,7 @@ Note infact that if one's data is "indexed" then she shouldn't really need "LIKE
 
 So I made a small library to help me do this couple this just easily, and this demo to test it.
 
---
+--/
 
 Things that work : 
 - Loading on the fly of code snippet in the form the one firebase gives now (3.0).
