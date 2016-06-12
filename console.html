@@ -46,7 +46,7 @@
 				setTimeout('app.init()',500);},
                     getcollection:function(e){var cn=e.previousElementSibling.childNodes;for(var icn=0;icn<cn.length;icn++){
         if(cn[icn].checked==true){
-            var col=cn[icn].value;f$.db.getall(col,app._search(d));
+            var col=cn[icn].value;f$.db.getall(col,app._search());
         }else{}
     }},
 			/*--------------------------------RELEVANT CODE FOR AN EXAMPLE APPLICATION*/
@@ -93,10 +93,10 @@
 					gid('seelog').setAttribute('disabled','disabled');gid('seever').setAttribute('disabled','disabled');
 					gid('collectiondiv').style.display='';
 					gid('details').value='';
-					gid('dockey').value='new doc';
+					gid('dockey').value='new doc';					
 				},
 				nonewUI:function(key){
-					gid('newdoc-butt').removeAttribute('disabled');
+					gid('newdoc-butt').removeAttribute('disabled');					
 					gid('seelog').removeAttribute('disabled');gid('seever').removeAttribute('disabled');
 					gid('collectiondiv').style.display='none';
 					gid('dockey').value=key;
