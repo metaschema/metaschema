@@ -12,6 +12,9 @@ h1,h2,h3,h4,h5,h6,h7,h8,._heading._1,._heading._2,._heading._3,._heading._4{
 ._heading._2{
     font-size: 1.5em;
 }
+._heading._2:hover{
+    cursor:pointer;
+}
 ._heading._3{
     font-size: 1.17em;
 }
@@ -58,6 +61,16 @@ input[type=submit]:hover{
         cursor: pointer;
     color: #0059ee;
     border: 2px solid #0059ee;
+}
+input[type=radio]{
+    transform: scale(1.5);
+    -webkit-filter: invert(1);
+    filter: invert(1);
+}
+input[type=checkbox]{
+    transform: scale(1.5);
+    -webkit-filter: invert(1);
+    filter: invert(1);
 }
 a {
     color:#0059ee;

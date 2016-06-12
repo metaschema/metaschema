@@ -13,6 +13,7 @@
 		.testitem{border-bottom:dashed 1px black}
 		input[type=text]{width:250px}
 		textarea{width:50%}
+        .hidden{display:none;}
   </style>
 	<!--firebase-oxygen library-->
 	<script src="./firebase-oxygen.js"></script>
@@ -44,11 +45,18 @@
 				scr=scr.replace('<script>','');scr=scr.replace('<\/script>','');
 				eval(scr);
 				setTimeout('app.init()',500);},
-                    getcollection:function(e){gid('results').innerHTML='';var cn=e.previousElementSibling.childNodes;for(var icn=0;icn<cn.length;icn++){
+            getcollection:function(e){gid('results').innerHTML='';var cn=e.previousElementSibling.childNodes;for(var icn=0;icn<cn.length;icn++){
         if(cn[icn].checked==true){
             var col=cn[icn].value;f$.db.getall(col,app._search);
         }else{}
     }},
+            openUtility(e){
+                var it=document.getElementsByClassName('hiditem');
+                for(var ii=0;ii<it.length;ii++){
+                    it[ii].classList.add('hidden')
+                }                
+                e.nextElementSibling.classList.toggle('hidden')
+            },
 			/*--------------------------------RELEVANT CODE FOR AN EXAMPLE APPLICATION*/
 			 init:function(){
 					f$.initAuth(function(authorized){console.log(authorized)});
@@ -130,20 +138,20 @@
 	<div id="oxygenconsole" style="display:none">
 		<input type="button" onclick="app.logout()" value="LOGOFF" style="float:right;">
 		<img src="img/header_img.png" style="height: 4em;"/>
-	 <div class="testitem"><div class="_heading _2">Reindex db</div>
+	 <div class="testitem"><div class="_heading _2" onclick="app.openUtility(this)">Reindex db</div><div class="hidden hiditem">
 	 <div class="_heading _4">Select the collections in your database that you want to index</div><br>
 		<div id="scanned1"> </div>
 		<!--<input type="button" id="rescan" value="destroy index" onclick="app.scandb()" />
 		<input type="button" id="rescan" value="rebuild index" onclick="app.scandb()" />			-->
-	</div><br>
-	<div class="testitem"><div class="_heading _2">Query existing documents</div>
+        </div></div><br>
+	<div class="testitem"><div class="_heading _2" onclick="app.openUtility(this)">Query existing documents</div><div class="hidden hiditem">
 	<div class="_heading _4">Description of query functionality</div><br>
 		<div class="info">This demo is days old - if you don't know what to do, search for aa then dd, then aa dd</div>
 		<div><span id="scanned2"> </span><input type="button" value="Get collection childs" onclick="app.getcollection(this)" /></div>
   <form onsubmit="var v=app.search(this.firstChild.value);return false;"><input type="text" placeholder="search..." /><input type="submit" value="search"/></form>
 		<div id="results"> </div>
-	</div><br>
-	<div class="testitem"><div class="_heading _2">Edit existing documents</div>
+	</div></div><br>
+	<div class="testitem"><div class="_heading _2" onclick="app.openUtility(this)">Edit existing documents</div><div class="hidden hiditem">
 	<div class="_heading _4">Description of edit funcionality</div><br>
 		<div class="info">This demo is days old - if you don't know what to do, click new document and add {"desc":"aa bb cc"}, then click new doc again and add {"desc":"aa bb cc dd"}, then click new doc again and add {"desc":"dd"}</div>
 		<div id="collectiondiv"><input id="collection" type="text" value="testdata" placeholder="testdata" /> - collection name </div>
@@ -154,22 +162,22 @@
 		<input type="button" id="seelog" value="see log" onclick="app.seelog_clicked()" disabled="disabled"/>
 		<input type="button" id="seever" value="see log" onclick="app.seever_clicked()" disabled="disabled"/>
 		<div id="subcollections"> </div>
-	</div><br>
+        </div></div><br>
 	<div class="testitem">
-		<div class="_heading _2">Delete documents</div>
+		<div class="_heading _2" onclick="app.openUtility(this)">Delete documents</div><div class="hidden hiditem">
 		<div class="_heading _4">Description of delete funcionality</div><br>
 		key:<input id="deldockey" type="text" placeholder="testdata-XSQWSQ...." />
 		<input type="button" id="delete-butt" value="remove" onclick="f$.db.del(gid('deldockey').value)"/>
-	</div><br>
+        </div></div><br>
 	<div class="testitem">
-		<div class="_heading _2">Link / Unlink documents</div>
+		<div class="_heading _2" onclick="app.openUtility(this)">Link / Unlink documents</div><div class="hidden hiditem">
 		<div class="_heading _4">Description of link and unlink functionality</div><br>
 		key:<input id="doclink1" type="text" placeholder="testdata-XSQWSQ...." />
 		key:<input id="doclink2" type="text" placeholder="testdata-HKETDF...." /><br/>
 		<textarea id="relationj" placeholder="Some optional json data for the relation...">{"role":"default"}</textarea><br/>
 		<input type="button" id="link-butt" value="Link" onclick="f$.db.link(gid('doclink1').value,gid('doclink2').value,JSON.parse(gid('relationj').value))"/>
 		<input type="button" id="unlink-butt" value="Unlink" onclick="f$.db.unlink(gid('doclink1').value,gid('doclink2').value)"/>
-		</div>
+        </div></div>
 		</div>
 </div>
 </body>
