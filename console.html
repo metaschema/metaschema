@@ -46,7 +46,7 @@
 				setTimeout('app.init()',500);},
                     getcollection:function(e){var cn=e.previousElementSibling.childNodes;for(var icn=0;icn<cn.length;icn++){
         if(cn[icn].checked==true){
-            var col=cn[icn].value;console.log(col);
+            var col=cn[icn].value;f$.db.getall(col,app._search(d));
         }else{}
     }},
 			/*--------------------------------RELEVANT CODE FOR AN EXAMPLE APPLICATION*/
