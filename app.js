@@ -51,11 +51,6 @@ window.app={loggedin:false,dbCollections:[],
 		var o=document.createElement('option');o.value=d.key;o.innerHTML=d.key;
 		var sel=gid('collname');sel.insertBefore(o,sel.firstChild);sel.selectedIndex=0;
 	}},
-    getcollection:function(e){var cn=e.previousElementSibling.childNodes;for(var icn=0;icn<cn.length;icn++){
-        if(cn[icn].getAttribute('checked')=='true'){
-            var col=cn[icn].value;console.log(col);
-        }else{}
-    }},
 /* --------------------------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------------------- TAG TREE --- */
 	toggletree:function(button){document.body.classList.toggle('noleft');button.classList.toggle('pushed');
