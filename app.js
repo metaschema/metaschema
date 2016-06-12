@@ -14,16 +14,19 @@ window.fix=function(ev){ev.stopPropagation();ev.preventDefault();};
 T={
 	treenode:`<div class="treenode" id="TX%KEY" ondragstart="event.stopPropagation();app.drag('X%KEY','%TITLE')" ondrop="fix(event);app.drop('X%KEY','%TITLE')" ondragover="fix(event);"><a
 		href="#" onclick="app.toggleleaf('X%KEY',this.firstChild)"><i class="fa fa-plus-circle"></i></a>
-	<a href="#" onclick="app.open('%KEY');">%TITLE</a><button class="color fr" href="#" onclick="" style="background-color:#ffffff;"> </button></div>`,
+		<a href="#" onclick="app.open('%KEY');">%TITLE</a><button class="color fr" href="#" onclick="" style="background-color:#ffffff;"> </button></div>`,
 	treeleaf:`<div id="TCX%KEY" class="treeleaf">%CTC</div>`,
-	reldialog:`<div class="dialog" id="%UID" draggable="true">%COLL1 - %NAME1<br/>%COLL2 - %NAME2<br/>
-	%JDOC<br/><button><i class="fa fa-link"></i></button><button><i class="fa fa-unlink"></i></button><button>cancel</button></div>`,
+		reldialog:`<div class="dialog" id="%UID" draggable="true">%COLL1 - %NAME1<br/>%COLL2 - %NAME2<br/>
+		%JDOC<br/><button><i class="fa fa-link"></i></button><button><i class="fa fa-unlink"></i></button><button>cancel</button></div>`,
 	newdialog:`<dialog class="dialog newobject" id="newdialog" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);">
-	<select id="collname" onchange="if(this.options[this.selectedIndex].value=='other'){this.nextSibling.style.display=''}else{this.nextSibling.style.display='none'}"><option value="other">other</option></select><span><br/>
-	<input type="text" id="othercollname" placeholder="new object collection" style="width:100px;"/></span><button><i class="fa fa-bolt"></i></button><button onclick="this.parentElement.close()"><i class="fa fa-times"></i></button></dialog>`,
+		<span style="display:none"><input type="text" id="othercollname" placeholder="new object collection"/><br/></span><select
+		id="collname" onchange="if(this.options[this.selectedIndex].value=='other'){this.previousSibling.style.display=''}else{this.previousSibling.style.display='none'}"><option value="other">other</option>
+		</select><button><i class="fa fa-bolt"></i></button><button onclick="this.parentElement.close()"><i class="fa fa-times"></i></button></dialog>`,
 	seldialog:`<dialog class="dialog selobject" id="seldialog" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);">
-	<select id="collname"><option value="other">other</option></select><span><br/>
-	<input type="text" id="othercollname" placeholder="new object collection" style="width:100px;"/></span><button><i class="fa fa-bolt"></i></button><button onclick="this.parentElement.close()"><i class="fa fa-times"></i></button></dialog>`,
+	 <button onclick="this.parentElement.close()"><i class="fa fa-check-square"></i></button></dialog>`,
+	newtagdialog:`<dialog class="dialog newobject" id="newdialog" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);">
+		</dialog>`,
+		selcheck:`<input type="checkbox" class="selcheck" value="%KEY" /> %KEY`,
 };
 /* --------------------------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------------------- APP CODE --- */
@@ -31,12 +34,12 @@ window.app={loggedin:false,dbCollections:[],
 	init:function(){var _this=this;f$.initAuth();firebase.auth().onAuthStateChanged(function(user){gid('prelogindiv').style.display='none';
 		if(user){_this.loggedinit(user);gid('metaschema-app').style.display='';gid('logindiv').style.display='none';}
 		else{gid('metaschema-app').style.display='none';gid('logindiv').style.display='';console.log('log off');}});
-		var s=T.newdialog;gid('hiddentarget').innerHTML+=s;
+		gid('hiddentarget').innerHTML+=T.newdialog;
+		gid('hiddentarget').innerHTML+=T.seldialog;
 		},
 	login:function(provider){f$.login(provider);},logout:function(provider){f$.logout();},
 	loggedinit:function(user){console.log('ok');
-		var uname=user.email;
-		if(user.displayName){uname=user.displayName;}
+	 var uname=user.email;if(user.displayName){uname=user.displayName;}
 		document.getElementById('username').innerHTML=' '+uname;
 		this.scandb();
 					//if user is not agreed make him agree to terms
@@ -48,9 +51,13 @@ window.app={loggedin:false,dbCollections:[],
 	scandb:function(){this.dbCollections=[];firebase.database().ref('/').on('child_added',app._scandb);},
 	_scandb:function(d){var k=d.key;if(!(k.indexOf(f$.oxyprefix)==0)){
 		app.dbCollections[app.dbCollections.length]=d.key;
+		/*if(d.key!='tag'){*/
 		var o=document.createElement('option');o.value=d.key;o.innerHTML=d.key;
-		var sel=gid('collname');sel.insertBefore(o,sel.firstChild);sel.selectedIndex=0;
-	}},
+		var nsel=gid('collname');nsel.insertBefore(o,nsel.firstChild);nsel.selectedIndex=0;
+		var o=document.createElement('span');o.innerHTML=T.selcheck.replace(/%KEY/g,d.key);
+		var sel=gid('seldialog');sel.insertBefore(o,sel.firstChild);}
+	/*}*/
+	},
 /* --------------------------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------------------- TAG TREE --- */
 	toggletree:function(button){document.body.classList.toggle('noleft');button.classList.toggle('pushed');
@@ -88,9 +95,12 @@ window.app={loggedin:false,dbCollections:[],
 	/*-------------------------------------------------------------------------------------------------------------------- TOP BAR */
 	gototab:function(tab,button){var tabs=document.getElementsByClassName('tabs-b');for(var t=0;t<tabs.length;t++){tabs[t].classList.remove('pushed');}button.classList.add('pushed');gid(tab).classList.add(tab);
 	if(!tab=='homeview'){gid('mainwrap').classList.remove('homeview');}if(!tab=='resultsview'){gid('mainwrap').classList.remove('resultsview');}if(!tab=='detailsview'){gid('mainwrap').classList.remove('detailsview');}},
-	newobj:function(){gid('newdialog').showModal()},
-	search:function(exp,_collection){gid('resultsview').innerHTML='';f$.db.find(exp,app._search,_collection);},
-	_search:function(d){var s='<input onclick="app.open(\''+d.$key+'\');" type="button" value="'+d.doctitle+' ['+d.$key+']" />';gid('resultsview').innerHTML+=s;},
+	search:function(exp,_collection){
+		gid('resultsview').innerHTML='';f$.db.find(exp,app._search,_collection);
+	},
+	_search:function(d){
+		var s='<input onclick="app.open(\''+d.$key+'\');" type="button" value="'+d.doctitle+' ['+d.$key+']" />';gid('resultsview').innerHTML+=s;
+	},
 	
 
 	open:function($key){f$.db.getone($key,app._open);},
@@ -129,6 +139,4 @@ window.app={loggedin:false,dbCollections:[],
     event.preventDefault();
     return false;
     }   
-};
-    
-}
+};    
