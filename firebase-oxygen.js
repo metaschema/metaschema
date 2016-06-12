@@ -75,13 +75,13 @@ var _this=this;this.getone(k1,function(d){_this.getone(k2,function(dd){
 			_this.db(kk[k].replace('-','/-')+'/rels/'+k1).remove();_this._add(f$.oxyprefix+'log',kk[k],{text:'Unlinked with '+dd[_this.docnamefield]+'['+k1+']'});
 	});}});},/*RELATIONS end*//*WORD INDEX START*/
 	find:function(s,next,_collection){var _this=this;var popped=[];
-	 s=s.replace(/ |{|}|\||<|>|\\|!|"|£|$|%|&|\/|\(|\)|=|\?|'|"|^|\*|\+|\[|\]|§|°|#|@|\.|,|;|:/g,' ');
-  s=s.replace(/# /g,' ');s=s.replace(/ */g,' ');/*s=s.replace(/   /g,' ');s=s.replace(/  /g,' ');*/
-		var step;var uninext=function(d){if(!popped[d.$key]){popped[d.$key]=true;next(d);}};
+	 s=s.replace(/ |{|}|\||<|>|\\|!|"|£|$|%|&|\/|\(|\)|=|\?|'|"|^|\*|\+|\[|\]|§|°|@|\.|,|;|:/g,' ');
+  s=s.replace(/# /g,' ');s=s.replace(/   /g,' ');s=s.replace(/  /g,' ');s=s.toLowerCase();
+		var uninext=function(d){if(!popped[d.$key]){popped[d.$key]=true;next(d);}};var step;
 		if(_collection){step=function(d){if(d.key.indexOf(_collection)==0){_this.getone(d.key,uninext);}}}
 		else{step=function(d){_this.getone(d.key,uninext);}}
-	 var xx=s.split(' ');var xlen=xx.length;for(var x=0;x<xlen;x++){
-		this.db('/'+f$.oxyprefix+'Wndex/'+xx[x]+'/keys').on('child_added',step);}},
+	 var xx=s.split(' ');var xlen=xx.length;for(var x=0;x<xlen;x++){console.log('->');xx[x]=xx[x].trim();if(xx[x].length>0){
+		this.db('/'+f$.oxyprefix+'Wndex/'+xx[x]+'/keys').on('child_added',step);}}},
 	
 	_doindex:function(o,k,f){var RT=this._relevantText(o);var _this=this;var j;
 	 var IDX=this._indexAllandHashedWords(RT);
@@ -108,11 +108,11 @@ var _this=this;this.getone(k1,function(d){_this.getone(k2,function(dd){
 		s=s.replace(/<link .*>/g,' ');
 		s=s.replace(/ |{|}|\||<|>|\\|!|"|£|$|%|&|\/|\(|\)|=|\?|'|"|^|\*|\+|\[|\]|§|°|@|\.|,|;|:/g,' ');
 		s=s.replace(/  /g,' ');s=s.replace(/   /g,' ');s=s.replace(/  /g,' ');
-		return s},	
+		return s.toLowerCase()},	
 	_indexAllandHashedWords:function(s){var out={all:{},hash:{}};var c=0;var cw='';var ct=1;var gh=''
 		var ss=s.split(' ').sort();var len=ss.length;
 		while((c<len)&&(ss[c].trim()=='')){c++}
-		while(c<len){gh=ss[c].trim();if(cw!=gh){if(cw!=''){out.all[cw.replace('#','')]={v:cw.replace('#',''),c:ct};if(cw[0]=='#'){out.hash[cw.replace('#','')]={v:cw.replace('#',''),c:ct};}}cw=gh;ct=1;}else{ct++}c++}
+		while(c<len){gh=ss[c].trim();if(cw!=gh){if(cw!=''){if(cw.length>2){out.all[cw.replace('#','')]={v:cw.replace('#',''),c:ct}};if(cw[0]=='#'){out.hash[cw.replace('#','')]={v:cw.replace('#',''),c:ct};}}cw=gh;ct=1;}else{ct++}c++}
 	 out.all[cw]={v:cw,c:ct};return out;
 	}
 		/*------------------------------------------------------------------------------------------------WORD INDEX END*/	

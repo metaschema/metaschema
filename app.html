@@ -21,7 +21,7 @@
 	<!--firebase oxygen library-->	
 	<script src="firebase-oxygen.js"></script>
 	<!--firebase oxygen library-->	
-	<script src="metaschema-render.js"></script>
+	<!--<script src="metaschema-render.js"></script>-->
 	<!--style for this app-->	
 	<link href="app.css" rel="stylesheet" />
 	<!--script for this app-->
@@ -40,18 +40,24 @@
 				</button><button onclick="app.refreshtree()" title="Refresh the tag tree"><i class="fa fa-refresh"> </i></button><button
 				onclick="app.crossearch()" title="Cross search with tags"><i class="fa fa-binoculars"> </i></button>
 			</div>
-			<div id="tag-tree">loading...</div>
+			<div id="tag-tree" ondrop="fix(event);app.tag_to_root('X%KEY','%TITLE')" ondragover="app.allowdrop(event);">loading...</div>
 		</section><section id="mainwrap">
 			<div class="top-bar">
 			 <button onclick="app.toggletree(this)" title="Toggle the tag tree" class="pushed"><i class="fa fa-dedent"></i>
-				</button><button onclick="app.gotohome(this.firstChild);"  title="Switch between home view and results view"><i class="fa fa-home"></i>
+				</button><button onclick="app.gototab('homeview',this);" class="pushed tabs-b" title="Switch between home view and results view"><i class="fa fa-home"></i>
 				</button><button class="fa-docplus" title="Add document"><i class="fa fa-file"> </i><i class="fa fa-plus-circle"> </i>
-				</button><input type="text" id="pattern" placeholder="search pattern..."/><button onclick="app.search(this.firstChild);" title="perform search"><i class="fa fa-search"></i>
+				</button><button onclick="app.gototab('resultsview',this);" class="tabs-b" title="select collections"><i class="fa fa-list"></i>
+				</button><button onclick="app.gototab('detailsview',this);" class="tabs-b" title="select collections"><i class="fa fa-file"></i>
+				</button><input type="text" id="pattern" placeholder="search pattern..."/><button onclick="app.search(this.previousSibling.value);" title="perform search"><i class="fa fa-search"></i>
+				</button><button onclick="" title="select collections"><i class="fa fa-check-square-o"></i>
 				</button>
 				<div class="fr"><i class="fa fa-user" id="username"></i><button onclick="app.logout();return false;" title="perform search"><i class="fa fa-key"></i>
 				</button><button onclick="app.logout();return false;" title="user"><i class="fa fa-user"></i>
-				</button><button onclick="" title="info"><i class="fa fa-diamond"></i>
-				</button></div></div>
+				</button><button class="button" onclick="toggleFullScreen();this.classList.toggle('pushed');this.childNodes[0].classList.toggle('fa-expand');this.childNodes[0].classList.toggle('fa-compress');" title="fullscreen..."><i class="fa fa-expand"> </i>
+				</button><button onclick="" title="info"><i class="fa fa-diamond"></i></button></div></div>
+				<div id="homeview"></div>
+				<div id="resultsview"></div>
+				<div id="detailsview"></div>
 		</section><section id="rightwrap" class="fly-out">
 		<!--roba a scomparsa laterale -->
 		</section></div></body>
