@@ -126,14 +126,16 @@ window.app={loggedin:false,dbCollections:[],
     event.dataTransfer.setData("Text",str);},
 		dialog_drop:function(event){
     var offset = event.dataTransfer.getData("Text").split(',');
-    var dm = document.getElementById(offset[2]);
+    var dm = document.getElementById(offset[2]);console.log(dm)
     dm.style.left = (event.clientX + parseInt(offset[0],10)) + 'px';
     dm.style.top = (event.clientY + parseInt(offset[1],10)) + 'px';
-    //event.preventDefault();
+    event.preventDefault();
     return false;},
   dialog_drag_over:function(event)
     {
-					event.preventDefault();
+    document.body.setAttribute('ondrop','app.dialog_drop()')
+    document.body.setAttribute('ondragover','event.preventDefault()')
+    event.preventDefault();
     return false;
     }   
 };    
