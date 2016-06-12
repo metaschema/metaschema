@@ -133,7 +133,7 @@ window.app={loggedin:false,dbCollections:[],
     return false;},
   dialog_drag_over:function(event)
     {
-    document.body.setAttribute('ondrop','app.dialog_drop()')
+    document.body.setAttribute('ondrop','app.dialog_drop(event)')
     document.body.setAttribute('ondragover','event.preventDefault()')
     event.preventDefault();
     return false;
