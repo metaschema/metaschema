@@ -69,7 +69,7 @@
 				_scandb:function(d){var k=d.key;if(!(k.indexOf(f$.oxyprefix)==0)){
 				 var s='<input type="checkbox" value="" />'+d.key;
 					gid('scanned1').innerHTML+=s;
-				 s='<input type="radio" name="collections" value="d.key" />'+d.key;
+				 s='<input type="radio" name="collections" value="'+d.key+'" />'+d.key;
 					gid('scanned2').innerHTML+=s;
 				}},
 			 search:function(exp,_collection){gid('results').innerHTML='';f$.db.find(exp,app._search,_collection);},
