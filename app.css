@@ -1,6 +1,6 @@
 /* -------------------------------------------- general utilities --- */
 *{padding: 0;	margin: 0;	vertical-align: top;	outline: 0px;}
-html,body{background:#000;color:#0F0;}
+html,body{background:#000;color:#0F0;font-family: 'oxygen'}
 button,input[type="button"]{cursor: pointer;text-align:center !important;	}
 a{text-decoration:none;color:#0F0;}
 a:hover{color:#9F9;}
