@@ -31,10 +31,10 @@ initAuth:function(nextToken){if(!nextToken){nextToken=function(r){var i=0;}}fire
           // If you are using multiple auth providers on your app you should handle linking
           // the user's accounts here.
         }else{console.error(error);}
-      });
-},
+      });},
 
-	/*-----------FIREBASE DATABASE NAMESPACE - start----------------*/
+ /* ----------------------------------------------------------------------------------------------------------- */
+	/* ------------------------------------------------------------------- FIREBASE DATABASE NAMESPACE - start --- */
 db:{docnamefield:"doctitle",db:function(ref){return firebase.database().ref(ref)},
 	start:function(key,event,next){this.db(key.replace('-','/-')).on(event,function(d){var v=d.val();if(v){v.$key=key.split('-')[0]+d.key;next(v);}});},
 	end:function(key,event){this.db(key.replace('-','/-')).off(event);},
@@ -44,7 +44,8 @@ db:{docnamefield:"doctitle",db:function(ref){return firebase.database().ref(ref)
 	_del:function(stype,dkey,key){this.db(stype+'_'+dkey.replace('-','/-')+'/'+key).remove();},
 	_get:function(stype,dkey,next){this.db(stype+'_'+dkey.replace('-','/-')).on('child_added',function(data){var v=data.val();v.$subkey=data.key;next(v);});},
 	_getone:function(stype,dkey,key,next){this.db(stype+'_'+dkey.replace('-','/-')+'/'+key).once('value',function(data){var v=data.val();v.$subkey=data.key;next(v);});},
-	/*SUBCOLLECTION end*//*COLLECTIONS start*/
+	/*SUBCOLLECTION end*/
+	/*COLLECTIONS start*/
 	getone:function(key,next){this.db(key.replace('-','/-')).once('value',function(d){var v=d.val();if(v){v.$key=key.split('-')[0]+d.key;next(v);}});},
 	add:function(otype,doc){if(f$.inoe(doc[this.docnamefield])){doc[this.docnamefield]='new '+otype;}var x=this.db(otype).push(doc).key;this._add(f$.oxyprefix+'log',otype+x,{text:"Object Created"});
 	var nkey=otype+x;this._doindex(doc,nkey,this.docnamefield);return nkey;},
@@ -54,7 +55,7 @@ db:{docnamefield:"doctitle",db:function(ref){return firebase.database().ref(ref)
 		}doend();/*TODO CLEAN WINDEX*/});},
 	set:function(doc,log){var k=doc.$key;this._doindex(doc,k,this.docnamefield);var _this=this;delete doc.$key;if(!log){log='Object Modified'}
 			this.getone(k,function(d){delete d.$key;var verk=_this._add(f$.oxyprefix+"ver",k,d);
-			_this.db(k.replace('-','/-')).set(doc);_this._add(f$.oxyprefix+'log',k,{text:log});});},
+			_this.db(k.replace('-','/-')).set(doc);_this._add(f$.oxyprefix+'log',k,{text:log,prev:verk});});},
 	/*COLLECTIONS end*//*RELATIONS start*/
 	link:function(k1,k2,json){if(!json){json={role:'default'}}if(f$.inoe(k1)||(f$.inoe(k2))){console.log('only valid keys')}else{
 		var _this=this;this.getone(k1,function(d){_this.getone(k2,function(dd){
@@ -118,3 +119,11 @@ var _this=this;this.getone(k1,function(d){_this.getone(k2,function(dd){
 		/*------------------------------------------------------------------------------------------------WORD INDEX END*/	
 	}
   };
+		
+		
+		
+
+
+		
+		
+		
