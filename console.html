@@ -73,7 +73,7 @@
 					gid('scanned2').innerHTML+=s;
 				}},
 			 search:function(exp,_collection){gid('results').innerHTML='';f$.db.find(exp,app._search,_collection);},
-			 _search:function(d){var s='<input onclick="app.open(\''+d.$key+'\');" type="button" value="'+d.title+' ['+d.$key+']" />';gid('results').innerHTML+=s;console.log(d+' '+d.$key)},
+			 _search:function(d){var s='<input onclick="app.open(\''+d.$key+'\');" type="button" value="'+d.title+' ['+d.$key+']" />';gid('results').innerHTML+=s;},
 			 open:function($key){f$.db.getone($key,app._open);},
 			 _open:function(d){app.nonewUI(d.$key);gid('details').value=JSON.stringify(d);},
 								seelog_clicked:function(){
