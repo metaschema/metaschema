@@ -44,9 +44,11 @@ db:{docnamefield:"doctitle",db:function(ref){return firebase.database().ref(ref)
 	_del:function(stype,dkey,key){this.db(stype+'_'+dkey.replace('-','/-')+'/'+key).remove();},
 	_get:function(stype,dkey,next){this.db(stype+'_'+dkey.replace('-','/-')).on('child_added',function(data){var v=data.val();v.$subkey=data.key;next(v);});},
 	_getone:function(stype,dkey,key,next){this.db(stype+'_'+dkey.replace('-','/-')+'/'+key).once('value',function(data){var v=data.val();v.$subkey=data.key;next(v);});},
+    _getall:function(stype,dkey,key,next){},
 	/*SUBCOLLECTION end*/
 	/*COLLECTIONS start*/
 	getone:function(key,next){this.db(key.replace('-','/-')).once('value',function(d){var v=d.val();if(v){v.$key=key.split('-')[0]+d.key;next(v);}});},
+    getall:function(key,next){},
 	add:function(otype,doc){if(f$.inoe(doc[this.docnamefield])){doc[this.docnamefield]='new '+otype;}var x=this.db(otype).push(doc).key;this._add(f$.oxyprefix+'log',otype+x,{text:"Object Created"});
 	var nkey=otype+x;this._doindex(doc,nkey,this.docnamefield);return nkey;},
 	del:function(key){var _this=this;var doend=function(){_this.db('/'+f$.oxyprefix+'log_'+key.replace('-','/-')).remove();_this.db('/'+f$.oxyprefix+'ver_'+key.replace('-','/-')).remove();_this.db('/'+key.replace('-','/-')).remove();};
