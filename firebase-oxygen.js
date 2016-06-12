@@ -47,17 +47,17 @@ db:{docnamefield:"doctitle",db:function(ref){return firebase.database().ref(ref)
     _getall:function(stype,dkey,key,next){},
 	/*SUBCOLLECTION end*/
 	/*COLLECTIONS start*/
-	getone:function(key,next){this.db(key.replace('-','/-')).once('value',function(d){var v=d.val();if(v){v.$key=key.split('-')[0]+d.key;next(v);}});},
-    getall:function(col,next){this.db('/'+col).on('child_added',function(d){var v=d.val();v.$key=col+d.key;next(v)})},
+	getone:function(key,next){this.db(key.replace('-','/')).once('value',function(d){var v=d.val();if(v){v.$key=key.split('-')[0]+'-'+d.key;next(v);}});},
+ getall:function(col,next){this.db('/'+col).on('child_added',function(d){var v=d.val();v.$key=col+d.key;next(v)})},
 	add:function(otype,doc){if(f$.inoe(doc[this.docnamefield])){doc[this.docnamefield]='new '+otype;}var x=this.db(otype).push(doc).key;this._add(f$.oxyprefix+'log',otype+x,{text:"Object Created"});
 	var nkey=otype+x;this._doindex(doc,nkey,this.docnamefield);return nkey;},
-	del:function(key){var _this=this;var doend=function(){_this.db('/'+f$.oxyprefix+'log_'+key.replace('-','/-')).remove();_this.db('/'+f$.oxyprefix+'ver_'+key.replace('-','/-')).remove();_this.db('/'+key.replace('-','/-')).remove();};
-		this.getone(key,function(d){for(var k in d.rels){_this.db(k.replace('-','/-')+'/rels/'+key).remove();
+	del:function(key){var _this=this;var doend=function(){_this.db('/'+f$.oxyprefix+'log_'+key.replace('-','/')).remove();_this.db('/'+f$.oxyprefix+'ver_'+key.replace('-','/')).remove();_this.db('/'+key.replace('-','/')).remove();};
+		this.getone(key,function(d){for(var k in d.rels){_this.db(k.replace('-','/')+'/rels/'+key).remove();
 			_this._add(f$.oxyprefix+'log',k,{text:'Unlinked from '+d[_this.docnamefield]+'['+key+'] because it\'s getting deleted.'});
 		}doend();/*TODO CLEAN WINDEX*/});},
 	set:function(doc,log){var k=doc.$key;this._doindex(doc,k,this.docnamefield);var _this=this;delete doc.$key;if(!log){log='Object Modified'}
 			this.getone(k,function(d){delete d.$key;var verk=_this._add(f$.oxyprefix+"ver",k,d);
-			_this.db(k.replace('-','/-')).set(doc);_this._add(f$.oxyprefix+'log',k,{text:log,prev:verk});});},
+			_this.db(k.replace('-','/')).set(doc);_this._add(f$.oxyprefix+'log',k,{text:log,prev:verk});});},
 	/*COLLECTIONS end*//*RELATIONS start*/
 	link:function(k1,k2,json){if(!json){json={role:'default'}}if(f$.inoe(k1)||(f$.inoe(k2))){console.log('only valid keys')}else{
 		var _this=this;this.getone(k1,function(d){_this.getone(k2,function(dd){
