@@ -1,5 +1,5 @@
 /* -------------------------------------------- general utilities --- */
-*{padding: 0;	margin: 0;	vertical-align: top;	outline: 0px;font-family: 'Source Sans Pro'}
+*{padding: 0;	margin: 0;	vertical-align: top;	outline: 0px;font-family: 'VT323'}
 html,body{background:#000;color:#aaaaaa}
 button,input[type="button"]{cursor: pointer;text-align:center !important;	}
 a{text-decoration:none;color:#aaaaaa;}
