@@ -19,7 +19,7 @@ a:hover{color:#9F9;}
 #leftwrap{position:absolute;width:250px;top:0px;bottom:0px;}
 .noleft #mainwrap{left:0}.noleft #leftwrap{display:none}
 .top-bar{background-color: #001500;
-        height: 65px;}
+        height: 60px;}
 #rightwrap{top:50px;right:0px;bottom:0px;position:absolute;}
 #rightwrap.fly-out{display:none}
 /* --------------------------------------------------- top-bar(s) --- */
