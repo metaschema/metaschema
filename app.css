@@ -44,8 +44,8 @@ a:hover{color:#9F9;}
     position: absolute;
     top: 60px;
     bottom: 0px;}
-#tag-tree>.treenode{border-bottom:1px dashed #0F0;border-top:none;}
-.treenode{border-top:1px solid #0F0;border-bottom:none}
+#tag-tree>.treenode{border-top: 1px dashed rgba(0, 255, 0, 0.15);border-top:none;}
+.treenode{border-bottom: 1px solid rgba(0, 255, 0, 0.28);border-bottom:none}
 .treeleaf{margin-left:6px}
 .treenode .color{width:20px;height:20px;border:1px solid;}
 
