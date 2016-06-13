@@ -21,7 +21,7 @@ logout:function(){firebase.auth().signOut();},
 initAuth:function(nextToken){if(!nextToken){nextToken=function(r){var i=0;}}firebase.auth().getRedirectResult().then(function(result){
  if(result.credential){nextToken(result);}
 	else{nextToken(false);}
-		var user = result.user;
+		f$.user = result.user;
   }).catch(function(error) {
         var errorCode = error.code;var errorMessage = error.message;
         var email = error.email;
