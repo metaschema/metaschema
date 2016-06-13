@@ -1,0 +1,62 @@
+/* -------------------------------------------- general utilities --- */
+*{padding: 0;	margin: 0;	vertical-align: top;	outline: 0px;font-family: 'Source Sans Pro'}
+html,body{background:#000;color:#0F0}
+button,input[type="button"]{cursor: pointer;text-align:center !important;	}
+a{text-decoration:none;color:#0F0;}
+a:hover{color:#9F9;}
+.fl{float:left}.fr{float:right}
+.resizable {
+    overflow: scroll;
+    resize: both;
+    max-width: 300px;
+    max-height: 460px;
+}
+/* --------------------------------------------------- login area --- */
+#logindiv {position:absolute;text-align:center;left:0;right:0;top:40%}
+#logindiv button {font-size:34px;width:48px;height:50px;background-color:rgba(240,240,255,0);color:#0F0;padding-top: 8px;border:1px solid #0F0;}
+/* ------------------------------------------ application area layout */
+#mainwrap{position:absolute;left:250px;top:0px;right:0px;bottom:0px;}
+#leftwrap{position:absolute;width:250px;top:0px;bottom:0px;}
+.noleft #mainwrap{left:0}.noleft #leftwrap{display:none}
+.top-bar{height:50px;}
+#rightwrap{top:50px;right:0px;bottom:0px;position:absolute;}
+#rightwrap.fly-out{display:none}
+/* --------------------------------------------------- top-bar(s) --- */
+.top-bar button,#logindiv button {transition: 800ms ease;-webkit-transition: 800ms ease;margin:5px;
+	font-size:34px;width:48px;height:50px;
+	background-color:transparent;color:#0F0;
+	padding-top: 8px;border:1px solid #0F0;
+	transition: 800ms ease;-webkit-transition: 800ms ease;}
+.top-bar button.pushed{background-color:#0F0;color:#000;}
+.top-bar button:hover{background-color:#0F0;color:#000;}
+.top-bar button.fl{margin-right:2px;}
+.top-bar button.fa-tagplus .fa-plus-circle {font-size: 15px;margin-top: 13px;margin-left: -18px;color:#000;position:absolute;transition: 800ms ease;-webkit-transition: 800ms ease;}
+.top-bar button.fa-docplus .fa-plus-circle {font-size: 15px;margin-top: 16px;margin-left: -17px;color:#000;position:absolute;transition: 800ms ease;-webkit-transition: 800ms ease;}
+.top-bar button:hover .fa-plus-circle {color:#0F0;}
+.top-bar #pattern {font-size:34px;background-color:black;color:#0F0;padding-top: 4px;padding-bottom: 4px;padding-left: 8px;border:none;border-bottom:none;margin:5px}
+#mainwrap .top-bar {/*border-bottom:3px solid #0F0;*/}
+#mainwrap .top-bar button{   /* border-bottom: none; */
+    margin: 5px;}
+/* ----------------------------------------------------- tag tree --- */
+#tag-tree{    
+    border-right: 1px solid #0F0;
+    width: 100%;
+    position: absolute;
+    top: 60px;
+    bottom: 0px;}
+#tag-tree>.treenode{border-top: 1px dashed rgba(0, 255, 0, 0.15);border-top:none;}
+.treenode{border-bottom: 1px solid rgba(0, 255, 0, 0.28)}
+.treeleaf{margin-left:6px}
+.treenode .color{width:20px;height:20px;border:1px solid;}
+
+input[type=text]{width:250px}
+textarea{width:50%}
+
+.testitem{border-bottom:dashed 1px black}
+/* ----------------------------------------------------- dialog --- */
+.dialog{font-size:18px;border:2px solid #0F0;padding:10px;padding-left:0;background:#000;color:#0F0;left:40%;top:20%;    position: absolute;
+    z-index: 1000;}
+.dialog *{vertical-align:middle}
+.dialog button,.dialog select,.dialog input{background-color:transparent;color:#0F0;font-size:24px;border:none;margin-left:10px}
+.dialog .input[type="color"]{height:30px}
+.dialog .input[type="text"]{border:1px dashed #0F0}
