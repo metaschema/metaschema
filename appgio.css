@@ -22,16 +22,16 @@ a:hover{color:#9F9;}
 #rightwrap{top:50px;right:0px;bottom:0px;position:absolute;}
 #rightwrap.fly-out{display:none}
 /* --------------------------------------------------- top-bar(s) --- */
-.top-bar button,#logindiv button {transition: 800ms ease;-webkit-transition: 800ms ease;margin:5px;
+.top-bar button,#logindiv button {transition: 200ms ease;-webkit-transition: 200ms ease;margin:5px;
 	font-size:34px;width:48px;height:50px;
 	background-color:transparent;color:#50fc50;
 	padding-top: 8px;border:1px solid #50fc50;
-	transition: 800ms ease;-webkit-transition: 800ms ease;}
+	transition: 200ms ease;-webkit-transition: 200ms ease;}
 .top-bar button.pushed{background-color:#50fc50;color:#000;}
 .top-bar button:hover{background-color:#50fc50;color:#000;}
 .top-bar button.fl{margin-right:2px;}
-.top-bar button.fa-tagplus .fa-plus-circle {font-size: 15px;margin-top: 13px;margin-left: -18px;color:#000;position:absolute;transition: 800ms ease;-webkit-transition: 800ms ease;}
-.top-bar button.fa-docplus .fa-plus-circle {font-size: 15px;margin-top: 16px;margin-left: -17px;color:#000;position:absolute;transition: 800ms ease;-webkit-transition: 800ms ease;}
+.top-bar button.fa-tagplus .fa-plus-circle {font-size: 15px;margin-top: 13px;margin-left: -18px;color:#000;position:absolute;transition: 200ms ease;-webkit-transition: 200ms ease;}
+.top-bar button.fa-docplus .fa-plus-circle {font-size: 15px;margin-top: 16px;margin-left: -17px;color:#000;position:absolute;transition: 200ms ease;-webkit-transition: 200ms ease;}
 .top-bar button:hover .fa-plus-circle {color:#aaaaaa;}
 .top-bar #pattern {font-size:34px;background-color:black;color:#aaaaaa;padding-top: 4px;padding-bottom: 4px;padding-left: 8px;border:none;border-bottom:none;margin:5px}
 #mainwrap .top-bar {/*border-bottom:3px solid #aaaaaa;*/}
