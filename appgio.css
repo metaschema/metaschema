@@ -1,8 +1,8 @@
 /* -------------------------------------------- general utilities --- */
 *{padding: 0;	margin: 0;	vertical-align: top;	outline: 0px;font-family: 'Source Sans Pro'}
-html,body{background:#000;color:#50fc50}
+html,body{background:#000;color:#aaaaaa}
 button,input[type="button"]{cursor: pointer;text-align:center !important;	}
-a{text-decoration:none;color:#50fc50;}
+a{text-decoration:none;color:#aaaaaa;}
 a:hover{color:#9F9;}
 .fl{float:left}.fr{float:right}
 .resizable {
@@ -13,7 +13,7 @@ a:hover{color:#9F9;}
 }
 /* --------------------------------------------------- login area --- */
 #logindiv {position:absolute;text-align:center;left:0;right:0;top:40%}
-#logindiv button {font-size:34px;width:48px;height:50px;background-color:rgba(240,240,255,0);color:#50fc50;padding-top: 8px;border:1px solid #50fc50;}
+#logindiv button {font-size:34px;width:48px;height:50px;background-color:rgba(240,240,255,0);color:#aaaaaa;padding-top: 8px;border:1px solid #aaaaaa;}
 /* ------------------------------------------ application area layout */
 #mainwrap{position:absolute;left:250px;top:0px;right:0px;bottom:0px;}
 #leftwrap{position:absolute;width:250px;top:0px;bottom:0px;}
@@ -32,21 +32,21 @@ a:hover{color:#9F9;}
 .top-bar button.fl{margin-right:2px;}
 .top-bar button.fa-tagplus .fa-plus-circle {font-size: 15px;margin-top: 13px;margin-left: -18px;color:#000;position:absolute;transition: 800ms ease;-webkit-transition: 800ms ease;}
 .top-bar button.fa-docplus .fa-plus-circle {font-size: 15px;margin-top: 16px;margin-left: -17px;color:#000;position:absolute;transition: 800ms ease;-webkit-transition: 800ms ease;}
-.top-bar button:hover .fa-plus-circle {color:#50fc50;}
-.top-bar #pattern {font-size:34px;background-color:black;color:#50fc50;padding-top: 4px;padding-bottom: 4px;padding-left: 8px;border:none;border-bottom:none;margin:5px}
-#mainwrap .top-bar {/*border-bottom:3px solid #50fc50;*/}
+.top-bar button:hover .fa-plus-circle {color:#aaaaaa;}
+.top-bar #pattern {font-size:34px;background-color:black;color:#aaaaaa;padding-top: 4px;padding-bottom: 4px;padding-left: 8px;border:none;border-bottom:none;margin:5px}
+#mainwrap .top-bar {/*border-bottom:3px solid #aaaaaa;*/}
 #mainwrap .top-bar button{   /* border-bottom: none; */
     margin: 5px;}
 /* ----------------------------------------------------- tag tree --- */
 #tag-tree{    
-    border-right: 1px solid #50fc50;
+    border-right: 1px solid #aaaaaa;
     width: 100%;
     position: absolute;
     top: 60px;
     bottom: 0px;}
 #tag-tree>.treenode{border-top: 1px dashed rgba(0, 255, 0, 0.15);border-top:none;}
 .treenode{border-bottom: 1px solid rgba(0, 255, 0, 0.28)}
-.treeleaf{margin-left:6px}
+.treeleaf{margin-left:6px;border-top: 1px dotted rgba(51, 128, 0, 0.19);}
 .treenode .color{width:20px;height:20px;border:1px solid;}
 
 input[type=text]{width:250px}
@@ -54,9 +54,9 @@ textarea{width:50%}
 
 .testitem{border-bottom:dashed 1px black}
 /* ----------------------------------------------------- dialog --- */
-.dialog{font-size:18px;border:2px solid #50fc50;padding:10px;padding-left:0;background:#000;color:#50fc50;left:40%;top:20%;    position: absolute;
+.dialog{font-size:18px;border:2px solid #aaaaaa;padding:10px;padding-left:0;background:#000;color:#aaaaaa;left:40%;top:20%;    position: absolute;
     z-index: 1000;}
 .dialog *{vertical-align:middle}
-.dialog button,.dialog select,.dialog input{background-color:transparent;color:#50fc50;font-size:24px;border:none;margin-left:10px}
+.dialog button,.dialog select,.dialog input{background-color:transparent;color:#aaaaaa;font-size:24px;border:none;margin-left:10px}
 .dialog .input[type="color"]{height:30px}
-.dialog .input[type="text"]{border:1px dashed #50fc50}
+.dialog .input[type="text"]{border:1px dashed #aaaaaa}
