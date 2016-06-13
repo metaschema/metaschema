@@ -18,7 +18,8 @@ a:hover{color:#9F9;}
 #mainwrap{position:absolute;left:250px;top:0px;right:0px;bottom:0px;}
 #leftwrap{position:absolute;width:250px;top:0px;bottom:0px;}
 .noleft #mainwrap{left:0}.noleft #leftwrap{display:none}
-.top-bar{height:50px;}
+.top-bar{background-color: #001500;
+        height: 65px;}
 #rightwrap{top:50px;right:0px;bottom:0px;position:absolute;}
 #rightwrap.fly-out{display:none}
 /* --------------------------------------------------- top-bar(s) --- */
@@ -33,14 +34,14 @@ a:hover{color:#9F9;}
 .top-bar button.fa-tagplus .fa-plus-circle {font-size: 15px;margin-top: 13px;margin-left: -18px;color:#000;position:absolute;transition: 200ms ease;-webkit-transition: 200ms ease;}
 .top-bar button.fa-docplus .fa-plus-circle {font-size: 15px;margin-top: 16px;margin-left: -17px;color:#000;position:absolute;transition: 200ms ease;-webkit-transition: 200ms ease;}
 .top-bar button:hover .fa-plus-circle {color:#aaaaaa;}
-.top-bar #pattern {font-size:34px;background-color:black;color:#aaaaaa;padding-top: 4px;padding-bottom: 4px;padding-left: 8px;border:none;border-bottom:none;margin:5px}
+.top-bar #pattern {font-size:34px;background-color:#50fc50;color:#aaaaaa;padding-top: 4px;padding-bottom: 4px;padding-left: 8px;border:none;border-bottom:none;margin:5px}
 #mainwrap .top-bar {/*border-bottom:3px solid #aaaaaa;*/}
 #mainwrap .top-bar button{   /* border-bottom: none; */
     margin: 5px;}
 /* ----------------------------------------------------- tag tree --- */
-#tag-tree{    
-    border-right: 1px solid #aaaaaa;
+#tag-tree{    /* border-right: 1px solid #aaaaaa; */
     width: 100%;
+    background-color: #001500;
     position: absolute;
     top: 60px;
     bottom: 0px;}
