@@ -142,6 +142,12 @@ window.app={loggedin:false,dbCollections:[],
 		}}
 		var tr=document.createElement('tr');if(app._record_odd){tr.className='odd';app._record_odd=false}else{app._record_odd=true}
 		tr=gid('resultstable').tBodies[1].insertRow(tr);var td;
-		for(var o in app._curr_cols){td=document.createElement('td');if(!d[o]){td.innerHTML=''}else{td.innerHTML=d[o]}tr.appendChild(td)}
+		for(var o in app._curr_cols){td=document.createElement('td');if(!d[o]){td.innerHTML=''}else{
+			var to=typeof d[o];
+			if(d[o].join){
+				td.innerHTML=d[o].join(', ')
+			}else{td.innerHTML=d[o]}
+			}tr.appendChild(td);
+		}
 	},
 };    

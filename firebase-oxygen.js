@@ -106,7 +106,11 @@ var _this=this;this.getone(k1,function(d){_this.getone(k2,function(dd){
 		while((c<len)&&(ss[c].trim()=='')){c++}
 		while(c<len){gh=ss[c].trim();if(cw!=gh){if(cw!=''){if(cw.length>2){out.all[cw.replace('#','')]={v:cw.replace('#',''),c:ct}};if(cw[0]=='#'){out.hash[cw.replace('#','')]={v:cw.replace('#',''),c:ct};}}cw=gh;ct=1;}else{ct++}c++}
 	 out.all[cw]={v:cw,c:ct};return out;
-	}
+	},
+	reindexcollection:function(collname){var _this=this;
+				this.db('/'+collname).on("child_added",function(d){_this._doindex(d.val(),collname+'-'+d.key);console.log('reindexed '+d.key);});
+	},
+	
 		/*------------------------------------------------------------------------------------------------WORD INDEX END*/	
 	}
   };

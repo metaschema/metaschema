@@ -57,5 +57,5 @@ textarea{width:50%}
 /* ------------------------------------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------------------------- results --- */
 #resultstable {border-collapse: collapse;}
-#resultstable tbody {border-top:1px solid #0F0}
+/*#resultstable tbody {border-bottom:1px solid #0F0}*/
 #resultstable td {border:1px solid #0F0}
