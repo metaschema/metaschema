@@ -56,6 +56,9 @@ textarea{width:50%}
 .dialog .input[type="text"]{border:1px dashed #50fc50}
 /* ------------------------------------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------------------------- results --- */
+#resultsview {position:absolute;top:50px;right:0;bottom:0;overflow:auto}
+
+#resultswrap {height:100%;bottom:0;overflow:auto}
 #resultstable {border-collapse: collapse;}
 /*#resultstable tbody {border-bottom:1px solid #0F0}*/
 #resultstable td {border:1px solid #0F0}

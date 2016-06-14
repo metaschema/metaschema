@@ -133,7 +133,9 @@ window.app={loggedin:false,dbCollections:[],
 /* -------------------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------------- results --- */
 	_curr_cols:{"$key":{idx:0},"doctitle":{idx:1},"collection":{idx:2},"parent":{idx:3},"tags":{idx:4},"rels":{idx:5}},_curr_cols_count:6,
-	_records_reset:function(){this._curr_cols={"$key":{idx:0},"doctitle":{idx:1},"collection":{idx:2},"parent":{idx:3},"tags":{idx:4},"rels":{idx:5}};this._curr_cols_count=6;gid('resultsview').innerHTML='<table id="resultstable"><tbody><th>key</th><th>doctitle</th><th>collection</th><th>parent</th><th>tags</th><th>rels</th></tbody><tbody></tbody></table>'},
+	_records_reset:function(){this._curr_cols={"$key":{idx:0},"doctitle":{idx:1},"collection":{idx:2},"parent":{idx:3},"tags":{idx:4},"rels":{idx:5}};this._curr_cols_count=6;
+	/* gid('resultsview').innerHTML='<div id="resultswrap"><table id="resultstable"><tbody><th>key</th><th>doctitle</th><th>collection</th><th>parent</th><th>tags</th><th>rels</th></tbody><tbody></tbody></table></div>'},*/
+	 gid('resultsview').innerHTML='<table id="resultstable"><tbody><th>key</th><th>doctitle</th><th>collection</th><th>parent</th><th>tags</th><th>rels</th></tbody><tbody></tbody></table>'},
  _record_odd:false,
 	_on_records_results:function(d){var x;var outs={};var out='';
 		for(x in d){if(!app._curr_cols[x]){app._curr_cols[x]={idx:app._curr_cols_count};app._curr_cols_count++;outs[app._curr_cols[x].idx]=d[x];
