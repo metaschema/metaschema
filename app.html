@@ -52,8 +52,8 @@
 				</button><button class="fa-docplus" onclick="gid('newdialog').showModal()" title="Add document"><i class="fa fa-file"> </i><i class="fa fa-plus-circle"> </i>
 				</button><button onclick="app.gototab('resultsview',this);" class="tabs-b" title="select collections"><i class="fa fa-list"></i>
 				</button><button onclick="app.gototab('detailsview',this);" class="tabs-b" title="select collections"><i class="fa fa-file"></i>
-				</button><input type="text" id="pattern" placeholder="search pattern..."/><button onclick="app.search(this.previousSibling.value);" title="perform search"><i class="fa fa-search"></i>
-				</button><button onclick="gid('seldialog').showModal()" title="select collections"><i class="fa fa-check-square-o"></i>
+				</button><form onsubmit="app.search(this.firstChild.value);return false;" style="display: inline-block;" action="#" mathod="post"><input type="text" id="pattern" placeholder="search pattern..."/><button onclick="this.parentElement.submit()" title="perform search"><i class="fa fa-search"></i>
+				</button></form><button onclick="gid('seldialog').showModal()" title="select collections"><i class="fa fa-check-square-o"></i>
 				</button>
 				<div class="fr"><button onclick="app.logout();return false;" title="perform search"><i class="fa fa-key"></i>
 				</button><button class="button" onclick="toggleFullScreen();this.classList.toggle('pushed');this.childNodes[0].classList.toggle('fa-expand');this.childNodes[0].classList.toggle('fa-compress');" title="fullscreen..."><i class="fa fa-expand"> </i>
