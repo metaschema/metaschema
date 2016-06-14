@@ -1,5 +1,5 @@
 /* -------------------------------------------- general utilities ---  */
-*{padding: 0;	margin: 0;	vertical-align: top;	outline: 0px;font-family: 'VT323';-webkit-font-smoothing:antialiased}
+*{padding: 0;	margin: 0;	outline: 0px;font-family: 'VT323';-webkit-font-smoothing:antialiased;vertical-align: top;}
 html,body{background:#000;color:#50fc50}
 button,input[type="button"]{cursor: pointer;text-align:center !important;	}
 a{text-decoration:none;color:#50fc50;}
@@ -25,7 +25,7 @@ a:hover{color:#9F9;}
 .top-bar button,#logindiv button {transition: 800ms ease;-webkit-transition: 800ms ease;
 	font-size:34px;width:48px;height:50px;
 	background-color:transparent;color:#50fc50;
-	padding-top: 8px;border:1px solid #50fc50;
+	border:1px solid #50fc50;
 	transition: 800ms ease;-webkit-transition: 800ms ease;}
 .top-bar button.pushed{background-color:#50fc50;color:#000;}
 .top-bar button:hover{background-color:#50fc50;color:#000;}
@@ -54,3 +54,8 @@ textarea{width:50%}
 .dialog button,.dialog select,.dialog input{background-color:transparent;color:#50fc50;font-size:24px;border:none;margin-left:10px}
 .dialog .input[type="color"]{height:30px}
 .dialog .input[type="text"]{border:1px dashed #50fc50}
+/* ------------------------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------------- results --- */
+#resultstable {border-collapse: collapse;}
+#resultstable tbody {border-top:1px solid #0F0}
+#resultstable td {border:1px solid #0F0}

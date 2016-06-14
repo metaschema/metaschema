@@ -14,43 +14,32 @@ login:function(provider,method){if(!method){method='redirect'}
 		else if(provider=='google'){provider=new firebase.auth.GoogleAuthProvider();provider.addScope('https://www.googleapis.com/auth/plus.login');}
 		else if(provider=='github'){provider=new firebase.auth.GithubAuthProvider();provider.addScope('repo');}
 		else if(provider=='facebook'){provider=new firebase.auth.FacebookAuthProvider();provider.addScope('user_likes');}
-		if(method=='redirect'){firebase.auth().signInWithRedirect(provider);}
-	}else{console.log('Already logged in');}	
-},
+		if(method=='redirect'){firebase.auth().signInWithRedirect(provider);}}else{console.log('Already logged in');}},
 logout:function(){firebase.auth().signOut();},
 initAuth:function(nextToken){if(!nextToken){nextToken=function(r){var i=0;}}firebase.auth().getRedirectResult().then(function(result){
- if(result.credential){nextToken(result);}
-	else{nextToken(false);}
-		f$.user = result.user;
-  }).catch(function(error) {
-        var errorCode = error.code;var errorMessage = error.message;
-        var email = error.email;
-        var credential = error.credential;
-        if (errorCode === 'auth/account-exists-with-different-credential') {
-          alert('You have already signed up with a different auth provider for that email.');
-          // If you are using multiple auth providers on your app you should handle linking
-          // the user's accounts here.
-        }else{console.error(error);}
-      });},
-
+ if(result.credential){nextToken(result);}else{nextToken(false);}f$.user = result.user;
+  }).catch(function(error) {if (error.code === 'auth/account-exists-with-different-credential') {
+			alert('You have already signed up with a different auth provider for that email.');
+   // If you are using multiple auth providers on your app you should handle linking
+   // the user's accounts here.
+}else{console.error(error);}});},
  /* ----------------------------------------------------------------------------------------------------------- */
 	/* ------------------------------------------------------------------- FIREBASE DATABASE NAMESPACE - start --- */
 db:{docnamefield:"doctitle",db:function(ref){return firebase.database().ref(ref)},
 	start:function(key,event,next){this.db(key.replace('-','/-')).on(event,function(d){var v=d.val();if(v){v.$key=key.split('-')[0]+d.key;next(v);}});},
 	end:function(key,event){this.db(key.replace('-','/-')).off(event);},
-	/*SUBCOLLECTION start*/
+	/* ------------------------------------------------------------------------------------ SUBCOLLECTION start ---*/
 	_add:function(stype,dkey,json){return this.db(stype+'_'+dkey.replace('-','/-')).push(json).key;},
 	_set:function(stype,dkey,key,json){delete json.subkey;this.db(stype+'_'+dkey.replace('-','/-')+'/'+key).set(json);},
 	_del:function(stype,dkey,key){this.db(stype+'_'+dkey.replace('-','/-')+'/'+key).remove();},
 	_get:function(stype,dkey,next){this.db(stype+'_'+dkey.replace('-','/-')).on('child_added',function(data){var v=data.val();v.$subkey=data.key;next(v);});},
 	_getone:function(stype,dkey,key,next){this.db(stype+'_'+dkey.replace('-','/-')+'/'+key).once('value',function(data){var v=data.val();v.$subkey=data.key;next(v);});},
-    _getall:function(stype,dkey,key,next){},
-	/*SUBCOLLECTION end*/
-	/*COLLECTIONS start*/
+	/* -------------------------------------------------------------------------------------- SUBCOLLECTION end ---*/
+	/* --------------------------------------------------------------------------------------- COLLECTION start ---*/
 	getone:function(key,next){this.db(key.replace('-','/')).once('value',function(d){var v=d.val();if(v){v.$key=key.split('-')[0]+'-'+d.key;next(v);}});},
  getall:function(col,next){this.db('/'+col).on('child_added',function(d){var v=d.val();v.$key=col+d.key;next(v)})},
 	add:function(otype,doc){if(f$.inoe(doc[this.docnamefield])){doc[this.docnamefield]='new '+otype;}var x=this.db(otype).push(doc).key;this._add(f$.oxyprefix+'log',otype+x,{text:"Object Created"});
-	var nkey=otype+x;this._doindex(doc,nkey,this.docnamefield);return nkey;},
+	var nkey=otype+'-'+x;this._doindex(doc,nkey,this.docnamefield);return nkey;},
 	del:function(key){var _this=this;var doend=function(){_this.db('/'+f$.oxyprefix+'log_'+key.replace('-','/')).remove();_this.db('/'+f$.oxyprefix+'ver_'+key.replace('-','/')).remove();_this.db('/'+key.replace('-','/')).remove();};
 		this.getone(key,function(d){for(var k in d.rels){_this.db(k.replace('-','/')+'/rels/'+key).remove();
 			_this._add(f$.oxyprefix+'log',k,{text:'Unlinked from '+d[_this.docnamefield]+'['+key+'] because it\'s getting deleted.'});
@@ -80,11 +69,11 @@ var _this=this;this.getone(k1,function(d){_this.getone(k2,function(dd){
 	find:function(s,next,_collection){var _this=this;var popped=[];
 	 s=s.replace(/ |{|}|\||<|>|\\|!|"|£|$|%|&|\/|\(|\)|=|\?|'|"|^|\*|\+|\[|\]|§|°|@|\.|,|;|:/g,' ');
   s=s.replace(/# /g,' ');s=s.replace(/   /g,' ');s=s.replace(/  /g,' ');s=s.toLowerCase();
-		var uninext=function(d){if(!popped[d.$key]){popped[d.$key]=true;next(d);}};var step;
+		var uninext=function(d){console.log(d.$key);if(!popped[d.$key]){popped[d.$key]=true;next(d);}};var step;
 		if(_collection){step=function(d){if(d.key.indexOf(_collection)==0){_this.getone(d.key,uninext);}}}
-		else{step=function(d){_this.getone(d.key,uninext);}}
-	 var xx=s.split(' ');var xlen=xx.length;for(var x=0;x<xlen;x++){console.log('->');xx[x]=xx[x].trim();if(xx[x].length>0){
-		this.db('/'+f$.oxyprefix+'Wndex/'+xx[x]+'/keys').on('child_added',step);}}},
+		else{step=function(d){console.log(d.key);_this.getone(d.key,uninext);}}
+	 var xx=s.split(' ');var xlen=xx.length;for(var x=0;x<xlen;x++){xx[x]=xx[x].trim();if(xx[x].length>2){
+		_this.db('/'+f$.oxyprefix+'Wndex/'+xx[x]+'/keys').on('child_added',step);}}},
 	
 	_doindex:function(o,k,f){var RT=this._relevantText(o);var _this=this;var j;
 	 var IDX=this._indexAllandHashedWords(RT);
