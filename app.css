@@ -9,19 +9,24 @@ a:hover{color:#9F9;}
     overflow: scroll;
     resize: both;
     max-width: 300px;
-    max-height: 460px;
-}
-/* --------------------------------------------------- login area --- */
+    max-height: 460px;}
+/* ------------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------- login area --- */
 #logindiv {position:absolute;text-align:center;left:0;right:0;top:40%}
 #logindiv button {font-size:34px;width:48px;height:50px;background-color:rgba(240,240,255,0);color:#50fc50;padding-top: 8px;border:1px solid #50fc50;}
 /* ------------------------------------------ application area layout */
-#mainwrap{position:absolute;left:250px;top:0px;right:0px;bottom:0px;}
-#leftwrap{position:absolute;width:250px;top:0px;bottom:0px;}
+#mainwrap{position:absolute;left:200px;top:0px;right:0px;bottom:0px;}
+#leftwrap{position:absolute;width:200px;top:0px;bottom:0px;}
 .noleft #mainwrap{left:0}.noleft #leftwrap{display:none}
 .top-bar{height:50px;}
 #rightwrap{top:50px;right:0px;bottom:0px;position:absolute;}
 #rightwrap.fly-out{display:none}
-/* --------------------------------------------------- top-bar(s) --- */
+#mainwrap.homeview #detailswrap,#resultswrap {display:none}
+#mainwrap.detailsview #homewrap,#resultswrap {display:none}
+#mainwrap.resultsview #detailswrap,#homewrap {display:none}
+
+/* ------------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------------------------- top-bar(s) --- */
 .top-bar button,#logindiv button {transition: 800ms ease;-webkit-transition: 800ms ease;
 	font-size:34px;width:48px;height:50px;
 	background-color:transparent;color:#50fc50;
@@ -36,19 +41,19 @@ a:hover{color:#9F9;}
 .top-bar #pattern {font-size:34px;background-color:black;color:#50fc50;padding-top: 4px;padding-bottom: 4px;padding-left: 8px;border:none;border-bottom:none;border-top:1px solid #50fc50}
 #mainwrap .top-bar {border-bottom:3px solid #50fc50;}
 #mainwrap .top-bar button{border-bottom:none;}
-/* ----------------------------------------------------- tag tree --- */
+/* ------------------------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------------ tag tree --- */
 #tag-tree{border-top:3px dashed #50fc50;border-right:3px solid #50fc50;width:100%;position:absolute;top:50px;bottom:0px;}
 #tag-tree>.treenode{border-bottom:1px dashed #50fc50;border-top:none;line-height: 20px;}
 .treenode{border-top:1px dashed #50fc50;border-bottom:none}
 .treeleaf{margin-left:6px}
 .treenode .color{width:20px;height:20px;border:1px solid;}
-
 input[type=text]{width:250px}
 textarea{width:50%}
-
 .testitem{border-bottom:dashed 1px black}
-/* ----------------------------------------------------- dialog --- */
-.dialog{font-size:18px;border:2px solid #50fc50;padding:10px;padding-left:0;background:#000;color:#50fc50;left:40%;top:20%;    position: absolute;
+/* ------------------------------------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------------------------- dialog --- */
+.dialog{font-size:18px;border:2px solid #50fc50;padding:10px;padding-left:0;background:#000;color:#50fc50;left:40%;top:20%;position: absolute;
     z-index: 1000;}
 .dialog *{vertical-align:middle}
 .dialog button,.dialog select,.dialog input{background-color:transparent;color:#50fc50;font-size:24px;border:none;margin-left:10px}
@@ -56,10 +61,11 @@ textarea{width:50%}
 .dialog .input[type="text"]{border:1px dashed #50fc50}
 /* ------------------------------------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------------------------- results --- */
-#resultsview {position:absolute;top:50px;right:0;left:0;bottom:0;overflow:auto}
+#resultsview {position:absolute;top:50px;right:0;left:0;bottom:0;overflow:auto;padding-top: 33px;padding-left:3px;}
 
 #resultswrap {height:100%;bottom:0;overflow:auto}
 #resultstable {border-collapse: collapse;}
 /*#resultstable tbody {border-bottom:1px solid #0F0}*/
-#resultstable td {border:1px solid #0F0;word-break: break-all;}
-
+#resultstable td {border:1px solid #0F0;min-width:60px;/*word-break: break-all;*/ }
+#resultstable th {text-align:left}
+#resultstable th b {position:fixed;background-color: #000;padding:5px;width: 100%;}

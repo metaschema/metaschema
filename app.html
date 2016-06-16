@@ -50,8 +50,8 @@
 			 <button onclick="app.toggletree(this)" title="Toggle the tag tree" class="pushed"><i class="fa fa-dedent"></i>
 				</button><button onclick="app.gototab('homeview',this);" class="pushed tabs-b" title="Switch between home view and results view"><i class="fa fa-home"></i>
 				</button><button class="fa-docplus" onclick="gid('newdialog').showModal()" title="Add document"><i class="fa fa-file"> </i><i class="fa fa-plus-circle"> </i>
-				</button><button onclick="app.gototab('resultsview',this);" class="tabs-b" title="select collections"><i class="fa fa-list"></i>
-				</button><button onclick="app.gototab('detailsview',this);" class="tabs-b" title="select collections"><i class="fa fa-file"></i>
+				</button><button id="b_resultsview" onclick="app.gototab('resultsview',this);" class="tabs-b" title="results view"><i class="fa fa-list"></i>
+				</button><button onclick="app.gototab('detailsview',this);" class="tabs-b" title="detailsview"><i class="fa fa-file"></i>
 				</button><form onsubmit="try{app.search(this.firstChild.value);}catch(ex){console.log(ex);}return false;" style="display: inline-block;" action="#" mathod="post"><input type="text" id="pattern" placeholder="search pattern..."/><button onclick="this.parentElement.submit()" title="perform search"><i class="fa fa-search"></i>
 				</button></form><button onclick="gid('seldialog').showModal()" title="select collections"><i class="fa fa-check-square-o"></i>
 				</button>

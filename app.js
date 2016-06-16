@@ -100,8 +100,8 @@ window.app={loggedin:false,dbCollections:[],
 	gototab:function(tab,button){var tabs=document.getElementsByClassName('tabs-b');for(var t=0;t<tabs.length;t++){tabs[t].classList.remove('pushed');}button.classList.add('pushed');gid(tab).classList.add(tab);
 	if(!tab=='homeview'){gid('mainwrap').classList.remove('homeview');}if(!tab=='resultsview'){gid('mainwrap').classList.remove('resultsview');}if(!tab=='detailsview'){gid('mainwrap').classList.remove('detailsview');}},
  /* -------------------------------------------------------------------------------------------------------------------- */
-	/* ----------------------------------------------------------------------------------------------------------- DB CALLS */
- search:function(exp,_collection){this._records_reset();f$.db.find(exp,app._on_records_results,_collection);},
+	/* ----------------------------------------------------------------------------------------------------------- db calls */
+ search:function(exp,_collection){app.gototab('resultsview',gid('b_resultsview'));this._records_reset();f$.db.find(exp,app._on_records_results,_collection);},
 	_search:function(d){var s='<input onclick="app.open(\''+d.$key+'\');" type="button" value="'+d.doctitle+' ['+d.$key+']" />';gid('resultsview').innerHTML+=s;},
 	open:function($key){f$.db.getone($key,app._open);},
 	_open:function(d){app.nonewUI(d.$key);gid('details').value=JSON.stringify(d);},
@@ -135,21 +135,25 @@ window.app={loggedin:false,dbCollections:[],
 	_curr_cols:{"$key":{idx:0},"doctitle":{idx:1},"collection":{idx:2},"parent":{idx:3},"tags":{idx:4},"rels":{idx:5}},_curr_cols_count:6,
 	_records_reset:function(){this._curr_cols={"$key":{idx:0},"doctitle":{idx:1},"collection":{idx:2},"parent":{idx:3},"tags":{idx:4},"rels":{idx:5}};this._curr_cols_count=6;
 	/* gid('resultsview').innerHTML='<div id="resultswrap"><table id="resultstable"><tbody><th>key</th><th>doctitle</th><th>collection</th><th>parent</th><th>tags</th><th>rels</th></tbody><tbody></tbody></table></div>'},*/
-	 gid('resultsview').innerHTML='<table id="resultstable"><tbody><th>key</th><th>doctitle</th><th>collection</th><th>parent</th><th>tags</th><th>rels</th></tbody><tbody></tbody></table>'},
+	 gid('resultsview').innerHTML='<table id="resultstable"><tbody><th><b>key</b></th><th><b>doctitle</b></th><th><b>collection</b></th><th><b>parent</b></th><th><b>tags</b></th><th><b>rels</b></th></tbody><tbody></tbody></table>';
+		gid('resultsview').setAttribute('onscroll',"app._ontablescroll()");app._ontablescroll()},
  _record_odd:false,
+	_ontablescroll:function(){
+		var ty=gid('resultsview');var s='transform:translate(Xpx,Ypx);background-color:#000;border-bottom:1px solid #0F0';
+		document.getElementsByTagName('tr')[0].setAttribute('style',s.replace('X',-200).replace('Y',-113+ty.scrollTop));
+	},
 	_on_records_results:function(d){var x;var outs={};var out='';
 		for(x in d){if(!app._curr_cols[x]){app._curr_cols[x]={idx:app._curr_cols_count};app._curr_cols_count++;outs[app._curr_cols[x].idx]=d[x];
-			var th=document.createElement('th');th.innerHTML=x;
-			gid(gid('resultstable').tBodies[0].rows[0].appendChild(th));
+			var th=document.createElement('th');th.innerHTML='<b>'+x+'</b>';
+			gid('resultstable').tBodies[0].rows[0].appendChild(th);
 		}}
 		var tr=document.createElement('tr');if(app._record_odd){tr.className='odd';app._record_odd=false}else{app._record_odd=true}
 		tr=gid('resultstable').tBodies[1].insertRow(tr);var td;
 		for(var o in app._curr_cols){td=document.createElement('td');if(!d[o]){td.innerHTML=''}else{
-			var to=typeof d[o];
+			
 			if(d[o].join){
 				td.innerHTML=d[o].join(', ')
 			}else{td.innerHTML=d[o]}
 			}tr.appendChild(td);
-		}
-	},
-};    
+}}};    
+//https://services.google.com/fb/forms/machinelearningpreview/
