@@ -65,7 +65,7 @@ textarea{width:50%}
 
 #resultswrap {height:100%;bottom:0;overflow:auto}
 #resultstable {border-collapse: collapse;}
-/*#resultstable tbody {border-bottom:1px solid #0F0}*/
-#resultstable td {border:1px solid #0F0;min-width:60px;padding:5px }
+/*#resultstable tbody {border-bottom:1px solid #50fc50}*/
+#resultstable td {border:1px solid #50fc50;min-width:60px;padding:5px }
 #resultstable th {text-align:left}
-#resultstable th b {position:fixed;background-color: #0F0;color:#000;padding:5px;width: 100%;}
+#resultstable th b {position:fixed;background-color: #50fc50;color:#000;padding:5px;width: 100%;}
