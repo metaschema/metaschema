@@ -97,7 +97,7 @@ window.app={loggedin:false,dbCollections:[],
 			var d=document.createElement('div');d.innerHTML=s;gid('mainwrap').appendChild(d);}},
 	/* -------------------------------------------------------------------------------------------------------------------- */
 	/* ------------------------------------------------------------------------------------------------------------ top bar */
-	gototab:function(tab,button){var tabs=document.getElementsByClassName('tabs-b');for(var t=0;t<tabs.length;t++){tabs[t].classList.remove('pushed');}button.classList.add('pushed');gid(tab).classList.add(tab);
+	gototab:function(tab,button){var tabs=document.getElementsByClassName('tabs-b');for(var t=0;t<tabs.length;t++){tabs[t].classList.remove('pushed');}button.classList.add('pushed');gid('mainwrap').classList.add(tab);
 	if(!tab=='homeview'){gid('mainwrap').classList.remove('homeview');}if(!tab=='resultsview'){gid('mainwrap').classList.remove('resultsview');}if(!tab=='detailsview'){gid('mainwrap').classList.remove('detailsview');}},
  /* -------------------------------------------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------------------------------- db calls */
@@ -139,7 +139,7 @@ window.app={loggedin:false,dbCollections:[],
 		gid('resultsview').setAttribute('onscroll',"app._ontablescroll()");app._ontablescroll()},
  _record_odd:false,
 	_ontablescroll:function(){
-		var ty=gid('resultsview');var s='transform:translate(Xpx,Ypx);background-color:#000;border-bottom:1px solid #0F0';
+		var ty=gid('resultsview');var s='transform:translate(Xpx,Ypx);background-color:#0F0;border-bottom:1px solid #0F0';
 		document.getElementsByTagName('tr')[0].setAttribute('style',s.replace('X',-200).replace('Y',-113+ty.scrollTop));
 	},
 	_on_records_results:function(d){var x;var outs={};var out='';
