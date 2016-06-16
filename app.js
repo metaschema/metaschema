@@ -64,7 +64,7 @@ window.app={loggedin:false,dbCollections:[],
 /* --------------------------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------------------- TAG TREE --- */
 	toggletree:function(button){document.body.classList.toggle('noleft');button.classList.toggle('pushed');
-		button.childNodes[0].classList.toggle('fa-dedent');button.childNodes[0].classList.toggle('fa-indent');},
+		button.childNodes[0].classList.toggle('fa-dedent');button.childNodes[0].classList.toggle('fa-indent');this._ontablescroll()},
 	refreshtree:function(){gid('tag-tree').innerHTML='';firebase.database().ref('/tag').off('child_added');
 	 firebase.database().ref('/tag').off('child_changed');
 		var r=firebase.database().ref('/tag').orderByChild("parent").startAt('root').endAt('root');
@@ -140,7 +140,7 @@ window.app={loggedin:false,dbCollections:[],
  _record_odd:false,
 	_ontablescroll:function(){
 		var ty=gid('resultsview');var s='transform:translate(Xpx,Ypx);background-color:#0F0;border-bottom:1px solid #0F0';
-		document.getElementsByTagName('tr')[0].setAttribute('style',s.replace('X',-200).replace('Y',-113+ty.scrollTop));
+		document.getElementsByTagName('tr')[0].setAttribute('style',s.replace('X',0-ty.parentNode.offsetLeft).replace('Y',-113+ty.scrollTop));
 	},
 	_on_records_results:function(d){var x;var outs={};var out='';
 		for(x in d){if(!app._curr_cols[x]){app._curr_cols[x]={idx:app._curr_cols_count};app._curr_cols_count++;outs[app._curr_cols[x].idx]=d[x];

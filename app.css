@@ -1,5 +1,5 @@
 /* -------------------------------------------- general utilities ---  */
-*{padding: 0;	margin: 0;	outline: 0px;font-family: 'VT323';-webkit-font-smoothing:antialiased;vertical-align: top;}
+*{padding: 0;	margin: 0;	outline: 0px;font-family: 'Questrial';-webkit-font-smoothing:antialiased;vertical-align: top;}
 html,body{background:#000;color:#50fc50}
 button,input[type="button"]{cursor: pointer;text-align:center !important;	}
 a{text-decoration:none;color:#50fc50;}
@@ -61,7 +61,7 @@ textarea{width:50%}
 .dialog .input[type="text"]{border:1px dashed #50fc50}
 /* ------------------------------------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------------------------- results --- */
-#resultsview {position:absolute;top:50px;right:0;left:0;bottom:0;overflow:auto;padding-top: 33px;padding-left:1px;}
+#resultsview {position:absolute;top:50px;right:0;left:0;bottom:0;overflow:auto;padding-top: 33px;}
 
 #resultswrap {height:100%;bottom:0;overflow:auto}
 #resultstable {border-collapse: collapse;}
