@@ -140,16 +140,18 @@ window.app={loggedin:false,dbCollections:[],
  _record_odd:false,
 	_ontablescroll:function(){
 		var ty=gid('resultsview');var s='transform:translate(Xpx,Ypx);background-color:#0F0;border-bottom:1px solid #0F0';
-		document.getElementsByTagName('tr')[0].setAttribute('style',s.replace('X',0-ty.parentNode.offsetLeft).replace('Y',-113+ty.scrollTop));
+		document.getElementsByTagName('tr')[0].setAttribute('style',s.replace('X',0-ty.parentNode.offsetLeft).replace('Y',-100+ty.scrollTop));
 	},
 	_on_records_results:function(d){var x;var outs={};var out='';
 		for(x in d){if(!app._curr_cols[x]){app._curr_cols[x]={idx:app._curr_cols_count};app._curr_cols_count++;outs[app._curr_cols[x].idx]=d[x];
 			var th=document.createElement('th');th.innerHTML='<b>'+x+'</b>';
 			gid('resultstable').tBodies[0].rows[0].appendChild(th);
 		}}
-		var tr=document.createElement('tr');if(app._record_odd){tr.className='odd';app._record_odd=false}else{app._record_odd=true}
-		tr=gid('resultstable').tBodies[1].insertRow(tr);var td;
-		for(var o in app._curr_cols){td=document.createElement('td');if(!d[o]){td.innerHTML=''}else{
+		var tr=document.createElement('tr');
+		tr=gid('resultstable').tBodies[1].insertRow(tr);
+		if(app._record_odd){console.log('ght');tr.classList.add('odd');app._record_odd=false}
+		else{console.log('ghf');app._record_odd=true}
+		var td;for(var o in app._curr_cols){td=document.createElement('td');if(!d[o]){td.innerHTML=''}else{
 			
 			if(d[o].join){
 				td.innerHTML=d[o].join(', ')

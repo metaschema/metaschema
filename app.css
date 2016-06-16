@@ -61,11 +61,12 @@ textarea{width:50%}
 .dialog .input[type="text"]{border:1px dashed #50fc50}
 /* ------------------------------------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------------------------- results --- */
-#resultsview {position:absolute;top:50px;right:0;left:0;bottom:0;overflow:auto;padding-top: 33px;}
+#resultsview {position:absolute;top:50px;right:0;left:0;bottom:0;overflow:auto;padding-top:25px;}
 
 #resultswrap {height:100%;bottom:0;overflow:auto}
 #resultstable {border-collapse: collapse;}
 /*#resultstable tbody {border-bottom:1px solid #50fc50}*/
 #resultstable td {border:1px solid #50fc50;min-width:60px;padding:5px }
+#resultstable tr.odd {background-color:#151815}
 #resultstable th {text-align:left}
 #resultstable th b {position:fixed;background-color: #50fc50;color:#000;padding:5px;width: 100%;}
