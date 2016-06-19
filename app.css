@@ -21,9 +21,9 @@ a:hover{color:#9F9;}
 .top-bar{height:50px;}
 #rightwrap{top:50px;right:0px;bottom:0px;position:absolute;}
 #rightwrap.fly-out{display:none}
-#mainwrap.homeview #detailswrap,#resultswrap {display:none}
-#mainwrap.detailsview #homewrap,#resultswrap {display:none}
-#mainwrap.resultsview #detailswrap,#homewrap {display:none}
+#mainwrap.homeview #detailsview,#mainwrap.homeview #resultsview {display:none}
+#mainwrap.detailsview #homeview,#mainwrap.detailsview #resultsview {display:none}
+#mainwrap.resultsview #detailsview,#mainwrap.resultsview #homeview {display:none}
 
 /* ------------------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------- top-bar(s) --- */

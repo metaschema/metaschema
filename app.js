@@ -97,8 +97,10 @@ window.app={loggedin:false,dbCollections:[],
 			var d=document.createElement('div');d.innerHTML=s;gid('mainwrap').appendChild(d);}},
 	/* -------------------------------------------------------------------------------------------------------------------- */
 	/* ------------------------------------------------------------------------------------------------------------ top bar */
-	gototab:function(tab,button){var tabs=document.getElementsByClassName('tabs-b');for(var t=0;t<tabs.length;t++){tabs[t].classList.remove('pushed');}button.classList.add('pushed');gid('mainwrap').classList.add(tab);
-	if(!tab=='homeview'){gid('mainwrap').classList.remove('homeview');}if(!tab=='resultsview'){gid('mainwrap').classList.remove('resultsview');}if(!tab=='detailsview'){gid('mainwrap').classList.remove('detailsview');}},
+	gototab:function(tab,button){var tabs=document.getElementsByClassName('tabs-b');for(var t=0;t<tabs.length;t++){tabs[t].classList.remove('pushed');}if(button){button.classList.add('pushed');}gid('mainwrap').classList.add(tab);
+	if(tab!='homeview'){gid('mainwrap').classList.remove('homeview');}
+	if(tab!='resultsview'){gid('mainwrap').classList.remove('resultsview');}
+	if(tab!='detailsview'){gid('mainwrap').classList.remove('detailsview');}},
  /* -------------------------------------------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------------------------------- db calls */
  search:function(exp,_collection){app.gototab('resultsview',gid('b_resultsview'));this._records_reset();f$.db.find(exp,app._on_records_results,_collection);},
@@ -155,7 +157,7 @@ window.app={loggedin:false,dbCollections:[],
 			
 			if(d[o].join){
 				td.innerHTML=d[o].join(', ')
-			}else{td.innerHTML=d[o]}
+			}else{if(d[o].length){if(d[o].length>150){d[o]=d[o].substring(0,145)+'[...]'}}td.innerHTML=d[o]}
 			}tr.appendChild(td);
 }}};    
 //https://services.google.com/fb/forms/machinelearningpreview/
