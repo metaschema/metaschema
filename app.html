@@ -52,15 +52,17 @@
 				</button><button class="fa-docplus" onclick="gid('newdialog').showModal()" title="Add document"><i class="fa fa-file"> </i><i class="fa fa-plus-circle"> </i>
 				</button><button id="b_resultsview" onclick="app.gototab('resultsview',this);" class="tabs-b" title="results view"><i class="fa fa-list"></i>
 				</button><button onclick="app.gototab('detailsview',this);" class="tabs-b" title="detailsview"><i class="fa fa-file"></i>
-				</button><form onsubmit="try{app.search(this.firstChild.value);}catch(ex){console.log(ex);}return false;" style="display: inline-block;" action="#" mathod="post"><input type="text" id="pattern" placeholder="search pattern..."/><button onclick="this.parentElement.submit()" title="perform search"><i class="fa fa-search"></i>
+				</button><form onsubmit="try{app.search(this.firstChild.value);}catch(ex){console.log(ex);}return false;" style="display: inline-block;" action="#" mathod="post"><input
+					type="text" id="pattern" placeholder="search pattern..."/><button
+					onclick="this.parentElement.submit()" title="perform search"><i class="fa fa-search"></i>
 				</button></form><button onclick="gid('seldialog').showModal()" title="select collections"><i class="fa fa-check-square-o"></i>
 				</button>
 				<div class="fr"><button onclick="app.logout();return false;" title="perform search"><i class="fa fa-key"></i>
 				</button><button class="button" onclick="toggleFullScreen();this.classList.toggle('pushed');this.childNodes[0].classList.toggle('fa-expand');this.childNodes[0].classList.toggle('fa-compress');" title="fullscreen..."><i class="fa fa-expand"> </i>
 				</button><button onclick="" title="info"><i class="fa fa-diamond"></i></button></div></div>
-				<div id="homeview"><i class="fr fa fa-user" id="username" style=""></i>Try searching for strawberry or apple or blue or brown....</div>
-				<div id="resultsview"></div>
-				<div id="detailsview"></div>
+				<div id="homeview"><i class="fr fa fa-user" id="username" style=""></i>Try searching for strawberry or apple or blue or brown....</div><div
+					id="resultsview"></div><div
+					id="detailsview"></div>
 		</section><section id="rightwrap" class="fly-out">
 		<!--roba a scomparsa laterale -->
 		</section></div></body>

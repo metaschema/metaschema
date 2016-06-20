@@ -37,6 +37,12 @@ T={
 		</button><button onclick="this.parentElement.close()"><i class="fa fa-times"></i></button>
 		</dialog>`,
 		selcheck:`<input type="checkbox" class="selcheck" checked="checked" value="%KEY" style="zoom:2" /> %KEY`,
+		
+		objdialog:`<dialog class="dialog objdialog" id="DLG%KEY" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);">
+		<input type="text" id="savetagname" placeholder="name" value="%TITLE"/><input type="hidden" id="savetagparent" value="%PARENT"/>
+		<button onclick="app.savetag('%KEY');this.parentElement.close()"><i class="fa fa-floppy-o"></i></button><button onclick="if(confirm('Eliminare davvero %TITLE?')){f$.db.del('%KEY');this.parentElement.close()}"><i class="fa fa-trash-o"></i>
+		</button><button onclick="this.parentElement.close()"><i class="fa fa-times"></i></button>
+		</dialog>`,
 };
 /* --------------------------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------------------- APP CODE --- */
@@ -151,7 +157,7 @@ window.app={loggedin:false,dbCollections:[],
 		}}
 		var tr=document.createElement('tr');
 		tr=gid('resultstable').tBodies[1].insertRow(tr);
-		if(app._record_odd){console.log('ght');tr.classList.add('odd');app._record_odd=false}
+		if(app._record_odd){tr.classList.add('odd');app._record_odd=false}
 		else{console.log('ghf');app._record_odd=true}
 		var td;for(var o in app._curr_cols){td=document.createElement('td');if(!d[o]){td.innerHTML=''}else{
 			

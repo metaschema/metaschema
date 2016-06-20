@@ -69,9 +69,9 @@ var _this=this;this.getone(k1,function(d){_this.getone(k2,function(dd){
 	find:function(s,next,_collection){var _this=this;var popped=[];
 	 s=s.replace(/ |{|}|\||<|>|\\|!|"|£|$|%|&|\/|\(|\)|=|\?|'|"|^|\*|\+|\[|\]|§|°|@|\.|,|;|:/g,' ');
   s=s.replace(/# /g,' ');s=s.replace(/   /g,' ');s=s.replace(/  /g,' ');s=s.toLowerCase();
-		var uninext=function(d){console.log(d.$key);if(!popped[d.$key]){popped[d.$key]=true;next(d);}};var step;
+		var uninext=function(d){if(!popped[d.$key]){popped[d.$key]=true;next(d);}};var step;
 		if(_collection){step=function(d){if(d.key.indexOf(_collection)==0){_this.getone(d.key,uninext);}}}
-		else{step=function(d){console.log(d.key);_this.getone(d.key,uninext);}}
+		else{step=function(d){_this.getone(d.key,uninext);}}
 	 var xx=s.split(' ');var xlen=xx.length;for(var x=0;x<xlen;x++){xx[x]=xx[x].trim();if(xx[x].length>2){
 		_this.db('/'+f$.oxyprefix+'Wndex/'+xx[x]+'/keys').on('child_added',step);}}},
 	
