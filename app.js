@@ -104,7 +104,9 @@ window.app={loggedin:false,dbCollections:[],
 			if(!gid('T'+dropobj.k).firstChild.firstChild.classList.contains('fa-minus-circle')){app.toggleleaf(dropobj.k,gid('T'+dropobj.k).firstChild.firstChild);}
 			firebase.database().ref('/tag/'+dragobj.k.replace('Xtag-','')).update({parent:dropobj.k.replace('Xtag-','')});
 		}else if(dragobj.c=='Xtag'&&dropobj.c=='products'){console.log(dropobj.k);console.log(' |  '+dragobj.k);
-		    firebase.database().ref('/products/'+dropobj.k.replace('products-','')).update({parent:dragobj.k.replace('Xtag-','')})
+		    //firebase.database().ref('/products/'+dropobj.k.replace('products-','')).update({parent:dragobj.k.replace('Xtag-','')})
+		}else if(dropobj.c=='Xtag'){console.log('Dragged OBJECT to TREETAG : Setting DOCUMENT PARENT of: '+dragobj.k+' to '+dropobj.k.replace('Xtag-','tag-'));
+		    firebase.database().ref(dragobj.c+'/'+dragobj.k.replace(dragobj.c+'-','')).update({parent:dropobj.k.replace('Xtag-','')})
 		}else{
 			var s=T.reldialog.replace(/%UID/g,uid());
 			s=s.replace(/%COLL1/g,dragobj.c).replace(/%TITLE1/g,dragobj.n);
@@ -118,9 +120,7 @@ window.app={loggedin:false,dbCollections:[],
 	if(tab!='detailsview'){gid('mainwrap').classList.remove('detailsview');}},
  /* -------------------------------------------------------------------------------------------------------------------- */
 	/* ----------------------------------------------------------------------------------------------------------- db calls */
- search:function(exp,_collection){app.gototab('resultsview',gid('b_resultsview'));this._records_reset();f$.db.find(exp,app._on_records_results,_collection);},
-	_search:function(d){var s='<input onclick="app.open(\''+d.$key+'\');" type="button" value="'+d.doctitle+' ['+d.$key+']" />';gid('resultsview').innerHTML+=s;},
-	open:function($key){f$.db.getone($key,app._open);},
+ 	open:function($key){f$.db.getone($key,app._open);},
 	_open:function(d){app.nonewUI(d.$key);gid('details').value=JSON.stringify(d);},
 	save:function(doc){if(!doc.$key){alert('$key property must be present in the document');}f$.db.set(J)},
 	newtag:function(){var a=gid('newtagname');var o={doctitle:a.value,parent:'root',c1:gid('newtagc1').value,c2:gid('newtagc2').value};a.value='';f$.db.add('tag',o);},
@@ -159,6 +159,12 @@ window.app={loggedin:false,dbCollections:[],
   dialog_drag_over:function(event){event.preventDefault();document.body.setAttribute('ondrop','app.dialog_drop(event)');document.body.setAttribute('ondragover','event.preventDefault()');return false;},
 /* -------------------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------------- results --- */
+	search:function(exp,_collection){app.gototab('resultsview',gid('b_resultsview'));this._records_reset();
+		if(exp.indexOf('parent:')==0){var x=firebase.database();var k=exp.replace('parent:','');var cn;
+			for(var c=0;c<app.dbCollections.length;c++){cn=app.dbCollections[c];
+				x.ref(cn).orderByChild("parent").startAt(k).endAt(k).on('child_added',function(snap){var d=snap.val();d.$key=cn+snap.key});
+		}}else{f$.db.find(exp,app._on_records_results,_collection);}},
+	_search:function(d){var s='<input onclick="app.open(\''+d.$key+'\');" type="button" value="'+d.doctitle+' ['+d.$key+']" />';gid('resultsview').innerHTML+=s;},
 	_curr_cols:{"$key":{idx:0},"collection":{idx:1},"parent":{idx:2},"tags":{idx:3},"rels":{idx:4}},_curr_cols_count:5,
 	_records_reset:function(){this._curr_cols={"$key":{idx:0},"doctitle":{idx:1},"collection":{idx:2},"parent":{idx:3},"tags":{idx:4},"rels":{idx:5}};this._curr_cols_count=6;
 	/* gid('resultsview').innerHTML='<div id="resultswrap"><table id="resultstable"><tbody><th>key</th><th>doctitle</th><th>collection</th><th>parent</th><th>tags</th><th>rels</th></tbody><tbody></tbody></table></div>'},*/
