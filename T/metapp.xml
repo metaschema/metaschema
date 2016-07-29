@@ -6,7 +6,7 @@
  <variable xpath="js" substitution="%js" />
 	<variable xpath="css" substitution="%css" />
 	<variable xpath="html" substitution="%html" />
-	<html><div id="#UNIQUEID#" class="appeditor">
+	<html><dialog id="#UNIQUEID#" class="appeditor" style=display:none"">
 	 <input type="hidden" value="%key" />
 	 <input type="text" value="%doctitle" placeholder="doctitle" />
 	 <textarea class="app-javascript" placeholder="javascript..."></textarea>
@@ -14,7 +14,7 @@
 		<textarea class="app-html" placeholder="html..."></textarea>
 		<button onclick="app.saveapp('#UNIQUEID#')"><i class="fa fa-floppy"> </i></button>
 		<button title="run!" onclick="f$.db.getone('%key',function(o){tau.syncrender(document.getElementById('hiddentarget'),tau.preloaded('T/metapp-run.xml'),tau.JSON2xmldoc(o,'metapp'))});"><i class="fa fa-play"> </i></button>
-		</div></html>
+		</dialog></html>
 		<onloadall>
 			app.saveapp=function(id){
 				var x=document.getElementById(id);
@@ -23,6 +23,7 @@
 				var o={$key:kk[0].value,doctitle:kk[1].value};
 				o.js=dd[0].value;o.css=dd[1].value;o.html=dd[2].value;
 				f$.db.set(o);};
+				tau.$$('#UNIQUEID#').show();
 		</onloadall>
 </rowtype>
 </doc>
