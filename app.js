@@ -33,14 +33,16 @@ T={
 	tagdialog:`<dialog class="dialog tagdialog" id="DLG%KEY" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);">
 		<input type="text" id="savetagname" placeholder="name" value="%TITLE"/><input type="hidden" id="savetagparent" value="%PARENT"/>
 		<input type="color" id="savetagc1" value="%C1" /><input type="color" id="savetagc2" value="%C2" />
+		<input type="number" id="savetaglevel" value="%CElev" value="1" min="0" max="4" step="1" title="1=Livello di ingresso, 2=listato(brands):, 3=sottocategorie, 4=prodotti"/><br/>
+		<input type="text" placeholder="url immagine" value="%Cimgurl" />
+		<input type="text" id="savetagurl" value="%CEurl"  title="url della tag" placeholder="url..."/><br/>
 		<button onclick="app.savetag('%KEY');this.parentElement.close()"><i class="fa fa-floppy-o"></i></button><button onclick="if(confirm('Eliminare davvero %TITLE?')){f$.db.del('%KEY');this.parentElement.close()}"><i class="fa fa-trash-o"></i>
 		</button><button onclick="this.parentElement.close()"><i class="fa fa-times"></i></button>
 		</dialog>`,
-		selcheck:`<input type="checkbox" class="selcheck" checked="checked" value="%KEY" style="zoom:2" /> %KEY`,
-		
+		selcheck:`<input type="checkbox" class="selcheck" checked="checked" value="%KEY" style="zoom:2" /> %KEY`,		
 		objdialog:`<dialog class="dialog objdialog" id="DLG%KEY" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);">
-		<input type="text" id="savetagname" placeholder="name" value="%TITLE"/><input type="hidden" id="savetagparent" value="%PARENT"/>
-		<button onclick="app.savetag('%KEY');this.parentElement.close()"><i class="fa fa-floppy-o"></i></button><button onclick="if(confirm('Eliminare davvero %TITLE?')){f$.db.del('%KEY');this.parentElement.close()}"><i class="fa fa-trash-o"></i>
+ <br/><textarea id="saveobjJSON" >%JSON</textarea>
+		<button onclick="app.saveobj('%KEY');this.parentElement.close()"><i class="fa fa-floppy-o"></i></button><button onclick="if(confirm('Eliminare davvero %TITLE?')){f$.db.del('%KEY');this.parentElement.close()}"><i class="fa fa-trash-o"></i>
 		</button><button onclick="this.parentElement.close()"><i class="fa fa-times"></i></button>
 		</dialog>`,
 };
@@ -74,10 +76,9 @@ window.app={loggedin:false,dbCollections:[],
 	refreshtree:function(){gid('tag-tree').innerHTML='';firebase.database().ref('/tag').off('child_added');
 	 firebase.database().ref('/tag').off('child_changed');
 		var r=firebase.database().ref('/tag').orderByChild("parent").startAt('root').endAt('root');
-		r.on('child_added',app._refreshtree);r.on('child_changed',app._refreshtree);r.on('child_removed',app._remtree);},
+		r.on('child_added',app._refreshtree);r.on('child_changed',app._refreshtree);},
  _refreshtree:function(snap){var v=snap.val();v.$key='tag-'+snap.key;var prev=gid('TX'+v.$key);if(prev){prev.parentElement.removeChild(prev);}
 		gid('tag-tree').innerHTML+=T.treenode.replace(/%KEY/g,v.$key).replace(/%TITLE/g,v.doctitle).replace(/%C2/g,v.c2).replace(/%C1/g,v.c1);},
- _remtree:function(snap){var v=snap.val();v.$key='tag-'+snap.key;var prev=gid('TX'+v.$key);if(prev){prev.parentElement.removeChild(prev);}},
 	toggleleaf:function($key,button){var k=$key.replace('Xtag-','');var flag=true;if(button){button.classList.toggle('fa-plus-circle');button.classList.toggle('fa-minus-circle');}
 		var leaf=gid('TC'+$key);if(!leaf){gid('T'+$key).innerHTML+=T.treeleaf.replace(/%KEY/g,$key.substr(1)).replace(/%CTC/g,'')}
 		else{if(leaf.style.display!='none'){leaf.style.display='none';flag=false;}else{leaf.style.display='';flag=false}}
@@ -97,6 +98,8 @@ window.app={loggedin:false,dbCollections:[],
 		dropobj.c=dropobj.k.substr(0,dropobj.k.indexOf('-'));dragobj.c=dragobj.k.substr(0,dragobj.k.indexOf('-'));if(dragobj.c=='Xtag'&&dropobj.c=='Xtag'){
 			if(!gid('T'+dropobj.k).firstChild.firstChild.classList.contains('fa-minus-circle')){app.toggleleaf(dropobj.k,gid('T'+dropobj.k).firstChild.firstChild);}
 			firebase.database().ref('/tag/'+dragobj.k.replace('Xtag-','')).update({parent:dropobj.k.replace('Xtag-','')});
+		}else if(dragobj.c=='Xtag'&&dropobj.c=='products'){console.log(dropobj.k);console.log(' |  '+dragobj.k);
+		    firebase.database().ref('/products/'+dropobj.k.replace('products-','')).update({parent:dragobj.k.replace('Xtag-','')})
 		}else{
 			var s=T.reldialog.replace(/%UID/g,uid());
 			s=s.replace(/%COLL1/g,dragobj.c).replace(/%TITLE1/g,dragobj.n);
@@ -117,10 +120,14 @@ window.app={loggedin:false,dbCollections:[],
 	save:function(doc){if(!doc.$key){alert('$key property must be present in the document');}f$.db.set(J)},
 	newtag:function(){var a=gid('newtagname');var o={doctitle:a.value,parent:'root',c1:gid('newtagc1').value,c2:gid('newtagc2').value};a.value='';f$.db.add('tag',o);},
 	savetag:function($key){var ee=gid('DLG'+$key).getElementsByTagName('input');console.log(ee);
-		var o={doctitle:ee[0].value,parent:ee[1].value,c1:ee[2].value,c2:ee[3].value,$key:$key};console.log($key);
+		var o={doctitle:ee[0].value,parent:ee[1].value,c1:ee[2].value,c2:ee[3].value,level:ee[4].value,imageurl:ee[5].value,url:ee[6].value,$key:$key};console.log($key);
 		f$.db.set(o);},
 	newobject:function(){var cs=gid('collname');if(cs.selectedIndex>-1){var s=cs.options[cs.selectedIndex].value;if(s=='other'){s=gid('othercollname').value}
 	s=s.trim();if(s==''){s='generic'}console.log(s);f$.db.add(s,{doctitle:'untitled document',parent:'root'});}else{console.log('No object type selected')}},
+	
+	saveobj:function($key){var ee=gid('DLG'+$key).getElementsByTagName('textarea')[0].value;
+		var o=JSON.parse(ee);
+		f$.db.set(o);},
 	
 	/*seelog_clicked:function(){
 	 gid('subcollections').innerHTML='';					
@@ -131,7 +138,11 @@ window.app={loggedin:false,dbCollections:[],
 /* -------------------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------------- dialogs --- */
   dialog:function(key){f$.db.getone(key,function(d){var dlg=gid('DLG'+d.$key);if(dlg){dlg.parentElement.removeChild(dlg)}
-			gid('hiddentarget').innerHTML+=T.tagdialog.replace(/%KEY/g,d.$key).replace(/%TITLE/g,d.doctitle).replace(/%C1/g,d.c1).replace(/%C2/g,d.c2).replace(/%PARENT/g,d.parent);setTimeout('gid("DLG'+d.$key+'").show()',50)})},
+		 if(d.$key.indexOf('tag-')==0){
+			gid('hiddentarget').innerHTML+=T.tagdialog.replace(/%KEY/g,d.$key).replace(/%TITLE/g,d.doctitle).replace(/%C1/g,d.c1).replace(/%CElev/g,d.level||4).replace(/%CEurl/g,d.url||'').replace(/%Cimgurl/g,d.imageurl||'').replace(/%C2/g,d.c2).replace(/%PARENT/g,d.parent);setTimeout('gid("DLG'+d.$key+'").show()',50)}
+			else{
+			gid('hiddentarget').innerHTML+=T.objdialog.replace(/%KEY/g,d.$key).replace(/%TITLE/g,d.doctitle).replace(/%JSON/g,JSON.stringify(d));setTimeout('gid("DLG'+d.$key+'").show()',50)}
+	 })},
 		dialog_drag_start:function(event){var style = window.getComputedStyle(event.target, null);
     var str = (parseInt(style.getPropertyValue("left")) - event.clientX) + ',' + (parseInt(style.getPropertyValue("top")) - event.clientY)+ ',' + event.target.id;
     event.dataTransfer.setData("Text",str);},
@@ -141,10 +152,10 @@ window.app={loggedin:false,dbCollections:[],
   dialog_drag_over:function(event){event.preventDefault();document.body.setAttribute('ondrop','app.dialog_drop(event)');document.body.setAttribute('ondragover','event.preventDefault()');return false;},
 /* -------------------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------------- results --- */
-	_curr_cols:{"$key":{idx:0},"doctitle":{idx:1},"collection":{idx:2},"parent":{idx:3},"tags":{idx:4},"rels":{idx:5}},_curr_cols_count:6,
+	_curr_cols:{"$key":{idx:0},"collection":{idx:1},"parent":{idx:2},"tags":{idx:3},"rels":{idx:4}},_curr_cols_count:5,
 	_records_reset:function(){this._curr_cols={"$key":{idx:0},"doctitle":{idx:1},"collection":{idx:2},"parent":{idx:3},"tags":{idx:4},"rels":{idx:5}};this._curr_cols_count=6;
 	/* gid('resultsview').innerHTML='<div id="resultswrap"><table id="resultstable"><tbody><th>key</th><th>doctitle</th><th>collection</th><th>parent</th><th>tags</th><th>rels</th></tbody><tbody></tbody></table></div>'},*/
-	 gid('resultsview').innerHTML='<table id="resultstable"><tbody><th><b>key</b></th><th><b>doctitle</b></th><th><b>collection</b></th><th><b>parent</b></th><th><b>tags</b></th><th><b>rels</b></th></tbody><tbody></tbody></table>';
+	 gid('resultsview').innerHTML='<table id="resultstable"><tbody><th><b>doctitle</b></th><th><b>collection</b></th><th><b>parent</b></th><th><b>tags</b></th><th><b>rels</b></th></tbody><tbody></tbody></table>';
 		gid('resultsview').setAttribute('onscroll',"app._ontablescroll()");app._ontablescroll()},
  _record_odd:false,
 	_ontablescroll:function(){
@@ -160,11 +171,15 @@ window.app={loggedin:false,dbCollections:[],
 		tr=gid('resultstable').tBodies[1].insertRow(tr);
 		if(app._record_odd){tr.classList.add('odd');app._record_odd=false}
 		else{console.log('ghf');app._record_odd=true}
-		var td;for(var o in app._curr_cols){td=document.createElement('td');if(!d[o]){td.innerHTML=''}else{
-			
-			if(d[o].join){
-				td.innerHTML=d[o].join(', ')
-			}else{if(d[o].length){if(d[o].length>150){d[o]=d[o].substring(0,145)+'[...]'}}td.innerHTML=d[o]}
-			}tr.appendChild(td);
-}}};    
-//https://services.google.com/fb/forms/machinelearningpreview/
+		var td=document.createElement('td');
+		td.innerHTML='<a href="#" onclick="app.dialog(\''+d['$key']+'\')" draggable="true" ondragstart="app.drag(\''+d['$key']+'\',\''+d['doctitle']+'\')" ondragover="event.preventDefault()" ondrop="fix(event);app.drop(\''+d['$key']+'\',\''+d['doctitle']+'\')"><i class="fa fa-circle-o"></i> '+d['doctitle']+'</a>';
+		tr.appendChild(td);
+		for(var o in app._curr_cols){if((o!='$key')&&(o!='doctitle')){td=document.createElement('td');
+			if(!d[o]){if(o=='collection'){td.innerHTML=d.$key.substr(0,d.$key.indexOf('-'))}}
+			else	if(d[o].join){td.innerHTML=d[o].join(', ')}
+			else{if(d[o].length){if(d[o].length>150){d[o]=d[o].substring(0,145)+'[...]'}td.innerHTML=d[o]}}
+			tr.appendChild(td);}
+}}};
+/* -----------------------------------------------------------------------------------------------------*/
+/* -----------------------------------------------------------------------------------------------------*/
+/* -----------------------------------------------------------------------------------------------------*/

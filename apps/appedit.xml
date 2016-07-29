@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<doc>
+<rowtype xpath="app" max="1">
+ <variable xpath="@key" substitution="%key" />
+ <variable xpath="doctitle" substitution="%doctitle" />
+ <variable xpath="js" substitution="%js" />
+	<variable xpath="css" substitution="%css" />
+	<variable xpath="html" substitution="%html" />
+	<html><div id="#UNIQUEID#" class="appeditor">
+	 <input type="hidden" value="%key" />
+	 <input type="text" value="%doctitle" placeholder="doctitle" />
+	 <textarea class="app-javascript" placeholder="javascript..."></textarea>
+		<textarea class="app-style" placeholder="css..."></textarea>
+		<textarea class="app-html" placeholder="html..."></textarea>
+		<button onclick="app.saveapp('#UNIQUEID#')"><i class="fa fa-floppy"> </i></button>
+		</div></html>
+		<onloadall>
+			app.saveapp=function(id){
+				var x=document.getElementById(id);
+				var dd=x.getElementsByTagName('textarea');
+				var kk=x.getElementsByTagName('input');
+				var o={$key:kk[0].value,doctitle:kk[1].value};
+				o.js=dd[0].value;o.css=dd[1].value;o.html=dd[2].value;
+				f$.db.set(o);
+			};
+		</onloadall>
+</rowtype>
+</doc>
