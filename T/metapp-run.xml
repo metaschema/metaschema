@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <doc>
-<rowtype xpath="app" max="1">
+<rowtype xpath="metapp" max="1">
  <variable xpath="js" substitution="%js" /><variable xpath="css" substitution="%css" /><variable xpath="html" substitution="%html" />
 	<html><textarea id="#UNIQUEID#" style="display:none"><![CDATA[<html>]]>
 	<head><style>%css</style>

@@ -13,7 +13,7 @@
 		<textarea class="app-style" placeholder="css..."></textarea>
 		<textarea class="app-html" placeholder="html..."></textarea>
 		<button onclick="app.saveapp('#UNIQUEID#')"><i class="fa fa-floppy"> </i></button>
-		<button title="run!" onclick="f$.db.getone('%key',function(o){tau.syncrender(document.getElementById('hiddentarget'),tau.preloaded('T/metapp-run.xml'),tau.JSON2xmldoc(o,'app'))});"><i class="fa fa-play"> </i></button>
+		<button title="run!" onclick="f$.db.getone('%key',function(o){tau.syncrender(document.getElementById('hiddentarget'),tau.preloaded('T/metapp-run.xml'),tau.JSON2xmldoc(o,'metapp'))});"><i class="fa fa-play"> </i></button>
 		</div></html>
 		<onloadall>
 			app.saveapp=function(id){
