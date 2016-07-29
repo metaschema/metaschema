@@ -16,8 +16,8 @@ T={
 		href="#" onclick="app.toggleleaf('X%KEY',this.firstChild)"><i class="fa fa-plus-circle"></i></a>
 		<a href="#" onclick="app.open('%KEY');">%TITLE</a><button class="color fr" href="#" onclick="app.dialog('%KEY')" style="background-color:%C2;border-color:%C1;">&nbsp;</button></div>`,
 	treeleaf:`<div id="TCX%KEY" class="treeleaf">%CTC</div>`,
-		reldialog:`<div class="dialog" id="%UID" draggable="true">%COLL1 - %NAME1<br/>%COLL2 - %NAME2<br/>
-		%JDOC<br/><button><i class="fa fa-link"></i></button><button><i class="fa fa-unlink"></i></button><button>cancel</button></div>`,
+		reldialog:`<dialog class="dialog" id="%UID" draggable="true">%COLL1 - %NAME1<br/>%COLL2 - %NAME2<br/>
+		%JDOC<br/><button><i class="fa fa-link"></i></button><button><i class="fa fa-unlink"></i></button><button onclick="this.parentElement.close();">cancel</button></dialog>`,
 	newdialog:`<dialog class="dialog newobject" id="newdialog" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);">
 		<span style="display:none"><input type="text" id="othercollname" placeholder="collection"/><br/></span><select
 		id="collname" onchange="if(this.options[this.selectedIndex].value=='other'){this.previousSibling.style.display=''}else{this.previousSibling.style.display='none'}"><option value="other">other</option>
