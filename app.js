@@ -53,7 +53,11 @@ window.app={loggedin:false,dbCollections:[],
 		if(user){_this.loggedinit(user);gid('metaschema-app').style.display='';gid('logindiv').style.display='none';}
 		else{gid('metaschema-app').style.display='none';gid('logindiv').style.display='';console.log('log off');}});
 		gid('hiddentarget').innerHTML+=T.newdialog+T.seldialog+T.newtagdialog;
-		tau.preload('apps/apprun.xml');
+		//todo:load chain
+		tau.preload('apps/apprun.xml'function(){
+			tau.preload('apps/appedit.xml');
+		});
+		
 		},
 	login:function(provider){f$.login(provider);},logout:function(provider){f$.logout();},
 	loggedinit:function(user){
