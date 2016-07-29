@@ -162,7 +162,7 @@ window.app={loggedin:false,dbCollections:[],
 	search:function(exp,_collection){app.gototab('resultsview',gid('b_resultsview'));this._records_reset();
 		if(exp.indexOf('parent:')==0){var x=firebase.database();var k=exp.replace('parent:','');var cn;
 			for(var c=0;c<app.dbCollections.length;c++){cn=app.dbCollections[c];
-				x.ref(cn).orderByChild("parent").startAt(k).endAt(k).on('child_added',function(snap){var d=snap.val();d.$key=cn+snap.key;app._on_records_results(d)});
+				x.ref(cn).orderByChild("parent").startAt(k).endAt(k).on('child_added',function(snap){var d=snap.val();d.$key=cn+'-'+snap.key;app._on_records_results(d)});
 		}}else{f$.db.find(exp,app._on_records_results,_collection);}},
 	_search:function(d){var s='<input onclick="app.open(\''+d.$key+'\');" type="button" value="'+d.doctitle+' ['+d.$key+']" />';gid('resultsview').innerHTML+=s;},
 	_curr_cols:{"$key":{idx:0},"collection":{idx:1},"parent":{idx:2},"tags":{idx:3},"rels":{idx:4}},_curr_cols_count:5,
