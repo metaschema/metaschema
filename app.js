@@ -106,7 +106,7 @@ window.app={loggedin:false,dbCollections:[],
 		}else if(dragobj.c=='Xtag'&&dropobj.c=='products'){console.log(dropobj.k);console.log(' |  '+dragobj.k);
 		    //firebase.database().ref('/products/'+dropobj.k.replace('products-','')).update({parent:dragobj.k.replace('Xtag-','')})
 		}else if(dropobj.c=='Xtag'){console.log('Dragged OBJECT to TREETAG : Setting DOCUMENT PARENT of: '+dragobj.k+' to '+dropobj.k.replace('Xtag-','tag-'));
-		    firebase.database().ref(dragobj.c+'/'+dragobj.k.replace(dragobj.c+'-','')).update({parent:dropobj.k.replace('Xtag-','')})
+		    firebase.database().ref(dragobj.c+'/'+dragobj.k.replace(dragobj.c+'-','')).update({parent:dropobj.k.replace('Xtag-','tag-')})
 		}else{
 			/*var s=T.reldialog.replace(/%UID/g,uid());
 			s=s.replace(/%COLL1/g,dragobj.c).replace(/%TITLE1/g,dragobj.n);
