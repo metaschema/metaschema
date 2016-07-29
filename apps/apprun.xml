@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <doc>
 <rowtype xpath="app" max="1">
- <variable xpath="js" substitution="%js" />
-	<variable xpath="css" substitution="%css" />
-	<variable xpath="html" substitution="%html" />
-	<html><textarea id="#UNIQUEID#"><![CDATA[<html>]]>
+ <variable xpath="js" substitution="%js" /><variable xpath="css" substitution="%css" /><variable xpath="html" substitution="%html" />
+	<html><textarea id="#UNIQUEID#" style="display:none"><![CDATA[<html>]]>
 	<head><style>%css</style>
 	<script type="text/javascript">%js</script>
 	</head><body>%html</body><![CDATA[</html>]]></textarea></html>
-	<onload>var dataURI = 'data:text/html;charset=UTF-8,' + document.getElementById('#UNIQUEID#').value;tau.openbrowser(dataURI);</onload>
+	<onload>var x=tau.$$('#UNIQUEID#');var dataURI = 'data:text/html;charset=UTF-8,' + x.value;x.parentElement.removeChild(x);tau.openbrowser(dataURI);</onload>
 </rowtype>
 </doc>

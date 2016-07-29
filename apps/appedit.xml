@@ -13,6 +13,7 @@
 		<textarea class="app-style" placeholder="css..."></textarea>
 		<textarea class="app-html" placeholder="html..."></textarea>
 		<button onclick="app.saveapp('#UNIQUEID#')"><i class="fa fa-floppy"> </i></button>
+		<button title="run!" onclick="f$.db.getone('%key',function(o){tau.syncrender(document.getElementById('hiddentarget'),tau.preloaded('apps/apprun.xml'),tau.JSON2xmldoc(o,'app'))});"><i class="fa fa-play"> </i></button>
 		</div></html>
 		<onloadall>
 			app.saveapp=function(id){
@@ -21,8 +22,7 @@
 				var kk=x.getElementsByTagName('input');
 				var o={$key:kk[0].value,doctitle:kk[1].value};
 				o.js=dd[0].value;o.css=dd[1].value;o.html=dd[2].value;
-				f$.db.set(o);
-			};
+				f$.db.set(o);};
 		</onloadall>
 </rowtype>
 </doc>
