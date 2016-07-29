@@ -145,8 +145,8 @@ window.app={loggedin:false,dbCollections:[],
   dialog:function(key){f$.db.getone(key,function(d){var dlg=gid('DLG'+d.$key);if(dlg){dlg.parentElement.removeChild(dlg)}
 		 if(d.$key.indexOf('tag-')==0){
 			gid('hiddentarget').innerHTML+=T.tagdialog.replace(/%KEY/g,d.$key).replace(/%TITLE/g,d.doctitle).replace(/%C1/g,d.c1).replace(/%CElev/g,d.level||4).replace(/%CEurl/g,d.url||'').replace(/%Cimgurl/g,d.imageurl||'').replace(/%C2/g,d.c2).replace(/%PARENT/g,d.parent);setTimeout('gid("DLG'+d.$key+'").show()',50)}
-			else if(d.$key.indexOf('metapp-')==0){var ddd=tau.JSON2xmldoc(d,'metapp');console.log(ddd);
-			tau.syncrender(tau.$$('hiddentarget'),ddd,tau.preloaded('T/metapp.xml'),false,'append');}
+			else if(d.$key.indexOf('metapp-')==0){
+			tau.syncrender(tau.$$('hiddentarget'),tau.preloaded('T/metapp.xml'),tau.JSON2xmldoc(d,'metapp'),false,'append');}
 			else{
 			gid('hiddentarget').innerHTML+=T.objdialog.replace(/%KEY/g,d.$key).replace(/%TITLE/g,d.doctitle).replace(/%JSON/g,JSON.stringify(d));setTimeout('gid("DLG'+d.$key+'").show()',50)}
 	 })},
