@@ -108,10 +108,10 @@ window.app={loggedin:false,dbCollections:[],
 		}else if(dropobj.c=='Xtag'){console.log('Dragged OBJECT to TREETAG : Setting DOCUMENT PARENT of: '+dragobj.k+' to '+dropobj.k.replace('Xtag-','tag-'));
 		    firebase.database().ref(dragobj.c+'/'+dragobj.k.replace(dragobj.c+'-','')).update({parent:dropobj.k.replace('Xtag-','')})
 		}else{
-			var s=T.reldialog.replace(/%UID/g,uid());
+			/*var s=T.reldialog.replace(/%UID/g,uid());
 			s=s.replace(/%COLL1/g,dragobj.c).replace(/%TITLE1/g,dragobj.n);
 			s=s.replace(/%COLL2/g,dragobj.c).replace(/%TITLE2/g,dragobj.n);
-			var d=document.createElement('div');d.innerHTML=s;gid('mainwrap').appendChild(d);}},
+		var d=document.createElement('div');d.innerHTML=s;gid('mainwrap').appendChild(d);*/}},
 	/* -------------------------------------------------------------------------------------------------------------------- */
 	/* ------------------------------------------------------------------------------------------------------------ top bar */
 	gototab:function(tab,button){var tabs=document.getElementsByClassName('tabs-b');for(var t=0;t<tabs.length;t++){tabs[t].classList.remove('pushed');}if(button){button.classList.add('pushed');}gid('mainwrap').classList.add(tab);
