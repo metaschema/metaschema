@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <doc>
-<rowtype xpath="app" max="1">
+<rowtype xpath="metapp" max="1">
  <variable xpath="@key" substitution="%key" />
  <variable xpath="doctitle" substitution="%doctitle" />
  <variable xpath="js" substitution="%js" />
