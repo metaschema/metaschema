@@ -142,7 +142,7 @@ window.app={loggedin:false,dbCollections:[],
 	var k=gid('dockey').value;},*/
 /* -------------------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------------- dialogs --- */
-  dialog:function(key){f$.db.getone(key,function(d){var dlg=gid('DLG'+d.$key);if(dlg){dlg.parentElement.removeChild(dlg)}
+  dialog:function(key){f$.db.getone(key,function(d){var dlg=gid('DLG'+d.$key);if(dlg){dlg.parentElement.removeChild(dlg)}console.log('ok');
 		 if(d.$key.indexOf('tag-')==0){
 			gid('hiddentarget').innerHTML+=T.tagdialog.replace(/%KEY/g,d.$key).replace(/%TITLE/g,d.doctitle).replace(/%C1/g,d.c1).replace(/%CElev/g,d.level||4).replace(/%CEurl/g,d.url||'').replace(/%Cimgurl/g,d.imageurl||'').replace(/%C2/g,d.c2).replace(/%PARENT/g,d.parent);setTimeout('gid("DLG'+d.$key+'").show()',50)}
 			else if(d.$key.indexOf('metapp-')==0){console.log('ok');
