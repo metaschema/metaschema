@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <doc>
 <rowtype xpath="//metapp" max="1">
- <variable xpath="@key" substitution="%key" />
+ <variable xpath="_key" substitution="%key" />
  <variable xpath="doctitle" substitution="%doctitle" />
  <variable xpath="js" substitution="%js" />
 	<variable xpath="css" substitution="%css" />
 	<variable xpath="html" substitution="%html" />
 	<html><dialog id="#UNIQUEID#" class="dialog appeditor">
 	 <input type="hidden" value="%key" />
-	 <input type="text" value="%doctitle" placeholder="doctitle" />
+	 <input type="text" value="%doctitle" placeholder="doctitle" /><br/>
 	 <textarea class="app-javascript" placeholder="javascript...">%js </textarea>
 		<textarea class="app-style" placeholder="css...">%css </textarea>
 		<textarea class="app-html" placeholder="html...">%html </textarea>
-		<button onclick="app.saveapp('#UNIQUEID#')"><i class="fa fa-floppy"> </i></button>
-		<button title="run!" onclick="f$.db.getone('%key',function(o){tau.syncrender(document.getElementById('hiddentarget'),tau.preloaded('T/metapp-run.xml'),tau.JSON2xmldoc(o,'metapp'))});"><i class="fa fa-play"> </i></button>
+		<button onclick="app.saveapp('#UNIQUEID#')"><i class="fa fa-floppy-disk"> </i></button>
+		<button title="run!" onclick="f$.db.getone('%key',function(o){tau.syncrender(tau.$$('hiddentarget'),tau.preloaded('T/metapp-run.xml'),tau.JSON2xmldoc(o,'metapp'))});"><i class="fa fa-play"> </i></button>
 		</dialog></html>
 </rowtype>
 		<onloadall>
