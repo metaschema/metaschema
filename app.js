@@ -14,7 +14,7 @@ window.fix=function(ev){ev.stopPropagation();ev.preventDefault();};
 T={
 	treenode:`<div class="treenode" id="TX%KEY" ondragstart="event.stopPropagation();app.drag('X%KEY','%TITLE')" ondrop="fix(event);app.drop('X%KEY','%TITLE')" ondragover="fix(event);"><a
 		href="#" onclick="app.toggleleaf('X%KEY',this.firstChild)"><i class="fa fa-plus-circle"></i></a>
-		<a href="#" onclick="app.open('%KEY');">%TITLE</a><button class="color fr" href="#" onclick="app.dialog('%KEY')" style="background-color:%C2;border-color:%C1;">&nbsp;</button></div>`,
+		<a href="#" onclick="app.search('parent:%KEY');">%TITLE</a><button class="color fr" href="#" onclick="app.dialog('%KEY')" style="background-color:%C2;border-color:%C1;">&nbsp;</button></div>`,
 	treeleaf:`<div id="TCX%KEY" class="treeleaf">%CTC</div>`,
 		reldialog:`<dialog class="dialog" id="%UID" draggable="true">%COLL1 - %NAME1<br/>%COLL2 - %NAME2<br/>
 		%JDOC<br/><button><i class="fa fa-link"></i></button><button><i class="fa fa-unlink"></i></button><button onclick="this.parentElement.close();">cancel</button></dialog>`,
