@@ -6,7 +6,7 @@
  <variable xpath="js" substitution="%js" />
 	<variable xpath="css" substitution="%css" />
 	<variable xpath="html" substitution="%html" />
-	<html><dialog id="#UNIQUEID#" class="appeditor" style=display:none"">
+	<html><dialog id="#UNIQUEID#" class="appeditor" style="display:none">
 	 <input type="hidden" value="%key" />
 	 <input type="text" value="%doctitle" placeholder="doctitle" />
 	 <textarea class="app-javascript" placeholder="javascript..."></textarea>
