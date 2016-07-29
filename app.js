@@ -54,7 +54,7 @@ window.app={loggedin:false,dbCollections:[],
 		else{gid('metaschema-app').style.display='none';gid('logindiv').style.display='';console.log('log off');}});
 		gid('hiddentarget').innerHTML+=T.newdialog+T.seldialog+T.newtagdialog;
 		//todo:load chain
-		tau.preload('T/apprun.xml'function(){
+		tau.preload('T/apprun.xml',function(){
 			tau.preload('T/appedit.xml');
 		});
 		
