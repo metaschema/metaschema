@@ -10,9 +10,9 @@
 	 <input type="hidden" value="%key" />
 	 <input type="text" value="%doctitle" placeholder="doctitle" /><button onclick="app.saveapp('#UNIQUEID#')"><i class="fa fa-floppy-o"> </i></button>
 		<button title="preview!" onclick="app.metappPreview('#UNIQUEID#');"><i class="fa fa-play"> </i></button><br/>
-	 <textarea class="app-javascript" placeholder="javascript...">%js </textarea>
-		<textarea class="app-style" placeholder="css...">%css </textarea>
-		<textarea class="app-html" placeholder="html...">%html </textarea>		
+	 <textarea class="app-javascript" placeholder="javascript...">%js</textarea>
+		<textarea class="app-style" placeholder="css...">%css</textarea>
+		<textarea class="app-html" placeholder="html...">%html</textarea>		
 		</dialog></html>
 </rowtype>
 		<onloadall>
