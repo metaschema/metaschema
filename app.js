@@ -145,7 +145,7 @@ window.app={loggedin:false,dbCollections:[],
   dialog:function(key){f$.db.getone(key,function(d){var dlg=gid('DLG'+d.$key);if(dlg){dlg.parentElement.removeChild(dlg)}
 		 if(d.$key.indexOf('tag-')==0){
 			gid('hiddentarget').innerHTML+=T.tagdialog.replace(/%KEY/g,d.$key).replace(/%TITLE/g,d.doctitle).replace(/%C1/g,d.c1).replace(/%CElev/g,d.level||4).replace(/%CEurl/g,d.url||'').replace(/%Cimgurl/g,d.imageurl||'').replace(/%C2/g,d.c2).replace(/%PARENT/g,d.parent);setTimeout('gid("DLG'+d.$key+'").show()',50)}
-			else if(d.$key.indexOf('metapp-')==0){
+			else if(d.$key.indexOf('metapp-')==0){console.log('ok');
 			tau.syncrender(tau.$$('hiddentarget'),tau.JSON2xmldoc(d,'metapp'),tau.preloaded('T/metapp.xml'),false,'append');}
 			else{
 			gid('hiddentarget').innerHTML+=T.objdialog.replace(/%KEY/g,d.$key).replace(/%TITLE/g,d.doctitle).replace(/%JSON/g,JSON.stringify(d));setTimeout('gid("DLG'+d.$key+'").show()',50)}
@@ -183,7 +183,7 @@ window.app={loggedin:false,dbCollections:[],
 		var tr=document.createElement('tr');
 		tr=gid('resultstable').tBodies[1].insertRow(tr);
 		if(app._record_odd){tr.classList.add('odd');app._record_odd=false}
-		else{console.log('ghf');app._record_odd=true}
+		else{app._record_odd=true}
 		var td=document.createElement('td');
 		td.innerHTML='<a href="#" onclick="app.dialog(\''+d['$key']+'\')" draggable="true" ondragstart="app.drag(\''+d['$key']+'\',\''+d['doctitle']+'\')" ondragover="event.preventDefault()" ondrop="fix(event);app.drop(\''+d['$key']+'\',\''+d['doctitle']+'\')"><i class="fa fa-circle-o"></i> '+d['doctitle']+'</a>';
 		tr.appendChild(td);
