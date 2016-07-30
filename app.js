@@ -182,7 +182,7 @@ window.app={loggedin:false,dbCollections:[],
 			var th=document.createElement('th');th.innerHTML='<b>'+x+'</b>';
 			gid('resultstable').tBodies[0].rows[0].appendChild(th);
 		}}
-		var tr=tau=$$('res-'+d['$key']);
+		var tr=tau.$$('res-'+d['$key']);
 		if(!tr){tr=document.createElement('tr');tr.id='res-'+d['$key'];tr=gid('resultstable').tBodies[1].insertRow(tr);}
 		else{tau.clearchilds(tr);}		
 		if(app._record_odd){tr.classList.add('odd');app._record_odd=false}
