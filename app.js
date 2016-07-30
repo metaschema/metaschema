@@ -161,8 +161,10 @@ window.app={loggedin:false,dbCollections:[],
 /* -------------------------------------------------------------------------------------------------------- results --- */
 	search:function(exp,_collection){app.gototab('resultsview',gid('b_resultsview'));this._records_reset();
 		if(exp.indexOf('parent:')==0){var x=firebase.database();var k=exp.replace('parent:','');var cn;
+		 var fn =function(snap){var d=snap.val();d.$key=cn+'-'+snap.key;app._on_records_results(d)};
 			for(var c=0;c<app.dbCollections.length;c++){cn=app.dbCollections[c];
-				x.ref(cn).orderByChild("parent").startAt(k).endAt(k).on('child_added',function(snap){var d=snap.val();d.$key=cn+'-'+snap.key;app._on_records_results(d)});
+				var tr=x.ref(cn).orderByChild("parent").startAt(k).endAt(k);				
+				tr.on('child_added',fn);tr.on('child_changed',fn);
 		}}else{f$.db.find(exp,app._on_records_results,_collection);}},
 	_search:function(d){var s='<input onclick="app.open(\''+d.$key+'\');" type="button" value="'+d.doctitle+' ['+d.$key+']" />';gid('resultsview').innerHTML+=s;},
 	_curr_cols:{"$key":{idx:0},"collection":{idx:1},"parent":{idx:2},"tags":{idx:3},"rels":{idx:4}},_curr_cols_count:5,
@@ -180,8 +182,9 @@ window.app={loggedin:false,dbCollections:[],
 			var th=document.createElement('th');th.innerHTML='<b>'+x+'</b>';
 			gid('resultstable').tBodies[0].rows[0].appendChild(th);
 		}}
-		var tr=document.createElement('tr');
-		tr=gid('resultstable').tBodies[1].insertRow(tr);
+		var tr=tau=$$('res-'+d['$key']);
+		if(!tr){tr=document.createElement('tr');tr.id='res-'+d['$key'];tr=gid('resultstable').tBodies[1].insertRow(tr);}
+		else{tau.clearchilds(tr);}		
 		if(app._record_odd){tr.classList.add('odd');app._record_odd=false}
 		else{app._record_odd=true}
 		var td=document.createElement('td');
