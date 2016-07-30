@@ -160,10 +160,10 @@ window.app={loggedin:false,dbCollections:[],
 /* -------------------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------------- results --- */
 	search:function(exp,_collection){app.gototab('resultsview',gid('b_resultsview'));this._records_reset();
-		if(exp.indexOf('parent:')==0){var x=firebase.database();var k=exp.replace('parent:','');var cn;
-		 var fn =function(snap){var d=snap.val();d.$key=cn+'-'+snap.key;app._on_records_results(d)};
+		if(exp.indexOf('parent:')==0){var x=firebase.database();var k=exp.replace('parent:','');var cn;		 
 			for(var c=0;c<app.dbCollections.length;c++){cn=app.dbCollections[c];
-				var tr=x.ref(cn).orderByChild("parent").startAt(k).endAt(k);				
+			 var fn=function(snap){var d=snap.val();d.$key=cn+'-'+snap.key;app._on_records_results(d)};
+				var tr=x.ref(cn).orderByChild("parent").startAt(k).endAt(k);	
 				tr.on('child_added',fn);tr.on('child_changed',fn);
 		}}else{f$.db.find(exp,app._on_records_results,_collection);}},
 	_search:function(d){var s='<input onclick="app.open(\''+d.$key+'\');" type="button" value="'+d.doctitle+' ['+d.$key+']" />';gid('resultsview').innerHTML+=s;},
@@ -182,14 +182,15 @@ window.app={loggedin:false,dbCollections:[],
 			var th=document.createElement('th');th.innerHTML='<b>'+x+'</b>';
 			gid('resultstable').tBodies[0].rows[0].appendChild(th);
 		}}
-		var tr=tau.selone('//tr[@class=\'res-'+d['$key']+'\']',gid('resultstable'));
+		var tr=document.getElementsByClassName('res'+d['$key'])[0];
 		console.log(tr);
-		if(!tr){tr=document.createElement('tr');tr.className='res-'+d['$key'];tr=gid('resultstable').tBodies[1].insertRow(tr);}
-		else{tau.clearchilds(tr);}		
+		if(!tr){tr=document.createElement('tr');tr=gid('resultstable').tBodies[1].insertRow(tr);}
+		else{tau.clearchilds(tr);}	
+		tr.classList.add('res'+d['$key']);
 		if(app._record_odd){tr.classList.add('odd');app._record_odd=false}
 		else{app._record_odd=true}
 		var td=document.createElement('td');
-		td.innerHTML='<input type="hidden" value="'+d['$key']+'"/><a href="#" onclick="app.dialog(\''+d['$key']+'\')" draggable="true" ondragstart="app.drag(\''+d['$key']+'\',\''+d['doctitle']+'\')" ondragover="event.preventDefault()" ondrop="fix(event);app.drop(\''+d['$key']+'\',\''+d['doctitle']+'\')"><i class="fa fa-circle-o"></i> '+d['doctitle']+'</a>';
+		td.innerHTML='<a href="#" onclick="app.dialog(\''+d['$key']+'\')" draggable="true" ondragstart="app.drag(\''+d['$key']+'\',\''+d['doctitle']+'\')" ondragover="event.preventDefault()" ondrop="fix(event);app.drop(\''+d['$key']+'\',\''+d['doctitle']+'\')"><i class="fa fa-circle-o"></i> '+d['doctitle']+'</a>';
 		tr.appendChild(td);
 		for(var o in app._curr_cols){if((o!='$key')&&(o!='doctitle')){td=document.createElement('td');
 			if(!d[o]){if(o=='collection'){td.innerHTML=d.$key.substr(0,d.$key.indexOf('-'))}}
