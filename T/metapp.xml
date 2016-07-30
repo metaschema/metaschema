@@ -25,7 +25,7 @@
 				var kk=x.getElementsByTagName('input');
 				var o={$key:kk[0].value,doctitle:kk[1].value};
 				o.js=dd[0].value;o.css=dd[1].value;o.html=dd[2].value;
-				tau.syncrender(tau.$$('hiddentarget'),tau.preloaded('T/metapp-run.xml'),tau.JSON2xmldoc(o,'metapp'))};
+				tau.syncrender(tau.$$('hiddentarget'),tau.preloaded('T/metapp-run.xml'),tau.JSON2xmldoc(o,'metapp'),'append')};
 				tau.$$('#UNIQUEID#').show();
 		</onloadall>
 </doc>
