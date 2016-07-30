@@ -15,7 +15,7 @@
 		<textarea class="metapp-style" placeholder="css...">%css</textarea>
 		<textarea class="metapp-html" placeholder="html...">%html</textarea><br/>
 		<button onclick="app.savemetapp('#UNIQUEID#');this.parentElement.close();"><i class="fa fa-floppy-o">
-		</i></button><button onclick="if(confirm('Eliminare davvero il documento \'%jsdoctitle\' ?')){f$.db.del('%KEY');this.parentElement.close()}"><i class="fa fa-trash-o"> </i>
+		</i></button><button onclick="if(confirm('Eliminare davvero il documento \'%jsdoctitle\' ?')){f$.db.del('%key');this.parentElement.close()}"><i class="fa fa-trash-o"> </i>
 		</button><button title="preview!" onclick="app.metappPreview('#UNIQUEID#');"><i class="fa fa-play">
 		</i></button><button onclick="this.parentElement.close()"><i class="fa fa-times"> </i></button>
 		</dialog></html>

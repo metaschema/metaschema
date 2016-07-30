@@ -9,7 +9,7 @@
 	 <input type="text" value="%doctitle" placeholder="doctitle" /><br/>
 	 <textarea class="text-text" id="#UNIQUEID#-txt" placeholder="text...">%kktext</textarea><br/>
 		<button onclick="app.texttext('#UNIQUEID#');this.parentElement.close();"><i class="fa fa-floppy-o">
-		</i></button><button onclick="if(confirm('Eliminare davvero il documento \'%jsdoctitle\' ?')){f$.db.del('%KEY');this.parentElement.close()}"><i class="fa fa-trash-o"> </i>
+		</i></button><button onclick="if(confirm('Eliminare davvero il documento \'%jsdoctitle\' ?')){f$.db.del('%key');this.parentElement.close()}"><i class="fa fa-trash-o"> </i>
 		</button><input type="text" value="it-IT" placeholder="lang" style="width:80px"/><button title="speak!" onclick="app.textspeak(tau.$$('#UNIQUEID#-txt').value,this.previousSibling.value);"><i class="fa fa-play">
 		</i></button><button onclick="this.parentElement.close()"><i class="fa fa-times"> </i></button>
 		</dialog></html>
