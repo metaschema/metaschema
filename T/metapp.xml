@@ -21,6 +21,7 @@
 		<onloadall>
 			app.savemetapp=function(id){var x=document.getElementById(id);var dd=x.getElementsByTagName('textarea');var kk=x.getElementsByTagName('input');
 				f$.db.getone(kk[0].value,function(o){o.doctitle=kk[1].value;o.head=dd[0].value;o.js=dd[1].value;o.css=dd[2].value;o.html=dd[3].value;f$.db.set(o);});};
+				
 			app.metappPreview=function(id){
 				var x=document.getElementById(id);
 				var dd=x.getElementsByTagName('textarea');

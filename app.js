@@ -195,7 +195,7 @@ window.app={loggedin:false,dbCollections:[],
 		for(var o in app._curr_cols){if((o!='$key')&&(o!='doctitle')){td=document.createElement('td');
 			if(!d[o]){if(o=='collection'){td.innerHTML=d.$key.substr(0,d.$key.indexOf('-'))}}
 			else	if(d[o].join){td.innerHTML=d[o].join(', ')}
-			else{if(d[o].length){if(d[o].length>150){d[o]=d[o].substring(0,145)+'[...]'}td.innerHTML=d[o]}}
+			else{if(d[o].length){if(d[o].length>150){d[o]=d[o].substring(0,145)+'[...]'}td.innerText=d[o]}}
 			tr.appendChild(td);}
 }}};
 /* -----------------------------------------------------------------------------------------------------*/
