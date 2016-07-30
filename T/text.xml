@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <doc>
-<rowtype xpath="//item" max="1">
+<beforeall>ciao</beforeall>
+<rowtype xpath="//textdoc" max="1">
  <variable xpath="_key" substitution="%key" />
  <variable xpath="doctitle" substitution="%doctitle" />
 	<variable xpath="text" substitution="%kktext" />
-	<html><dialog id="#UNIQUEID#" class="dialog appeditor" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);"><input type="hidden" value="%key" />
+	<html><dialog id="#UNIQUEID#" class="dialog texteditor" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);"><input type="hidden" value="%key" />
 	 <input type="text" value="%doctitle" placeholder="doctitle" /><br/>
 	 <textarea class="text-text" placeholder="text...">%kktext</textarea><br/>
 		<button onclick="app.texttext('#UNIQUEID#');this.parentElement.close();"><i class="fa fa-floppy-o">
