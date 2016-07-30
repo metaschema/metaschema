@@ -9,7 +9,8 @@
 	 <input type="text" value="%doctitle" placeholder="doctitle" /><br/>
 	 <textarea class="text-text" placeholder="text...">%kktext</textarea><br/>
 		<button onclick="app.texttext('#UNIQUEID#');this.parentElement.close();"><i class="fa fa-floppy-o">
-		</i></button><button title="speak!" onclick="app.speaktext('#UNIQUEID#');"><i class="fa fa-play">
+		</i></button><button onclick="if(confirm('Eliminare davvero %TITLE?')){f$.db.del('%KEY');this.parentElement.close()}"><i class="fa fa-trash-o"></i>
+		</button><button title="speak!" onclick="app.speaktext('#UNIQUEID#');"><i class="fa fa-play">
 		</i></button><button onclick="this.parentElement.close()"><i class="fa fa-times"> </i></button>
 		</dialog></html>
 </rowtype>
