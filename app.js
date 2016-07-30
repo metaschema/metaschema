@@ -160,11 +160,11 @@ window.app={loggedin:false,dbCollections:[],
 /* -------------------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------------- results --- */
 	search:function(exp,_collection){app.gototab('resultsview',gid('b_resultsview'));this._records_reset();
-		if(exp.indexOf('parent:')==0){var x=firebase.database();var k=exp.replace('parent:','');var cn;		 
+		if(exp.indexOf('parent:')==0){var x=firebase.database();var k=exp.replace('parent:','');var cn;	
+			var fn=function(v){return function(snap){var d=snap.val();d.$key=v+'-'+snap.key;app._on_records_results(d)}}
 			for(var c=0;c<app.dbCollections.length;c++){cn=app.dbCollections[c];
-			 var fn=function(snap){var d=snap.val();d.$key=cn+'-'+snap.key;app._on_records_results(d)};
-				var tr=x.ref(cn).orderByChild("parent").startAt(k).endAt(k);	
-				tr.on('child_added',fn);tr.on('child_changed',fn);
+				var tr=x.ref(cn).orderByChild("parent").startAt(k).endAt(k);	tr.off('child_added');tr.off('child_changed');
+				tr.on('child_added',fn(cn));tr.on('child_changed',fn(cn));
 		}}else{f$.db.find(exp,app._on_records_results,_collection);}},
 	_search:function(d){var s='<input onclick="app.open(\''+d.$key+'\');" type="button" value="'+d.doctitle+' ['+d.$key+']" />';gid('resultsview').innerHTML+=s;},
 	_curr_cols:{"$key":{idx:0},"collection":{idx:1},"parent":{idx:2},"tags":{idx:3},"rels":{idx:4}},_curr_cols_count:5,

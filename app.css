@@ -1,5 +1,5 @@
 /* -------------------------------------------- general utilities ---  */
-*{padding: 0;	margin: 0;	outline: 0px;font-family: 'Questrial';-webkit-font-smoothing:antialiased;vertical-align: top;}
+*{padding: 0;	margin: 0;	outline: 0px;font-family: 'Arial';-webkit-font-smoothing:antialiased;vertical-align: top;}
 html,body{background:#000;color:#50fc50}
 button,input[type="button"]{cursor: pointer;text-align:center !important;	}
 a{text-decoration:none;color:#50fc50;}
