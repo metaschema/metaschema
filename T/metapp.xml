@@ -21,9 +21,8 @@
 				var x=document.getElementById(id);
 				var dd=x.getElementsByTagName('textarea');
 				var kk=x.getElementsByTagName('input');
-				var o={$key:kk[0].value,doctitle:kk[1].value};
-				o.js=dd[0].value;o.css=dd[1].value;o.html=dd[2].value;
-				f$.db.set(o);};
+				f$.db.getone(kk[0].value,function(o){o.doctitle=kk[1].value;o.js=dd[0].value;o.css=dd[1].value;o.html=dd[2].value;f$.db.set(o);});
+			};
 			app.metappPreview=function(id){
 				var x=document.getElementById(id);
 				var dd=x.getElementsByTagName('textarea');
