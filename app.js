@@ -149,7 +149,7 @@ window.app={loggedin:false,dbCollections:[],
 			else if(d.$key.indexOf('metapp-')==0){
 			tau.syncrender(tau.$$('hiddentarget'),tau.preloaded('T/metapp.xml'),tau.JSON2xmldoc(d,'metapp'),'append');}
 			else if(d.$key.indexOf('text-')==0){
-			tau.syncrender(tau.$$('hiddentarget'),tau.preloaded('T/text.xml'),tau.JSON2xmldoc(d,'text'),'append');}
+			tau.syncrender(tau.$$('hiddentarget'),tau.preloaded('T/text.xml'),tau.JSON2xmldoc(d),'append');}
 			else{
 			gid('hiddentarget').innerHTML+=T.objdialog.replace(/%KEY/g,d.$key).replace(/%TITLE/g,d.doctitle).replace(/%JSON/g,JSON.stringify(d));setTimeout('gid("DLG'+d.$key+'").show()',50)}
 	 })},
