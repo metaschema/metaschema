@@ -6,11 +6,10 @@
  <variable xpath="js" substitution="%js" />
 	<variable xpath="css" substitution="%css" />
 	<variable xpath="html" substitution="%html" />
-	<html><dialog id="#UNIQUEID#" class="dialog appeditor">
-	 <input type="hidden" value="%key" />
-	 <input type="text" value="%doctitle" placeholder="doctitle" /><button onclick="app.saveapp('#UNIQUEID#');this.parentElement.close();"><i class="fa fa-floppy-o"> </i></button>
-		<button title="preview!" onclick="app.metappPreview('#UNIQUEID#');"><i class="fa fa-play"> </i></button>
-		<button onclick="this.parentElement.close()"><i class="fa fa-times"></i></button><br/>
+	<html><dialog id="#UNIQUEID#" class="dialog appeditor"><input type="hidden" value="%key" />
+	 <input type="text" value="%doctitle" placeholder="doctitle" /><button onclick="app.saveapp('#UNIQUEID#');this.parentElement.close();"><i class="fa fa-floppy-o">
+		</i></button><button title="preview!" onclick="app.metappPreview('#UNIQUEID#');"><i class="fa fa-play">
+		</i></button><button onclick="this.parentElement.close()"><i class="fa fa-times"> </i></button><br/>
 	 <textarea class="app-javascript" placeholder="javascript...">%js</textarea>
 		<textarea class="app-style" placeholder="css...">%css</textarea>
 		<textarea class="app-html" placeholder="html...">%html</textarea>		
