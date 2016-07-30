@@ -9,11 +9,11 @@
 	<variable xpath="head" substitution="%head" />
 	<html><dialog id="#UNIQUEID#" class="dialog appeditor" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);"><input type="hidden" value="%key" />
 	 <input type="text" value="%doctitle" placeholder="doctitle" /><br/>
-	 <textarea class="metapp-head" placeholder="javascript...">%head</textarea>
+	 <textarea class="metapp-head" placeholder="head...">%head</textarea>
 	 <textarea class="metapp-javascript" placeholder="javascript...">%js</textarea>
 		<textarea class="metapp-style" placeholder="css...">%css</textarea>
 		<textarea class="metapp-html" placeholder="html...">%html</textarea><br/>
-		<button onclick="metapp.savemetapp('#UNIQUEID#');this.parentElement.close();"><i class="fa fa-floppy-o">
+		<button onclick="app.savemetapp('#UNIQUEID#');this.parentElement.close();"><i class="fa fa-floppy-o">
 		</i></button><button title="preview!" onclick="app.metappPreview('#UNIQUEID#');"><i class="fa fa-play">
 		</i></button><button onclick="this.parentElement.close()"><i class="fa fa-times"> </i></button>
 		</dialog></html>
