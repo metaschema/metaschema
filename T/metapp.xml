@@ -3,7 +3,7 @@
 <rowtype xpath="//metapp" max="1">
  <variable xpath="_key" substitution="%key" />
  <variable xpath="doctitle" substitution="%doctitle" />
- <variable xpath="doctitle" substitution="%jsdoctitle" escape="js" />
+ <variable xpath="doctitle" substitution="%xjsdoctitle" escape="js" />
  <variable xpath="js" substitution="%js" />
 	<variable xpath="css" substitution="%css" />
 	<variable xpath="html" substitution="%html" />
@@ -15,7 +15,7 @@
 		<textarea class="metapp-style" placeholder="css...">%css</textarea>
 		<textarea class="metapp-html" placeholder="html...">%html</textarea><br/>
 		<button onclick="app.savemetapp('#UNIQUEID#');this.parentElement.close();"><i class="fa fa-floppy-o">
-		</i></button><button onclick="if(confirm('Eliminare davvero il documento \'%jsdoctitle\' ?')){f$.db.del('%key');this.parentElement.close()}"><i class="fa fa-trash-o"> </i>
+		</i></button><button onclick="if(confirm('Eliminare davvero il documento \'%xjsdoctitle\' ?')){f$.db.del('%key');this.parentElement.close()}"><i class="fa fa-trash-o"> </i>
 		</button><button title="preview!" onclick="app.metappPreview('#UNIQUEID#');"><i class="fa fa-play">
 		</i></button><button onclick="this.parentElement.close()"><i class="fa fa-times"> </i></button>
 		</dialog></html>
