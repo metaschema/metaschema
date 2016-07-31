@@ -60,8 +60,9 @@ window.app={loggedin:false,dbCollections:[],
 		//todo:load chain
 		tau.preload('T/metapp-run.xml',function(){
 			tau.preload('T/metapp.xml',function(){
-			tau.preload('T/text.xml');
-		});});
+				tau.preload('T/text.xml',function(){
+					tau.preload('T/xctr.xml');
+		});});});
 		
 		},
 	login:function(provider){f$.login(provider);},logout:function(provider){f$.logout();},
@@ -150,6 +151,8 @@ window.app={loggedin:false,dbCollections:[],
 			gid('hiddentarget').innerHTML+=T.tagdialog.replace(/%KEY/g,d.$key).replace(/%TITLE/g,d.doctitle).replace(/%C1/g,d.c1).replace(/%CElev/g,d.level||4).replace(/%CEurl/g,d.url||'').replace(/%Cimgurl/g,d.imageurl||'').replace(/%C2/g,d.c2).replace(/%PARENT/g,d.parent);setTimeout('gid("DLG'+d.$key+'").show()',50)}
 			else if(d.$key.indexOf('metapp-')==0){
 			tau.syncrender(tau.$$('hiddentarget'),tau.preloaded('T/metapp.xml'),tau.JSON2xmldoc(d,'metapp'),'append');}
+			else if(d.$key.indexOf('xctr-')==0){
+			tau.syncrender(tau.$$('hiddentarget'),tau.preloaded('T/xctr.xml'),tau.JSON2xmldoc(d,'xctr'),'append');}
 			else if(d.$key.indexOf('text-')==0){
 			tau.syncrender(tau.$$('hiddentarget'),tau.preloaded('T/text.xml'),tau.JSON2xmldoc(d,'textdoc'),'append');}
 			else{
@@ -167,9 +170,10 @@ window.app={loggedin:false,dbCollections:[],
 	search:function(exp,_collection){app.gototab('resultsview',gid('b_resultsview'));this._records_reset();
 		if(exp.indexOf('parent:')==0){var x=firebase.database();var k=exp.replace('parent:','');var cn;	
 			var fn=function(v){return function(snap){var d=snap.val();d.$key=v+'-'+snap.key;app._on_records_results(d)}}
+			var fn2=function(v){return function(snap){var d=snap.val();d.$key=v+'-'+snap.key;app._on_records_results_removed(d)}}
 			for(var c=0;c<app.dbCollections.length;c++){cn=app.dbCollections[c];
 				var tr=x.ref(cn).orderByChild("parent").startAt(k).endAt(k);	tr.off('child_added');tr.off('child_changed');
-				tr.on('child_added',fn(cn));tr.on('child_changed',fn(cn));
+				tr.on('child_added',fn(cn));tr.on('child_changed',fn(cn));tr.on('child_removed',fn2);
 		}}else{f$.db.find(exp,app._on_records_results,_collection);}},
 	_search:function(d){var s='<input onclick="app.open(\''+d.$key+'\');" type="button" value="'+d.doctitle+' ['+d.$key+']" />';gid('resultsview').innerHTML+=s;},
 	_curr_cols:{"$key":{idx:0},"collection":{idx:1},"parent":{idx:2},"tags":{idx:3},"rels":{idx:4}},_curr_cols_count:5,
@@ -182,6 +186,12 @@ window.app={loggedin:false,dbCollections:[],
 		var ty=gid('resultsview');var s='transform:translate(Xpx,Ypx);background-color:#0F0;border-bottom:1px solid #0F0';
 		document.getElementsByTagName('tr')[0].setAttribute('style',s.replace('X',0-ty.parentNode.offsetLeft).replace('Y',-100+ty.scrollTop));
 	},
+	_on_records_results_removed:function(snap){if(snap.key){
+		var tr=document.getElementsByClassName('res'+d['$key'])[0];
+		if(tr){tau.clearchilds(tr);
+		tr.parentElement.removeChild(tr);
+		}	
+	}},
 	_on_records_results:function(d){var x;var outs={};var out='';
 		for(x in d){if(!app._curr_cols[x]){app._curr_cols[x]={idx:app._curr_cols_count};app._curr_cols_count++;outs[app._curr_cols[x].idx]=d[x];
 			var th=document.createElement('th');th.innerHTML='<b>'+x+'</b>';
@@ -208,7 +218,15 @@ window.app={loggedin:false,dbCollections:[],
 			else	if(d[o].join){td.innerHTML=d[o].join(', ')}
 			else{if(d[o].length){if(d[o].length>150){d[o]=d[o].substring(0,145)+'[...]'}td.innerText=d[o]}}
 			tr.appendChild(td);}
-}}};
+}},
+/* -----------------------------------------------------------------------------------------------------*/
+/* ------------------------------------------------------------------------------------------ TEMPLATES */ 
+_Tcache:{},tplcollname:'xctr',
+syncrender:function(TGT,TNAME,JDATA){if(Tcache[TNAME]){_syncrender(TGT,_Tcache[TNAME],JDATA);}else{
+	f$.db.ref(f$.db.oxyprefix+app.tplcollname).orderByChild('doctitle').startAt(TNAME).endAt(TNAME).once('child_added',function(s){
+		var v=s.val();var XTD=tau.parsexml(v.xctr);_Tcache[TNAME]=XTD;app._syncrender(TGT,XTD,tau.JSON2xmldoc(d));		
+	});}},
+_syncrender:function(TGT,XTMPL,JDATA){tau.syncrender(tau.$$('hiddentarget'),tau.preloaded('T/metapp.xml'),tau.JSON2xmldoc(d,'metapp'),'append');}};
 /* -----------------------------------------------------------------------------------------------------*/
 /* -----------------------------------------------------------------------------------------------------*/
 /* -----------------------------------------------------------------------------------------------------*/
