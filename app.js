@@ -88,11 +88,12 @@ window.app={loggedin:false,dbCollections:[],
 	toggleleaf:function($key,button){var k=$key.replace('Xtag-','');var flag=true;if(button){button.classList.toggle('fa-plus-circle');button.classList.toggle('fa-minus-circle');}
 		var leaf=gid('TC'+$key);if(!leaf){gid('T'+$key).innerHTML+=T.treeleaf.replace(/%KEY/g,$key.substr(1)).replace(/%CTC/g,'')}
 		else{if(leaf.style.display!='none'){leaf.style.display='none';flag=false;}else{leaf.style.display='';flag=false}}
-		var tmpfn=function(snap){app._toggleleaf(snap,$key)};
-		if(flag){var r=firebase.database().ref('/tag').orderByChild("parent").startAt(k).endAt(k);r.on('child_added',tmpfn);r.on('child_changed',tmpfn);}},
+		var tmpfn=function(snap){app._toggleleaf(snap,$key)};var tmpfn1=function(snap){app._tagremoved(snap,$key)};
+		if(flag){var r=firebase.database().ref('/tag').orderByChild("parent").startAt(k).endAt(k);r.on('child_added',tmpfn);r.on('child_changed',tmpfn);r.on('child_removed',tmpfn1);}},
 	_toggleleaf:function(snap,$key){var v=snap.val();v.$key='tag-'+snap.key;var prev=gid('TX'+v.$key);if(prev){prev.parentElement.removeChild(prev);}
 		console.log('TC'+$key);gid('TC'+$key).innerHTML+=T.treenode.replace(/%KEY/g,v.$key).replace(/%TITLE/g,v.doctitle).replace(/%C2/g,v.c2).replace(/%C1/g,v.c1);},
-	tag_to_root(){app._draggingobj.c=app._draggingobj.k.substr(0,app._draggingobj.k.indexOf('-'));
+	_tagremoved:function(snap){var v=snap.val();v.$key='tag-'+snap.key;var prev=gid('TX'+v.$key);if(prev){prev.parentElement.removeChild(prev);}},
+	tag_to_root:function(){app._draggingobj.c=app._draggingobj.k.substr(0,app._draggingobj.k.indexOf('-'));
 		if(app._draggingobj.c=='Xtag'){var x=gid('T'+app._draggingobj.k);
 		if(x.parentElement!=gid('tag-tree')){x.parentElement.removeChild(x);
 		firebase.database().ref('/tag/'+app._draggingobj.k.replace('Xtag-','')).update({parent:'root'});}}},
