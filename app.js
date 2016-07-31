@@ -16,8 +16,8 @@ T={
 		href="#" onclick="app.toggleleaf('X%KEY',this.firstChild)"><i class="fa fa-plus-circle"></i></a>
 		<a href="#" onclick="app.search('parent:%KEY');">%TITLE</a><button class="color fr" href="#" onclick="app.dialog('%KEY')" style="background-color:%C2;border-color:%C1;">&nbsp;</button></div>`,
 	treeleaf:`<div id="TCX%KEY" class="treeleaf">%CTC</div>`,
-		reldialog:`<dialog class="dialog" id="%UID" draggable="true">%COLL1 - %NAME1<br/>%COLL2 - %NAME2<br/>
-		%JDOC<br/><button><i class="fa fa-link"></i></button><button><i class="fa fa-unlink"></i></button><button onclick="this.parentElement.close();">cancel</button></dialog>`,
+	reldialog:`<dialog class="dialog" id="%UID" draggable="true">%KEY1<br/>%KEY2<br/>
+		<br/><button onclick="f$.db.link('%KEY1','%KEY2');this.parentElement.close()"><i class="fa fa-link"></i></button><button><i class="fa fa-unlink"></i></button><button onclick="this.parentElement.close();">cancel</button></dialog>`,
 	newdialog:`<dialog class="dialog newobject" id="newdialog" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);">
 		<span style="display:none"><input type="text" id="othercollname" placeholder="collection"/><br/></span><select
 		id="collname" onchange="if(this.options[this.selectedIndex].value=='other'){this.previousSibling.style.display=''}else{this.previousSibling.style.display='none'}"><option value="other">other</option>
@@ -44,6 +44,10 @@ T={
  <br/><textarea id="saveobjJSON" >%JSON</textarea>
 		<button onclick="app.saveobj('%KEY');this.parentElement.close()"><i class="fa fa-floppy-o"></i></button><button onclick="if(confirm('Eliminare davvero %TITLE?')){f$.db.del('%KEY');this.parentElement.close()}"><i class="fa fa-trash-o"></i>
 		</button><button onclick="this.parentElement.close()"><i class="fa fa-times"></i></button>
+		</dialog>`,
+	setupdialog:`<dialog class="dialog objdialog" id="DLG-SETUP" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);">
+		<button onclick=""><i class="fa fa-trash-o"></i>remove metaschema data (keep documents)</button>
+		<button onclick=""><i class="fa fa-play"></i>reindex collections</button>
 		</dialog>`,
 };
 /* --------------------------------------------------------------------------------------------------------------------------- */
@@ -80,19 +84,20 @@ window.app={loggedin:false,dbCollections:[],
 	toggletree:function(button){document.body.classList.toggle('noleft');button.classList.toggle('pushed');
 		button.childNodes[0].classList.toggle('fa-dedent');button.childNodes[0].classList.toggle('fa-indent');this._ontablescroll()},
 	refreshtree:function(){gid('tag-tree').innerHTML='';firebase.database().ref('/tag').off('child_added');
-	 firebase.database().ref('/tag').off('child_changed');
+	 firebase.database().ref('/tag').off('child_changed');firebase.database().ref('/tag').off('child_removed');
 		var r=firebase.database().ref('/tag').orderByChild("parent").startAt('root').endAt('root');
-		r.on('child_added',app._refreshtree);r.on('child_changed',app._refreshtree);},
+		r.on('child_added',app._refreshtree);r.on('child_changed',app._refreshtree);r.on('child_removed',app._tagremoved);},
  _refreshtree:function(snap){var v=snap.val();v.$key='tag-'+snap.key;var prev=gid('TX'+v.$key);if(prev){prev.parentElement.removeChild(prev);}
 		gid('tag-tree').innerHTML+=T.treenode.replace(/%KEY/g,v.$key).replace(/%TITLE/g,v.doctitle).replace(/%C2/g,v.c2).replace(/%C1/g,v.c1);},
 	toggleleaf:function($key,button){var k=$key.replace('Xtag-','');var flag=true;if(button){button.classList.toggle('fa-plus-circle');button.classList.toggle('fa-minus-circle');}
 		var leaf=gid('TC'+$key);if(!leaf){gid('T'+$key).innerHTML+=T.treeleaf.replace(/%KEY/g,$key.substr(1)).replace(/%CTC/g,'')}
 		else{if(leaf.style.display!='none'){leaf.style.display='none';flag=false;}else{leaf.style.display='';flag=false}}
 		var tmpfn=function(snap){app._toggleleaf(snap,$key)};var tmpfn1=function(snap){app._tagremoved(snap,$key)};
-		if(flag){var r=firebase.database().ref('/tag').orderByChild("parent").startAt(k).endAt(k);r.on('child_added',tmpfn);r.on('child_changed',tmpfn);r.on('child_removed',tmpfn1);}},
+		if(flag){var r=firebase.database().ref('/tag').orderByChild("parent").startAt(k).endAt(k);
+		r.on('child_added',tmpfn);r.on('child_changed',tmpfn);r.on('child_removed',app._tagremoved);}},
 	_toggleleaf:function(snap,$key){var v=snap.val();v.$key='tag-'+snap.key;var prev=gid('TX'+v.$key);if(prev){prev.parentElement.removeChild(prev);}
-		console.log('TC'+$key);gid('TC'+$key).innerHTML+=T.treenode.replace(/%KEY/g,v.$key).replace(/%TITLE/g,v.doctitle).replace(/%C2/g,v.c2).replace(/%C1/g,v.c1);},
-	_tagremoved:function(snap){var v=snap.val();v.$key='tag-'+snap.key;var prev=gid('TX'+v.$key);if(prev){prev.parentElement.removeChild(prev);}},
+		gid('TC'+$key).innerHTML+=T.treenode.replace(/%KEY/g,v.$key).replace(/%TITLE/g,v.doctitle).replace(/%C2/g,v.c2).replace(/%C1/g,v.c1);},
+	_tagremoved:function(snap){var v=snap.val();console.log(v);v.$key='tag-'+snap.key;var prev=gid('TX'+v.$key);if(prev){prev.parentElement.removeChild(prev);}},
 	tag_to_root:function(){app._draggingobj.c=app._draggingobj.k.substr(0,app._draggingobj.k.indexOf('-'));
 		if(app._draggingobj.c=='Xtag'){var x=gid('T'+app._draggingobj.k);
 		if(x.parentElement!=gid('tag-tree')){x.parentElement.removeChild(x);
@@ -105,15 +110,11 @@ window.app={loggedin:false,dbCollections:[],
 		dropobj.c=dropobj.k.substr(0,dropobj.k.indexOf('-'));dragobj.c=dragobj.k.substr(0,dragobj.k.indexOf('-'));if(dragobj.c=='Xtag'&&dropobj.c=='Xtag'){
 			if(!gid('T'+dropobj.k).firstChild.firstChild.classList.contains('fa-minus-circle')){app.toggleleaf(dropobj.k,gid('T'+dropobj.k).firstChild.firstChild);}
 			firebase.database().ref('/tag/'+dragobj.k.replace('Xtag-','')).update({parent:dropobj.k.replace('Xtag-','')});
-		}else if(dragobj.c=='Xtag'&&dropobj.c=='products'){console.log(dropobj.k);console.log(' |  '+dragobj.k);
-		    //firebase.database().ref('/products/'+dropobj.k.replace('products-','')).update({parent:dragobj.k.replace('Xtag-','')})
 		}else if(dropobj.c=='Xtag'){console.log('Dragged OBJECT to TREETAG : Setting DOCUMENT PARENT of: '+dragobj.k+' to '+dropobj.k.replace('Xtag-','tag-'));
 		    firebase.database().ref(dragobj.c+'/'+dragobj.k.replace(dragobj.c+'-','')).update({parent:dropobj.k.replace('Xtag-','tag-')})
 		}else{
-			/*var s=T.reldialog.replace(/%UID/g,uid());
-			s=s.replace(/%COLL1/g,dragobj.c).replace(/%TITLE1/g,dragobj.n);
-			s=s.replace(/%COLL2/g,dragobj.c).replace(/%TITLE2/g,dragobj.n);
-		var d=document.createElement('div');d.innerHTML=s;gid('mainwrap').appendChild(d);*/}},
+			var s=T.reldialog.replace(/%UID/g,uid()).replace(/%KEY1/g,dragobj.k.replace('Xtag-','tag-')).replace(/%KEY2/g,dropobj.k.replace('Xtag-','tag-'));
+		var d=document.createElement('div');d.innerHTML=s;gid('mainwrap').appendChild(d);d.firstChild.show()}},
 	/* -------------------------------------------------------------------------------------------------------------------- */
 	/* ------------------------------------------------------------------------------------------------------------ top bar */
 	gototab:function(tab,button){var tabs=document.getElementsByClassName('tabs-b');for(var t=0;t<tabs.length;t++){tabs[t].classList.remove('pushed');}if(button){button.classList.add('pushed');}gid('mainwrap').classList.add(tab);
@@ -126,11 +127,11 @@ window.app={loggedin:false,dbCollections:[],
 	_open:function(d){app.nonewUI(d.$key);gid('details').value=JSON.stringify(d);},
 	save:function(doc){if(!doc.$key){alert('$key property must be present in the document');}f$.db.set(J)},
 	newtag:function(){var a=gid('newtagname');var o={doctitle:a.value,parent:'root',c1:gid('newtagc1').value,c2:gid('newtagc2').value};a.value='';f$.db.add('tag',o);},
-	savetag:function($key){var ee=gid('DLG'+$key).getElementsByTagName('input');console.log(ee);
-		var o={doctitle:ee[0].value,parent:ee[1].value,c1:ee[2].value,c2:ee[3].value,level:ee[4].value,imageurl:ee[5].value,url:ee[6].value,$key:$key};console.log($key);
+	savetag:function($key){var ee=gid('DLG'+$key).getElementsByTagName('input');
+		var o={doctitle:ee[0].value,parent:ee[1].value,c1:ee[2].value,c2:ee[3].value,level:ee[4].value,imageurl:ee[5].value,url:ee[6].value,$key:$key};
 		f$.db.set(o);},
 	newobject:function(){var cs=gid('collname');if(cs.selectedIndex>-1){var s=cs.options[cs.selectedIndex].value;if(s=='other'){s=gid('othercollname').value}
-	s=s.trim();if(s==''){s='generic'}console.log(s);f$.db.add(s,{doctitle:'untitled document',parent:'root'});}else{console.log('No object type selected')}},
+	s=s.trim();if(s==''){s='generic'}f$.db.add(s,{doctitle:'untitled document',parent:'root'});}else{console.log('No object type selected')}},
 	
 	saveobj:function($key){var ee=gid('DLG'+$key).getElementsByTagName('textarea')[0].value;
 		var o=JSON.parse(ee);
@@ -187,7 +188,6 @@ window.app={loggedin:false,dbCollections:[],
 			gid('resultstable').tBodies[0].rows[0].appendChild(th);
 		}}
 		var tr=document.getElementsByClassName('res'+d['$key'])[0];
-		console.log(tr);
 		if(!tr){tr=document.createElement('tr');tr=gid('resultstable').tBodies[1].insertRow(tr);}
 		else{tau.clearchilds(tr);}	
 		tr.classList.add('res'+d['$key']);
@@ -198,6 +198,13 @@ window.app={loggedin:false,dbCollections:[],
 		tr.appendChild(td);
 		for(var o in app._curr_cols){if((o!='$key')&&(o!='doctitle')){td=document.createElement('td');
 			if(!d[o]){if(o=='collection'){td.innerHTML=d.$key.substr(0,d.$key.indexOf('-'))}}
+			else if(o=='rels'){var tmps='';var r;
+				for(r in d.rels){if(!r.indexOf('tag-')==0){tmps+=d.rels[r].n+', '}}
+				td.innerHTML=tmps.substr(0,tmps.length-2);
+			}else if(o=='tags'){var tmps='';var r;
+				for(r in d.rels){if(r.indexOf('tag-')==0){tmps+=d.rels[r].n+', '}}
+				td.innerHTML=tmps.substr(0,tmps.length-2);
+			}
 			else	if(d[o].join){td.innerHTML=d[o].join(', ')}
 			else{if(d[o].length){if(d[o].length>150){d[o]=d[o].substring(0,145)+'[...]'}td.innerText=d[o]}}
 			tr.appendChild(td);}
