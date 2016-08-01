@@ -4,14 +4,15 @@
  <variable xpath="_key" substitution="%key" />
  <variable xpath="doctitle" substitution="%doctitle" />
  <variable xpath="doctitle" substitution="%jsdoctitle" escape="js" />
- <variable xpath="xctr" substitution="%xctr" />
-	<html><dialog id="#UNIQUEID#" class="dialog texteditor" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);"><input type="hidden" value="%key" />
+ <variable xpath="xctr" substitution="%xctr" escape="js" />
+	<output><dialog id="#UNIQUEID#" class="dialog texteditor" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);"><input type="hidden" value="%key" />
 	 <input type="text" value="%doctitle" placeholder="doctitle" /><br/>
-	 <textarea class="xctr-xctr" id="#UNIQUEID#-xctr" placeholder="xml control...">%xctr</textarea><br/>
-		<button onclick="app.xctrxctr('#UNIQUEID#');this.parentElement.close();"><i class="fa fa-floppy-o">
-		</i></button><button onclick="if(confirm('Eliminare davvero il documento \'%jsdoctitle\' ?')){f$.db.del('%key');this.parentElement.close()}"><i class="fa fa-trash-o"> </i>
-		</button><button onclick="this.parentElement.close()"><i class="fa fa-times"> </i></button>
-		</dialog></html>
+	 <textarea class="xctr-xctr" id="#UNIQUEID#-xctr" placeholder="xml control..."> </textarea><br/>
+		<button onclick="app.xctrxctr('#UNIQUEID#');app.ddestroy(this)"><i class="fa fa-floppy-o">
+		</i></button><button onclick="if(confirm('Eliminare davvero il documento \'%jsdoctitle\' ?')){f$.db.del('%key');app.ddestroy(this)}"><i class="fa fa-trash-o"> </i>
+		</button><button onclick="app.ddestroy(this)"><i class="fa fa-times"> </i></button>
+		</dialog></output>
+		<onload>tau.$$('#UNIQUEID#-xctr').value=`%xctr`;</onload>
 </rowtype>
 		<onloadall>
 			app.xctrxctr=function(id){var x=document.getElementById(id);var dd=x.getElementsByTagName('textarea');var kk=x.getElementsByTagName('input');

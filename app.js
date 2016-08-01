@@ -77,9 +77,10 @@ window.app={loggedin:false,dbCollections:[],
 					//if not hidewelcomedialog show welcome dialog / assistent
 	},
 	scandb:function(){this.dbCollections=[];firebase.database().ref('/').on('child_added',app._scandb);},
-	_scandb:function(d){var k=d.key;if(!(k.indexOf(f$.oxyprefix)==0)){app.dbCollections[app.dbCollections.length]=d.key;if(d.key!='tag'){
+	_scandb:function(d){var k=d.key;if(!(k.indexOf(f$.dbnamespace)==0)){app.dbCollections[app.dbCollections.length]=d.key;if(d.key!='tag'){
 			var o=document.createElement('option');o.value=d.key;o.innerHTML=d.key;var nsel=gid('collname');nsel.insertBefore(o,nsel.firstChild);nsel.selectedIndex=0;
 			var o=document.createElement('span');o.innerHTML=T.selcheck.replace(/%KEY/g,d.key);var sel=gid('seldialog');sel.insertBefore(o,sel.firstChild);}}},
+	ddestroy:function(b){b.parentElement.close();b.parentElement.parentElement.removeChild(b.parentElement);},
 /* --------------------------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------------------------- TAG TREE --- */
 	toggletree:function(button){document.body.classList.toggle('noleft');button.classList.toggle('pushed');
@@ -216,17 +217,18 @@ window.app={loggedin:false,dbCollections:[],
 				td.innerHTML=tmps.substr(0,tmps.length-2);
 			}
 			else	if(d[o].join){td.innerHTML=d[o].join(', ')}
-			else{if(d[o].length){if(d[o].length>150){d[o]=d[o].substring(0,145)+'[...]'}td.innerText=d[o]}}
+			else{if(d[o].length){if(d[o].length>100){d[o]=d[o].substring(0,95)+'[...]'}td.innerText=d[o]}}
 			tr.appendChild(td);}
 }},
 /* -----------------------------------------------------------------------------------------------------*/
 /* ------------------------------------------------------------------------------------------ TEMPLATES */ 
 _Tcache:{},tplcollname:'xctr',
-syncrender:function(TGT,TNAME,JDATA){if(Tcache[TNAME]){_syncrender(TGT,_Tcache[TNAME],JDATA);}else{
-	f$.db.ref(f$.db.oxyprefix+app.tplcollname).orderByChild('doctitle').startAt(TNAME).endAt(TNAME).once('child_added',function(s){
-		var v=s.val();var XTD=tau.parsexml(v.xctr);_Tcache[TNAME]=XTD;app._syncrender(TGT,XTD,tau.JSON2xmldoc(d));		
+syncrender:function(TGT,TNAME,KEY){f$.db.getone(KEY,function(JDATA){app._1syncrender(TGT,TNAME,JDATA)})},
+_1syncrender:function(TGT,TNAME,JDATA){if(app._Tcache[TNAME]){app._2syncrender(TGT,app._Tcache[TNAME],JDATA);}else{console.log(1);
+	firebase.database().ref(app.tplcollname).orderByChild('doctitle').startAt(TNAME).endAt(TNAME).on('child_added',function(s){console.log(2);
+		var v=s.val();app._Tcache[TNAME]=tau.parsexml(v.xctr);app._2syncrender(TGT,app._Tcache[TNAME],JDATA);		
 	});}},
-_syncrender:function(TGT,XTMPL,JDATA){tau.syncrender(tau.$$('hiddentarget'),tau.preloaded('T/metapp.xml'),tau.JSON2xmldoc(d,'metapp'),'append');}};
+_2syncrender:function(TGT,XTMPL,JDATA){tau.syncrender(tau.$$('hiddentarget'),XTMPL,tau.JSON2xmldoc(JDATA),'append');}};
 /* -----------------------------------------------------------------------------------------------------*/
 /* -----------------------------------------------------------------------------------------------------*/
 /* -----------------------------------------------------------------------------------------------------*/

@@ -5,14 +5,14 @@
  <variable xpath="doctitle" substitution="%doctitle" />
  <variable xpath="doctitle" substitution="%jsdoctitle" escape="js" />
 	<variable xpath="text" substitution="%kktext" />
-	<html><dialog id="#UNIQUEID#" class="dialog texteditor" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);"><input type="hidden" value="%key" />
+	<output><dialog id="#UNIQUEID#" class="dialog texteditor" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);"><input type="hidden" value="%key" />
 	 <input type="text" value="%doctitle" placeholder="doctitle" /><br/>
 	 <textarea class="text-text" id="#UNIQUEID#-txt" placeholder="text...">%kktext</textarea><br/>
-		<button onclick="app.texttext('#UNIQUEID#');this.parentElement.close();"><i class="fa fa-floppy-o">
-		</i></button><button onclick="if(confirm('Eliminare davvero il documento \'%jsdoctitle\' ?')){f$.db.del('%key');this.parentElement.close()}"><i class="fa fa-trash-o"> </i>
+		<button onclick="app.texttext('#UNIQUEID#');app.ddestroy(this);"><i class="fa fa-floppy-o">
+		</i></button><button onclick="if(confirm('Eliminare davvero il documento \'%jsdoctitle\' ?')){f$.db.del('%key');app.ddestroy(this);}"><i class="fa fa-trash-o"> </i>
 		</button><input type="text" value="it-IT" placeholder="lang" style="width:80px"/><button title="speak!" onclick="app.textspeak(tau.$$('#UNIQUEID#-txt').value,this.previousSibling.value);"><i class="fa fa-play">
-		</i></button><button onclick="this.parentElement.close()"><i class="fa fa-times"> </i></button>
-		</dialog></html>
+		</i></button><button onclick="app.ddestroy(this);"><i class="fa fa-times"> </i></button>
+		</dialog></output>
 </rowtype>
 		<onloadall>
 			app.texttext=function(id){var x=document.getElementById(id);var dd=x.getElementsByTagName('textarea');var kk=x.getElementsByTagName('input');
@@ -28,6 +28,6 @@ var vvv = voices.filter(function (voice) {
     u.onerror = function(e){console.log(e.message)};
     speechSynthesis.speak(u);
 };
-			tau.$$('#UNIQUEID#').show();
+			/*tau.$$('#UNIQUEID#').show();*/
 		</onloadall>
 </doc>
