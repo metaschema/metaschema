@@ -1,82 +1,88 @@
+
 <!doctype html>
 <html><head>
 	<meta charset="utf-8">
 	<meta name="description" content="firebase-moredb : search with text and link documents across collections in firebase">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>metaschema</title>
+	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
+	<!--tinymce code snippet-->
+	<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 	<!--firebase code snippet-->
-<script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
 <script>
 	window.mydefload(){
   // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyCIZddRhnQyjJcMb17CK-HqCmJzNjXZ-gU",
-    authDomain: "metaschema-app.firebaseapp.com",
-    databaseURL: "https://metaschema-app.firebaseio.com",
-    storageBucket: "",
+    apiKey: "AIzaSyAOHa1T-UP7JV9XekY4PWiNV6XT2YMdZXA",
+    authDomain: "db-8f630.firebaseapp.com",
+    databaseURL: "https://db-8f630.firebaseio.com",
+    storageBucket: "db-8f630.appspot.com",
+    messagingSenderId: "514379951935"
   };
   firebase.initializeApp(config);
-	app.init();
+		app.init();
 	}
-</script>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-37258371-3', 'auto');
-  ga('send', 'pageview');
-
 </script>
 	<!--fontawesome hotlink by github cdn-->
 	<link href="https://cdn.rawgit.com/FortAwesome/Font-Awesome/master/css/font-awesome.min.css" rel="stylesheet" />
-	<!-- metaschema oxygen library for firebase
-	<script src="https://cdn.rawgit.com/metaschema/oxyzen/master/oxyzen.js"></script>-->	
-	<script src="https://rawgit.com/metaschema/oxyzen/master/oxyzen.js"></script> 
-	<!--<script src="../oxyzen/oxyzen.js"></script>
-	 metaschema tau render
-	<script src="https://cdn.rawgit.com/metaschema/tau/master/tau.js"></script>-->	
+	<!--firebase oxygen library-->	
+ <script src="https://rawgit.com/metaschema/oxyzen/master/oxyzen.js"></script>
+		<!--firebase oxygen library-->	
 	<script src="https://rawgit.com/metaschema/tau/master/tau.js"></script>
-	<!--<script src="../tau/tau.js"></script>
-	style for this app-->	
+	<!--style for this app-->	
 	<link href="app.css" rel="stylesheet" />
 	<!--script for this app-->
-	<script type="text/javascript" src="app.js"></script>	
+	<script type="text/javascript" src="rug.js"></script>
+	<script type="text/javascript" src="rug2.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript" src="gio.js"></script>
 </head><body onload="mydefload()">
+	<dialog id="uploadialog"><button class="closeupload" onclick="this.parentElement.close()"><i class="fa fa-close"></i></button>
+	<input value="upload file"  type="file" name="files[]" onchange="if(this.files){app.upload(this.files)};" multiple />
+	<div id="uploadlog"> </div>
+	</dialog><dialog id="filedialog"><button class="closeupload" onclick="this.parentElement.close()"><i class="fa fa-close" style="color:black"></i></button>
+	<input value="upload file" type="file" name="files[]" onchange="if(this.files){app.upload(this.files)};" multiple />
+	<input placeholder="filter..." type="text" onchange="console.log('filter');" />
+	<div id="fieldpicker"></div></dialog><dialog id="imgeditdialog"><button class="closeupload" onclick="app.saveimgedit(this.nextSibling);this.parentElement.close()"><i class="fa fa-close"></i></button><div id="fieldimg"></div><input type='range' min='0' max='200' value='100' id='bkgsize' onchange="app.setbkgsize(this.previousSibling,this.value)"/>
+	</dialog><dialog id="diamondialog">
+		<p>Ricerche:
+			"parent:chiave"  apre i documenti che hanno come parent quella chiave
+			"key:chiave" apre il singolo documento con quella chiave
+			"rel:chiave" cerca i documenti che hanno una chiave tra le relazioni 
+			"altre parole" ritorna tutti i documenti che hanno una o più delle parole inserite.
+		</p>
+	</dialog>
 	<div id="prelogindiv">Checking login status...</div>
 	<div id="logindiv" style="display:none">
 	<div class="info"><h3>login</h3></div>
-		<button onclick="app.login('google')"><i class="fa fa-google"></i></button>
+		<button onclick="app.login('google')"><i class="fa fa-google"></i></button><!--
 		<button onclick="app.login('facebook')"><i class="fa fa-facebook"></i></button>
 		<button onclick="app.login('twitter')"><i class="fa fa-twitter"></i></button>
-		<button onclick="app.login('github')"><i class="fa fa-github"></i></button>
+		<button onclick="app.login('github')"><i class="fa fa-github"></i></button>-->
 	</div>
 	<div id="hiddentarget"> </div>
-	<div id="metaschema-app" style="display:none"><section id="leftwrap"><div class="top-bar"><button
+	<div id="metaschema-app" style="display:none"><div id="resizebar" class="noselect"></div><section id="leftwrap" class="noselect"><div class="top-bar"><button
 				onclick="gid('newtagdialog').showModal()" class="fa-tagplus" title="Add a new tag..."><i class="fa fa-tag"> </i><i class="fa fa-plus-circle"> </i>
-				</button><button onclick="app.refreshtree()" title="Refresh the tag tree"><i class="fa fa-refresh"> </i></button><button
-				onclick="app.crossearch()" title="Cross search with tags"><i class="fa fa-binoculars"> </i></button>
+				</button><button onclick="app.refreshtree()" title="Refresh the tag tree"><i class="fa fa-refresh"> </i></button>
 			</div>
 			<div id="tag-tree" ondrop="fix(event);app.tag_to_root('X%KEY','%TITLE')" ondragover="app.allowdrop(event);">loading...</div>
 		</section><section id="mainwrap">
-			<div class="top-bar">
+			<div class="top-bar noselect">
 			 <button onclick="app.toggletree(this)" title="Toggle the tag tree" class="pushed"><i class="fa fa-dedent"></i>
 				</button><button onclick="app.gototab('homeview',this);" class="pushed tabs-b" title="Switch between home view and results view"><i class="fa fa-home"></i>
 				</button><button class="fa-docplus" onclick="gid('newdialog').showModal()" title="Add document"><i class="fa fa-file"> </i><i class="fa fa-plus-circle"> </i>
-				</button><button id="b_resultsview" onclick="app.gototab('resultsview',this);" class="tabs-b" title="results view"><i class="fa fa-list"></i>
-				</button><button onclick="app.gototab('detailsview',this);" class="tabs-b" title="detailsview"><i class="fa fa-file"></i>
-				</button><form onsubmit="try{app.search(this.firstChild.value);}catch(ex){console.log(ex);}return false;" style="display: inline-block;" action="#" mathod="post"><input
-					type="text" id="pattern" placeholder="search pattern..."/><button
-					onclick="this.parentElement.submit()" title="perform search"><i class="fa fa-search"></i>
-				</button></form><button onclick="gid('seldialog').showModal()" title="select collections"><i class="fa fa-check-square-o"></i>
+				</button><button class="tabs-b upload" onclick="gid('uploadialog').showModal()" title="File upload"><i class="fa fa-upload"> </i>
+				</button><input	type="text" id="pattern" placeholder="search pattern..." onchange="app.search(this.value);"/><button
+					onclick="app.search(this.previousSibling.value);" title="perform search"><i class="fa fa-search"></i>
 				</button>
 				<div class="fr"><button onclick="app.logout();return false;" title="perform search"><i class="fa fa-key"></i>
 				</button><button class="button" onclick="toggleFullScreen();this.classList.toggle('pushed');this.childNodes[0].classList.toggle('fa-expand');this.childNodes[0].classList.toggle('fa-compress');" title="fullscreen..."><i class="fa fa-expand"> </i>
 				</button><button onclick="" title="info"><i class="fa fa-diamond"></i></button></div></div>
-				<div id="homeview"><i class="fr fa fa-user" id="username" style=""></i>Try searching for strawberry or apple or blue or brown....</div><div
+				<div id="homeview"><i class="fr fa fa-user" id="username" style=""></i>Prova a cercare per "valvole" o "dosatori" o "prigionieri"....</div><div
 					id="resultsview"></div><div
 					id="detailsview"></div>
 		</section><section id="rightwrap" class="fly-out">
 		<!--roba a scomparsa laterale -->
-		</section></div></body>
+</section></div><script>addListeners();</script></body>
