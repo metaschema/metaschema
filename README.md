@@ -1,6 +1,6 @@
 # Metaschema
 
-This app is based on our library **Oxyzen**(https://github.com/metaschema/oxyzen).
+This app is based on our library **Oxyzen** (https://github.com/metaschema/oxyzen).
 - supports document linking in different collections
 - textual searches as in LIKE "%foo%", [until new native query tools are developed]
 - DEMO : https://cdn.rawgit.com/metaschema/oxyzen/master/index.html
