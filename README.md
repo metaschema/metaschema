@@ -29,7 +29,8 @@ Firebase seems like a comfortable starting point for some things, the features t
 I know great things can be implemented without those concepts - but some can't.
 However those concepts can be built on top of existing api calls and with a simple data model.
 Note infact that if one's data is "indexed" then she shouldn't really need "LIKE%foo%" queries anymore.  
-The index is infact build to avoid it. So once the data is indexed the queries that firebase provides should be more than enough.
+The index is infact build to avoid it.  
+So once the data is indexed the queries that firebase provides should be more than enough.
 
 So I made a small library to help me do this couple this just easily, and this demo to test it.
 
