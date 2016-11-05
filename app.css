@@ -1,72 +1,114 @@
 /* -------------------------------------------- general utilities ---  */
-*{padding: 0;	margin: 0;	outline: 0px;font-family: 'Arial';-webkit-font-smoothing:antialiased;vertical-align: top;}
-html,body{background:#000;color:#50fc50}
+*{padding: 0;	margin: 0;	outline: 0px;font-family: 'Questrial';-webkit-font-smoothing:antialiased;vertical-align: top;box-sizing: border-box}
+html,body{background-color:#eeeeee}
 button,input[type="button"]{cursor: pointer;text-align:center !important;	}
-a{text-decoration:none;color:#50fc50;}
-a:hover{color:#9F9;}
+dialog i.fa.fa-times {margin-right: 15px;}
+dialog i.fa {color: #FFF;}
+dialog .editable i.fa{color:#000000}
+.multieditables{margin-left: 15px;margin-right: 15px;margin-bottom: 15px;display: block;}
+#tag--KLZIQYY4um2eCabZMGU-desc1, #tag--KLZIQYY4um2eCabZMGU-desc2 {min-width: 700px !important;min-height: 150px;}
+a{text-decoration:none;color:#AC2217;}
+a:hover{color:#5a1510;}
+i.fa:hover{color:#fff}
+a{text-decoration:none;color: #000000;}
+a:hover{color:#AC2217;}
+i.fa:hover{}
 .fl{float:left}.fr{float:right}
-.resizable {
-    overflow: scroll;
-    resize: both;
-    max-width: 300px;
-    max-height: 460px;}
+.resizable {overflow: scroll;resize: both;max-width: 300px;max-height: 460px;}
 /* ------------------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------- login area --- */
 #logindiv {position:absolute;text-align:center;left:0;right:0;top:40%}
-#logindiv button {font-size:34px;width:48px;height:50px;background-color:rgba(240,240,255,0);color:#50fc50;padding-top: 8px;border:1px solid #50fc50;}
-/* ------------------------------------------ application area layout */
-#mainwrap{position:absolute;left:200px;top:0px;right:0px;bottom:0px;}
-#leftwrap{position:absolute;width:200px;top:0px;bottom:0px;}
-.noleft #mainwrap{left:0}.noleft #leftwrap{display:none}
-.top-bar{height:50px;}
+#logindiv button {font-size:34px;width:48px;height:50px;background-color:rgba(240,240,255,0);color:#AC2217;padding-top: 8px;border:1px solid #AC2217;}
+/* ------------------------------------------------------------------------------- application area layout */
+#mainwrap{position:absolute;left:246px;top:0px;right:0px;bottom:0px;}
+#leftwrap{position:absolute;width:241px;top:0px;bottom:0px}
+#resizebar{position:absolute;width:5px;top:0px;bottom:0px;left:241px;background-color:#ccc;height:100%;z-index:100}
+#resizebar:hover{cursor:e-resize}
+.noleft #mainwrap{left:5px !important}.noleft #leftwrap{overflow: hidden;width: 0%;opacity: 0;}.noleft #resizebar{left:0 !important}
+.top-bar{height:50px;background-color:#5a1510;}
 #rightwrap{top:50px;right:0px;bottom:0px;position:absolute;}
 #rightwrap.fly-out{display:none}
 #mainwrap.homeview #detailsview,#mainwrap.homeview #resultsview {display:none}
 #mainwrap.detailsview #homeview,#mainwrap.detailsview #resultsview {display:none}
 #mainwrap.resultsview #detailsview,#mainwrap.resultsview #homeview {display:none}
+    
+#resultsview{border-left: 0px solid #AC2217;background-color:#e8e8e8}
+.noleft	#resultsview{border-left:none;}
+
+
 
 /* ------------------------------------------------------------------------------------------------------- */
 /* ---------------------------------------------------------------------------------------- top-bar(s) --- */
-.top-bar button,#logindiv button {transition: 800ms ease;-webkit-transition: 800ms ease;
-	font-size:34px;width:48px;height:50px;
-	background-color:transparent;color:#50fc50;
-	border:1px solid #50fc50;
-	transition: 800ms ease;-webkit-transition: 800ms ease;}
-.top-bar button.pushed{background-color:#50fc50;color:#000;}
-.top-bar button:hover{background-color:#50fc50;color:#000;}
+.top-bar button,#logindiv button {transition: 800ms ease;-webkit-transition: 100ms ease;font-size:34px;width:48px;height:50px;background-color:transparent;color:#AC2217;border:1px solid #AC2217;border:none !important;transition: 100ms ease;-webkit-transition: 100ms ease;}
+.top-bar .fa{color:white}
+.top-bar button.pushed{background-color:#AC2217;color:#000;}
+.top-bar button:hover{background-color:#AC2217;}
 .top-bar button.fl{margin-right:2px;}
-.top-bar button.fa-tagplus .fa-plus-circle {font-size: 15px;margin-top: 13px;margin-left: -18px;color:#000;position:absolute;transition: 800ms ease;-webkit-transition: 800ms ease;}
-.top-bar button.fa-docplus .fa-plus-circle {font-size: 15px;margin-top: 16px;margin-left: -17px;color:#000;position:absolute;transition: 800ms ease;-webkit-transition: 800ms ease;}
-.top-bar button:hover .fa-plus-circle {color:#50fc50;}
-.top-bar #pattern {font-size:34px;background-color:black;color:#50fc50;padding-top: 4px;padding-bottom: 4px;padding-left: 8px;border:none;border-bottom:none;border-top:1px solid #50fc50}
-#mainwrap .top-bar {border-bottom:3px solid #50fc50;}
+.top-bar button.fa-tagplus .fa-plus-circle {font-size: 15px;margin-top: 13px;margin-left: -18px;color:#000;position:absolute;transition: 100ms ease;-webkit-transition: 100ms ease;}
+.top-bar button.fa-docplus .fa-plus-circle {font-size: 15px;margin-top: 16px;margin-left: -17px;color:#000;position:absolute;transition: 100ms ease;-webkit-transition: 100ms ease;}
+.top-bar button:hover .fa-plus-circle {}
+.top-bar #pattern {height:47px;font-size:32px;color:#AC2217;padding-top: 8px;padding-bottom: 6px;padding-left: 8px;border:none;border-bottom:none;background-color:#e8e8e8}
+#mainwrap .top-bar {border-bottom:0px solid #AC2217;}
 #mainwrap .top-bar button{border-bottom:none;}
 /* ------------------------------------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------------------------ tag tree --- */
-#tag-tree{border-top:3px dashed #50fc50;border-right:3px solid #50fc50;width:100%;position:absolute;top:50px;bottom:0px;}
-#tag-tree>.treenode{border-bottom:1px dashed #50fc50;border-top:none;line-height: 20px;}
-.treenode{border-top:1px dashed #50fc50;border-bottom:none}
+#tag-tree{border-top:3px dashed #AC2217;width:100%;position:absolute;top:50px;bottom:0px;overflow: auto;background-color:#5a1510}
+#tag-tree>.treenode{border-bottom: 1px #AC2217;border-top: none;background-color: #fff;line-height: 20px;padding: 2px;border-radius: 5px;margin: 4px 10px 4px 10px;background-color:#ececec}
+.treenode{border-top:1px dashed #AC2217;border-bottom:none}
+.treenode button{background-color: transparent;   border: none;vertical-align: middle;}
 .treeleaf{margin-left:6px}
-.treenode .color{width:20px;height:20px;border:1px solid;}
-input[type=text]{width:250px}
+.treenode .color{width:20px;height:20px;border:0px solid;border-radius: 200px;}
+input[type=text]{width:250px;margin-bottom:11px;}
 textarea{width:50%}
 .testitem{border-bottom:dashed 1px black}
 /* ------------------------------------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------------------------- dialog --- */
-.dialog{font-size:18px;border:2px solid #50fc50;padding:10px;padding-left:0;background:#000;color:#50fc50;left:40%;top:20%;position: absolute;
-    z-index: 1000;}
+.dialog{font-size:18px;border:2px solid #AC2217;border-radius: 6px 6px 0 0;padding:10px;padding:0;background:#eeeeee;color:#AC2217;left:40%;top:20%;position: absolute;z-index: 1000;box-shadow: 10px 10px 14px -5px rgba(77,77,77,0.47);}
 .dialog *{vertical-align:middle}
-.dialog button,.dialog select,.dialog input{background-color:transparent;color:#50fc50;font-size:24px;border:none;margin-left:10px}
+.dialog select,.dialog input{background-color:#ffffff;color:#AC2217;font-size:24px;border:none;margin-left:10px}
+.dialog button{background-color:transparent;color:#AC2217;font-size:24px;border:none;margin-left:10px}
 .dialog .input[type="color"]{height:30px}
-.dialog .input[type="text"]{border:1px dashed #50fc50}
+.dialog .input[type="text"]{border:1px dashed #AC2217}
+#uploadialog{width: 98%;height: 97%;margin-left: 1%;top: 1%;background-color: rgba(0,0,0,0.8);}
+#filedialog{width: 98%;height: 97%;margin-left: 1%;top: 1%;background-color: rgba(255,255,255,0.93);border: 5px solid black;}
+#imgeditdialog{width: 40%;height: 40%;margin-left: 30%;top: 20%;background-color: rgba(0, 0, 0, 0.8);padding: 12px;}
+#filedialog button{max-width: 100px;max-height: 100px;border: 2px solid black;margin: 9px;}
+#filedialog img{max-width:100%;max-height:100%;}
+button.closeupload{float: right;font-size: 52px;color: #FFF;border: none;background-color: transparent;}
+#uploadlog{color:#FFF}
+.dialoghandler{width:100%;background-color:#ac2217;height: 40px;line-height: 38px;text-indent: 12px;font-weight: bolder;color:#FFF;}
 /* ------------------------------------------------------------------------------------------------------- */
 /* ------------------------------------------------------------------------------------------- results --- */
-#resultsview {position:absolute;top:50px;right:0;left:0;bottom:0;overflow:auto;padding-top:25px;}
+#resultsview {position:absolute;top:50px;right:0;left:0;bottom:0;overflow:auto;padding-top:25px;border-top: 3px solid #ac2217;}
 
 #resultswrap {height:100%;bottom:0;overflow:auto}
 #resultstable {border-collapse: collapse;}
-/*#resultstable tbody {border-bottom:1px solid #50fc50}*/
-#resultstable td {border:1px solid #50fc50;min-width:60px;padding:5px }
-#resultstable tr.odd {background-color:#151815}
+/*#resultstable tbody {border-bottom:1px solid #AC2217}*/
+#resultstable td {border: 1px solid rgba(90, 21, 16, 0.06);min-width:60px;padding:5px }
+#resultstable tr.odd {background-color:#dabfbe}
 #resultstable th {text-align:left}
-#resultstable th b {position:fixed;background-color: #50fc50;color:#000;padding:5px;width: 100%;}
+#resultstable th b {position:fixed;background-color: #AC2217;color:#FFF;padding:5px;width: 100%;}
+/* ------------------------------------------------------------------------------------------------------- */
+/* ------------------------------------------------------------------------------------------- range --- */
+input[type=range] {-webkit-appearance: none;margin-left: 20%;width: 60%;}
+input[type=range]:focus {outline: none;}
+input[type=range]::-webkit-slider-runnable-track {width: 100%;height: 11px;cursor: pointer;animate: 0.2s;box-shadow: 1px 1px 1px #000000;background: #EBEBEB;border-radius: 1px;border: 0px solid #010101;}
+input[type=range]::-webkit-slider-thumb {box-shadow: 1px 1px 1px #000031;border: 1px solid #00001E;height: 26px;width: 26px;border-radius: 15px;background: #AC2217;cursor: pointer;-webkit-appearance: none;margin-top: -8px;}
+input[type=range]:focus::-webkit-slider-runnable-track {background: #EBEBEB;}
+input[type=range]::-moz-range-track {width: 100%;height: 11px;cursor: pointer;animate: 0.2s;box-shadow: 1px 1px 1px #000000;background: #EBEBEB;border-radius: 1px;border: 0px solid #010101;}
+input[type=range]::-moz-range-thumb {box-shadow: 1px 1px 1px #000031;border: 1px solid #00001E;height: 26px;width: 26px;border-radius: 15px;background: #AC2217;cursor: pointer;}
+input[type=range]::-ms-track {width: 100%;height: 11px;cursor: pointer;animate: 0.2s;background: transparent;border-color: transparent;color: transparent;}
+input[type=range]::-ms-fill-lower {background: #EBEBEB;border: 0px solid #010101;border-radius: 2px;box-shadow: 1px 1px 1px #000000;}
+input[type=range]::-ms-fill-upper {background: #EBEBEB;border: 0px solid #010101;border-radius: 2px;box-shadow: 1px 1px 1px #000000;}
+input[type=range]::-ms-thumb {box-shadow: 1px 1px 1px #000031;border: 1px solid #00001E;height: 26px;width: 26px;border-radius: 15px;background: #AC2217;cursor: pointer;}
+input[type=range]:focus::-ms-fill-lower {background: #EBEBEB;}
+input[type=range]:focus::-ms-fill-upper {background: #EBEBEB;}
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently
+                                  not supported by any browser */
+}
