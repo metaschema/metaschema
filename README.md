@@ -4,7 +4,9 @@ This app is based on our library **Oxyzen** (https://github.com/metaschema/oxyze
 - supports document linking in different collections
 - textual searches as in LIKE "%foo%", [until new native query tools are developed]
 - DEMO : https://cdn.rawgit.com/metaschema/oxyzen/master/index.html
+
 # What were the problems?
+
 I was very intrigued by this year's firebase roll in the [Google io 2016].
 I have been looking for a serverless platform with database and integrated security...
 
