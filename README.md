@@ -6,7 +6,7 @@ This app is just gui, all functionalities are 100% based on our library **Oxyzen
 - textual searches as in LIKE "%foo%", [until new native query tools are developed]
 - DEMO : https://cdn.rawgit.com/metaschema/oxyzen/master/index.html
 
-# What were the problems?
+# Why?
 
 I have been searching and successfully tried MANY nosql db accessible via rest api (one excellent example https://www.clusterpoint.com).
 The difficulties I have found using rest nosql dbs basically end up being two :
