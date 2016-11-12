@@ -11,36 +11,29 @@
 		textarea{width:50%}
   </style>
 	<!--firebase-oxygen library-->
-	<script src="./firebase-oxygen.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
-  <script>
-		window.gid=function(id){return document.getElementById(id);}
-		window.app={loggedin:false,
+	<script src="./oxyzen.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+	<script>window.app={loggedin:false,
 /*--------------------------------CODE FOR HANDLING OTHERS FIREBASE PROJECTS - remove if you insert your own*/
-			load_demo:function(){
-				var e=document.createElement('script');
-				e.setAttribute('src','https://www.gstatic.com/firebasejs/live/3.0/firebase.js');
-				document.getElementsByTagName('head')[0].appendChild(e);
-				setTimeout('app._load_demo()',1000);
-			},_load_demo:function(){
-				var config = {
-					apiKey: "AIzaSyB7bg1dvnBcZw65eVkGVrBHXl3wNi_qhDo",
-					authDomain: "project-8282006050481252420.firebaseapp.com",
-					databaseURL: "https://project-8282006050481252420.firebaseio.com",
-					storageBucket: "project-8282006050481252420.appspot.com",
-				};firebase.initializeApp(config);setTimeout('app.init()',500);},
-   		load_user:function(){
-				var e=document.createElement('script');
-				e.setAttribute('src','https://www.gstatic.com/firebasejs/live/3.0/firebase.js');
-				document.getElementsByTagName('head')[0].appendChild(e);
-				setTimeout('app._load_user()',1000);
-   		},_load_user:function(){
-   			var scr=gid('codesnippet').value;
-				scr=scr.replace('<script src="https:\/\/www.gstatic.com\/firebasejs\/live\/3.0\/firebase.js"><\/script>','');
-				scr=scr.replace('<script>','');scr=scr.replace('<\/script>','');
-				eval(scr);
-				setTimeout('app.init()',500);},
-			/*--------------------------------RELEVANT CODE FOR AN EXAMPLE APPLICATION*/
+load_demo:function(){var e=document.createElement('script');
+	e.setAttribute('src','https://www.gstatic.com/firebasejs/3.6.0/firebase.js');
+	document.getElementsByTagName('head')[0].appendChild(e);
+	setTimeout('app._load_demo()',1000);},
+_load_demo:function(){var config={apiKey: "AIzaSyDDvfe-yBLOYN4b42FcmZqAbyON_XgQ1xc",
+	authDomain: "www-metaschema-io.firebaseapp.com",
+	databaseURL: "https://www-metaschema-io.firebaseio.com",
+	storageBucket: "www-metaschema-io.appspot.com",
+	messagingSenderId: "322486208484"};
+	firebase.initializeApp(config);setTimeout('app.init()',500);},
+load_user:function(){var e=document.createElement('script');
+	e.setAttribute('src','https://www.gstatic.com/firebasejs/3.6.0/firebase.js');
+	document.getElementsByTagName('head')[0].appendChild(e);
+	setTimeout('app._load_user()',1000);},
+_load_user:function(){var scr=gid('codesnippet').value;
+	scr=scr.replace(/\<script src=".*">\<\/script>/,'');
+	scr=scr.replace('<script>','');scr=scr.replace('<\/script>','');
+	eval(scr);setTimeout('app.init()',500);},
+/*--------------------------------RELEVANT CODE FOR AN EXAMPLE APPLICATION*/
 			 init:function(){
 					f$.initAuth(function(authorized){console.log(authorized)});
 				 firebase.auth().onAuthStateChanged(function(user){
