@@ -1,19 +1,41 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Gist
+ @hidekiyamamoto
+ Unwatch 1
+  Unstar 3
+ Fork 0 metaschema/oxyzen
+ Code  Issues 0  Pull requests 0  Projects 0  Wiki  Pulse  Graphs  Settings
+Branch: master Find file Copy pathoxyzen/index.html
+78b6072  42 minutes from now
+@hidekiyamamoto hidekiyamamoto Update index.html
+1 contributor
+RawBlameHistory     
+147 lines (143 sloc)  12.2 KB
 <!doctype html>
 <html><head>
-  	<meta charset="utf-8">
-  	<meta name="description" content="firebase-moredb : search with text and link documents across collections in firebase">
+	<meta charset="utf-8">
+	<meta name="description" content="firebase-moredb : search with text and link documents across collections in firebase">
   	<meta name="viewport" content="width=device-width, initial-scale=1.0">
   	<title>firebase oxygen - demo</title>
-	<style>
-		.step{}
-		.testitem{border-bottom:dashed 1px black}
-		input[type=text]{width:250px}
-		textarea{width:50%}
-  </style>
+  	<link href="style.css" rel="stylesheet" />
+  	<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+  	<link href='https://fonts.googleapis.com/css?family=Oxygen+Mono' rel='stylesheet' type='text/css'>
+  	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+<style> .step{}
+	.testitem{border-bottom:dashed 1px black}
+	input[type=text]{width:200px}
+	textarea{width:50%}
+	.hidden{display:none;}
+</style>
 	<!--firebase-oxygen library-->
 	<script src="./oxyzen.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
-	<script>window.app={loggedin:false,
+  	<script>window.gid=function(id){return document.getElementById(id);}
+window.app={loggedin:false,
 /*--------------------------------CODE FOR HANDLING OTHERS FIREBASE PROJECTS - remove if you insert your own*/
 load_demo:function(){var e=document.createElement('script');
 	e.setAttribute('src','https://www.gstatic.com/firebasejs/3.6.0/firebase.js');
@@ -33,117 +55,111 @@ _load_user:function(){var scr=gid('codesnippet').value;
 	scr=scr.replace(/\<script src=".*">\<\/script>/,'');
 	scr=scr.replace('<script>','');scr=scr.replace('<\/script>','');
 	eval(scr);setTimeout('app.init()',500);},
-/*--------------------------------RELEVANT CODE FOR AN EXAMPLE APPLICATION*/
-			 init:function(){
-					f$.initAuth(function(authorized){console.log(authorized)});
-				 firebase.auth().onAuthStateChanged(function(user){
-					gid('prelogindiv').style.display='none';
-						if(user){gid('oxygenconsole').style.display='';gid('logindiv').style.display='none';console.log('log in');
-						setTimeout('app.scandb()',500);}
-						else{gid('oxygenconsole').style.display='none';gid('logindiv').style.display='';console.log('log off');}
-					});
-				},
-				login:function(provider){f$.login(provider);},
-				logout:function(provider){f$.logout();},
-			 scandb:function(){
-					gid('scanned1').innerHTML='';
-					gid('scanned2').innerHTML='';
-					firebase.database().ref('/').on('child_added',app._scandb);
-				},
-				_scandb:function(d){var k=d.key;if(!(k.indexOf(f$.oxyprefix)==0)){
-				 var s='<input type="checkbox" value="" />'+d.key;
-					gid('scanned1').innerHTML+=s;
-				 s='<input type="radio" value="d.key" />'+d.key;
-					gid('scanned2').innerHTML+=s;
-				}},
-			 search:function(exp,_collection){gid('results').innerHTML='';f$.db.find(exp,app._search,_collection);},
-			 _search:function(d){var s='<input onclick="app.open(\''+d.$key+'\');" type="button" value="'+d.title+' ['+d.$key+']" />';gid('results').innerHTML+=s;},
-			 open:function($key){f$.db.getone($key,app._open);},
-			 _open:function(d){app.nonewUI(d.$key);gid('details').value=JSON.stringify(d);},
-								seelog_clicked:function(){
-				 gid('subcollections').innerHTML='';					
-					var k=gid('dockey').value;},
-				seever_clicked:function(){
-					gid('subcollections').innerHTML='';
-					var k=gid('dockey').value;},			
-				save_clicked:function(){
-					var e=gid('dockey');
-					var J=JSON.parse(gid('details').value);
-					if(e.value=='new doc'){app.nonewUI(f$.db.add(gid('collection').value,J));}
-					else{if(!J.$key){alert('$key property must be present in the document');}else{f$.db.set(J)}}},
-					
-				prenewUI:function(){
-					gid('newdoc-butt').setAttribute('disabled','disabled');				
-					gid('seelog').setAttribute('disabled','disabled');gid('seever').setAttribute('disabled','disabled');
-					gid('collectiondiv').style.display='';
-					gid('details').value='';
-					gid('dockey').value='new doc';					
-				},
-				nonewUI:function(key){
-					gid('newdoc-butt').removeAttribute('disabled');					
-					gid('seelog').removeAttribute('disabled');gid('seever').removeAttribute('disabled');
-					gid('collectiondiv').style.display='none';
-					gid('dockey').value=key;
-				},				
-			};
-  </script>
-</head><body>
-<h1>firebase oxygen - demo</h1>
-<div id="start" class="step">
-		This demo is completely static - will work with http://localhost <br/>
-  <input type="button" onclick="app.load_demo();gid('demomode').style.display='';this.parentNode.style.display='none';" value="connect to our firebase demo"/>
-  <input type="button" onclick="gid('step1').style.display='';this.parentNode.style.display='none';" value="connect to your firebase project" />
+/* --------------------------------------------------------------------------------------------------------- */
+/* ---------------------------------------------------------------- RELEVANT CODE FOR AN EXAMPLE APPLICATION */
+openUtility(e){var it=document.getElementsByClassName('hiditem');
+	for(var ii=0;ii<it.length;ii++){it[ii].classList.add('hidden')}                
+	e.nextElementSibling.classList.toggle('hidden')},
+init:function(){f$.initAuth(function(authorized){console.log(authorized)});
+ 	firebase.auth().onAuthStateChanged(function(user){
+		gid('prelogindiv').style.display='none';
+		if(user){gid('oxygenconsole').style.display='';gid('logindiv').style.display='none';
+			 console.log('log in');setTimeout('app.scandb()',500);}
+		else{gid('oxygenconsole').style.display='none';gid('logindiv').style.display='';console.log('log off');}});},
+login:function(provider){f$.login(provider);},
+logout:function(provider){f$.logout();},
+	    
+scandb:function(){gid('scanned1').innerHTML='';gid('scanned2').innerHTML='';gid('scanned3').innerHTML='';f$.db.scan(app._scandb);},
+_scandb:function(cls){for(var x=0;x<cls.length;x++){var d={key:cls[x]};var k=d.key;if(!(k.indexOf(f$.oxyprefix)==0)){
+	var s='<input type="checkbox" value="" />'+d.key;gid('scanned1').innerHTML+=s;
+	s='<input type="radio" name="collections" value="'+d.key+'" />'+d.key;gid('scanned2').innerHTML+=s;
+	s='<input type="radio" name="newdoccoll" value="'+d.key+'" onclick="if(this.checked){gid(\'collection\').value=this.value}" />'+d.key;gid('scanned3').innerHTML+=s;
+	}}},
+	    
+getcollection:function(e){gid('results').innerHTML='';var cn=e.previousElementSibling.childNodes;for(var icn=0;icn<cn.length;icn++){
+        if(cn[icn].checked==true){var col=cn[icn].value;f$.db.getall(col,app._search);}
+	else{alert('No collection selected')}}},
+search:function(exp,_collection){gid('results').innerHTML='';f$.db.find(exp,app._search,_collection);},
+_search:function(d){if(d.$key.indexOf("root") >= 0){}else{var s='<input onclick="app.open(\''+d.$key+'\');" type="button" value="['+d.$key+']" />';gid('results').innerHTML+=s;}},
+open:function($key){f$.db.getone($key,app._open);app.openUtility(gid('openerdiv'))},
+ _open:function(d){app.nonewUI(d.$key);gid('details').value=JSON.stringify(d);},
+		
+save_clicked:function(){var e=gid('dockey');
+	var J=JSON.parse(gid('details').value);
+	if(e.value=='new doc'){app.nonewUI(f$.db.set(gid('collection').value,J));}
+	else{if(!J.$key){alert('$key property must be present in the document');}else{f$.db.set(J)}}},
+newdoc_clicked:function(){var e=gid('dockey');
+	var J=JSON.parse(gid('details').value);
+	if(e.value=='new doc'){app.nonewUI(f$.db.add(gid('collection').value,J));}
+	else{if(!J.$key){alert('$key property must be present in the document');}else{f$.db.set(J)}}},	
+seelog_clicked:function(){gid('subcollections').innerHTML='';var k=gid('dockey').value;},
+seever_clicked:function(){gid('subcollections').innerHTML='';var k=gid('dockey').value;},				
+prenewUI:function(){},
+nonewUI:function(key){		},				
+};
+</script></head><body>
+<div id="start" class="step"><br/>
+    <img src="img/oxygen_logo.png" style="height: 4em;position: relative; top: -14px;left:12px;"/><h1 style="display:inline;vertical-align:top;">xyzen demo</h1><br /><br />
+<div class="_heading _3">Simple tests for <a href="#">oxyzen library</a>. Connect to our demo <a href="https://firebase.google.com/" target="_blank" style="color:#ffa611" target="_blank">Firebase</a> database or try oxyzen on your Firebase database.</div>
+<br/><div class="_heading _4">(This demo is completely static - will work with http://localhost)</div><br/>
+<div class="_heading _4">(If it's, the first time you login, you will see this page twice and will have to paste your code snippe twice, this is normal and expected result of the login redirect.)</div><br/>
+<div class="_heading _4">(To connect your firebase to this demo, you may have to add rawgit.com in the authorized oauth domains, in your firebase console.)</div><br/>
+<div class="_heading _4">(To connect your firebase to this demo, if you already limited the browser api key in the api console, you may have to add rawgit.com as allowed domain, in the api console.)</div><br/>
+  <input type="button" onclick="app.load_demo();gid('demomode').style.display='';this.parentNode.style.display='none';" value="Use our Firebase "/>
+  <input type="button" onclick="gid('step1').style.display='';this.parentNode.style.display='none';" value="Connect your Firebase" />
 </div>
-<div id="step1" class="step" style="display:none">
-  <h1>firebase oxygen - load your project - step1</h1>
+<div id="step1" class="step" style="display:none"><h1>firebase oxyzen - load your project - step1</h1>
   <form onsubmit="var v=app.load_user();gid('demomode').style.display='';this.parentNode.style.display='none';return false;"><textarea id="codesnippet" placeholder="paste code snippet from your firebase project..."> </textarea><input type="submit" value="load firebase"></form>
-  <a href="#" onclick="return false;">how do I get a code snippet?</a>
-</div>
+  <a href="#" onclick="return false;">how do I get a code snippet?</a></div>
 <div id="demomode" class="step" style="display:none">
-	<div id="prelogindiv">Checking login status...</div>
-	<div id="logindiv" style="display:none">
-	<div class="info">Choose provider and auth mode</div>
-		Login with :
-		<input type="button" value="google" onclick="app.login(this.value)">Google</input><input type="button" value="facebook" onclick="app.login(this.value)">Facebook</input>
-		<input type="button" value="twitter" onclick="app.login(this.value)">Twitter</input><input type="button" value="github" onclick="app.login(this.value)">Github</input>
-	</div>
-	<div id="oxygenconsole" style="display:none">
-		<input type="button" onclick="app.logout()" value="LOGOFF">
-	 <div class="testitem"><h3>reindex db</h3>
-		<div id="scanned1"> </div>
-		<!--<input type="button" id="rescan" value="destroy index" onclick="app.scandb()" />
-		<input type="button" id="rescan" value="rebuild index" onclick="app.scandb()" />			-->
-	</div>
-	<div class="testitem"><h3>query documents</h3>
-		<div class="info">This demo is days old - if you don't know what to do, search for aa then dd, then aa dd</div>
-		<div><span id="scanned2"> </span><input type="button" value="get collection" onclick="app.getcollection()" /></div>
-  <form onsubmit="var v=app.search(this.firstChild.value);return false;"><input type="text" placeholder="search..." /><input type="submit" value="search"/></form>
-		<div id="results"> </div>
-	</div>
-	<div class="testitem"><h3>edit documents</h3>
-		<div class="info">This demo is days old - if you don't know what to do, click new document and add {"desc":"aa bb cc"}, then click new doc again and add {"desc":"aa bb cc dd"}, then click new doc again and add {"desc":"dd"}</div>
-		<div id="collectiondiv"><input id="collection" type="text" value="testdata" placeholder="testdata" /> - collection name </div>
-		<input id="dockey" type="text" readonly="readonly" value="new doc" />
-		<input onclick="app.prenewUI()" id="newdoc-butt" disabled="disabled" type="button" value="make new JSON doc" /><br/>
-		<textarea id="details" placeholder="document json..."></textarea><br/>
-		<input type="button" value="save" onclick="app.save_clicked()"/>
-		<input type="button" id="seelog" value="see log" onclick="app.seelog_clicked()" disabled="disabled"/>
-		<input type="button" id="seever" value="see log" onclick="app.seever_clicked()" disabled="disabled"/>
-		<div id="subcollections"> </div>
-	</div>
-	<div class="testitem">
-		<h3>delete documents</h3>
-		key:<input id="deldockey" type="text" placeholder="testdata-XSQWSQ...." />
-		<input type="button" id="delete-butt" value="remove" onclick="f$.db.del(gid('deldockey').value)"/>
-	</div>
-	<div class="testitem">
-		<h3>link / unlink documents</h3>
-		key:<input id="doclink1" type="text" placeholder="testdata-XSQWSQ...." />
-		key:<input id="doclink2" type="text" placeholder="testdata-HKETDF...." /><br/>
-		<textarea id="relationj" placeholder="Some optional json data for the relation...">{"role":"default"}</textarea><br/>
-		<input type="button" id="link-butt" value="link" onclick="f$.db.link(gid('doclink1').value,gid('doclink2').value,JSON.parse(gid('relationj').value))"/>
-		<input type="button" id="unlink-butt" value="unlink" onclick="f$.db.unlink(gid('doclink1').value,gid('doclink2').value)"/>
-		</div>
-		</div>
+  <div id="prelogindiv">Checking login status...</div>
+  <div id="logindiv" style="display:none">
+  <div class="info">Choose provider and auth mode</div>Login with :
+    <input type="button" value="Google" onclick="app.login(this.value)"/><input type="button" value="Facebook" onclick="app.login(this.value)"/>
+    <input type="button" value="Twitter" onclick="app.login(this.value)"/><input type="button" value="Github" onclick="app.login(this.value)"/>
 </div>
-</body>
+<div id="oxygenconsole" style="display:none">
+  <input type="button" onclick="app.logout()" value="LOGOFF" style="float:right;">
+  <img src="img/oxygen_logo.png" style="height: 4em;position: relative; top: -14px;left:12px;"/><h1 style="display:inline;vertical-align:top;">xyzen demo</h1><br /><br />
+  <div class="_heading _4">This page is a test form for the oxyzen js library for firebase, <a target="_blank" href="https://github.com/metaschema/oxyzen">code and references are here</a>.<br/>Hover on the run buttons for more infos.</div><br />
+<!-- BEGIN TEST AREA --------------------------------------------------------------------------------------------- BEGIN TEST AREA -->
+<div class="testitem"><div class="_heading _2" onclick="app.openUtility(this)">Reindex db</div><div class="hidden hiditem">
+	<br /><code>f$.db.clearmetaschema();</code><input type="button" value="run" onclick="f$.db.clearmetaschema();" title="Explicitely deletes index data used by the oxyzen library" /><br />
+	<code>f$.db.scan(endfn)</code> <input type="button" id="rescan" value="run" onclick="app.scandb()" title="Scan the db root for the names of the collections."/><br/>
+	<code>f$.db.reindexcollections([<span id="scanned1">_colls</span>],_stepfn,endfn)</code><input type="button" title="this will try to push to index in the db after indexing" value="run1" onclick="f$.db.reindexcollections(false,false,function(O){console.log(O);firebase.database().ref(f$.oxyprefix).set(O)})" />
+	<input type="button" title="this will try pop a larger index up, for save and later upload using the firebase import from the console" value="run2" onclick="f$.db.reindexcollections(false,false,function(O){console.log(O);alert('todo');})" /><br/>
+<br /></div></div>
+<div class="testitem"><div class="_heading _2" onclick="app.openUtility(this)">Query documents</div><div class="hidden hiditem">
+	<br /><code>f$.db.getall(<span id="scanned2"> </span>,onDocAddedFn,onDocRemovedFn);</code> <input type="button" value="run" onclick="app.getcollection(this)" /><br/>
+	<code>f$.db.find('<input id="sexp" type="text" placeholder="search..." onchange="app.search(gid('sexp').value);"/>',onDocAddedFn,onDocRemovedFn);</code> <input type="button" value="run" onclick="app.search(gid('sexp').value);" /><br/>
+	<div class="info">Try searching for apple then banana, then apple banana.<br/>
+	Searching for parent:key will search for documents having parent attribute equal to that provided.*<br/>
+	Searching for rel:key will search for documents having a rel attribute child equal to that provided.*<br/>
+	Searching for key:key is a shortcut for f$.db.getone(key).*<br/>
+	*key,(in the format "collname-doctitle")</div><div id="results"> </div>
+<br /></div></div>
+<div class="testitem"><div class="_heading _2" onclick="app.openUtility(this)" id="openerdiv">Add - Edit - Delete documents</div><div class="hidden hiditem">
+	<br /><textarea id="details" placeholder="document json..."></textarea><br/>
+	<code>f$.db.set(PARSEDJSON);</code> <input type="button" value="run" onclick="app.save_clicked()"/><br/>
+	<code>f$.db.add('<input id="collection" type="text" value="testdata" placeholder="testdata" />',PARSEDJSON);</code> <input type="button" value="run" onclick="app.save_clicked()"/><span id="scanned3"> </span><br/>
+	<code>f$.db.del('<input id="deldockey" type="text" placeholder="testdata-XSQWSQ...." />');</code> <input type="button" id="delete-butt" value="run" onclick="f$.db.del(gid('deldockey').value)"/><br/>
+<br /></div></div>
+<div class="testitem"><div class="_heading _2" onclick="app.openUtility(this)">Link / Unlink documents</div><div class="hidden hiditem">
+	<div class="_heading _4">Description of link and unlink functionality</div><br>
+	key:<input id="doclink1" type="text" placeholder="testdata-XSQWSQ...." />
+	key:<input id="doclink2" type="text" placeholder="testdata-HKETDF...." /><br/>
+	<textarea id="relationj" placeholder="Some optional json data for the relation...">{"role":"default"}</textarea><br/>
+	<input type="button" id="link-butt" value="Link" onclick="f$.db.link(gid('doclink1').value,gid('doclink2').value,JSON.parse(gid('relationj').value))"/>
+	<input type="button" id="unlink-butt" value="Unlink" onclick="f$.db.unlink(gid('doclink1').value,gid('doclink2').value)"/>
+<br /></div></div>
+<div class="testitem"><div class="_heading _2" onclick="app.openUtility(this)">Subcollection utils</div><div class="hidden hiditem">
+	<input type="button" id="seelog" value="see log" onclick="app.seelog_clicked()" disabled="disabled"/>
+	<input type="button" id="seever" value="see log" onclick="app.seever_clicked()" disabled="disabled"/>
+	<div id="subcollections"> </div>
+<br /></div></div>
+<div class="testitem"><div class="_heading _2" onclick="app.openUtility(this)">Storage utils</div><div class="hidden hiditem">
+	f$.fs.add...<br/>
+<br /></div></div>
+</div></div></body>
+Contact GitHub API Training Shop Blog About
+© 2016 GitHub, Inc. Terms Privacy Security Status Help
