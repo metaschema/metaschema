@@ -152,7 +152,7 @@ it3.Table.prototype={
 		var lnk=it3.$$(this.TABLE.id+'dl');if(lnk){lnk.parentNode.removeChild(lnk)};lnk=it3.makebloblink('<?xml version="1.0"?><ss:Workbook xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">\n<ss:Worksheet ss:Name="Sheet1">\n<ss:Table>\n\n'+
 		hh +'</ss:Table></ss:Worksheet></ss:Workbook>','risultati.xls','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',this.TABLE.id+'dl');
 		this.TABLE.parentNode.firstChild.appendChild(lnk);},
-	copy:function(){if(this.inoe){var ccc=this.cols;var rc=0;var c;var cc=[];for(c in ccc){cc[cc.length]=c}
+	copy:function(){var ccc=this.cols;var rc=0;var c;var cc=[];for(c in ccc){cc[cc.length]=c}
 		var hh='';for(c=0;c<cc.length;c++){if(!this.hidden[cc[c]]){hh+='"'+cc[c].replace(/"/g,'\"')+'",';rc++;}}hh=hh.substr(0,hh.length-1);hh+='\n';
 		var rrr=this.TABLE.tBodies[0].getElementsByClassName('selected');if(rrr.length<1){rrr=this.TABLE.tBodies[0].getElementsByTagName('tr');}
 		var r=0;var rr=rrr[r];var tc=[];var tmps;while(rr){tc=rr.getElementsByTagName('td');if(tc.length>0){
