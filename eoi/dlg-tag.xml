@@ -1,0 +1,24 @@
+<dialog class="dialog objdialog" JS-id="'DLG'+this.$key">
+	<!--TT{eoi/meta-dlg-handler-lang.xml}TT-->
+	<div class="dialog-content">
+	<div JS-class="'tab-content tab-content'+this.$key+' _it'" JS-id="'tab-content'+this.$key+'_it'">
+		<label>Titolo</label><input type="text" name="doctitle" it3="data" placeholder="name" JS-value="this.doctitle" style="width:60%;vertical-align: baseline;"/><br>
+		<label>Url</label><input 
+	 type="text" name="url" it3="data" JS-value="this.url||''"  title="url della tag" placeholder="url..." style="width:90%;vertical-align: baseline;"/>
+	
+	<div class="multieditables" style="margin-left:10px;margin-right:15px;display:block;">
+	<label>Descrizione</label><br/><div JS-id="this.$key+'-desc1'" name="description_it" it3="data" class="editable" style="background-color:#fff;display:inline-block;min-width:450px;width:100%;height:20vh;overflow:auto;resize:both"><!--JS{this.description_it||''}JS--></div><br/>
+	<label>Tabelle</label><br/><div JS-id="this.$key+'-tables1'" name="tables_it" it3="data" class="editable" style="background-color:#fff;display:inline-block;min-width:450px;width:100%;height:20vh;overflow:auto;resize:both"><!--JS{this.tables_it||''}JS--></div><br/></div></div>
+	<div  JS-class="'tab-content _en tab-content'+this.$key+''"  JS-id="'tab-content'+this.$key+'_en'" style="display:none">	
+	<label>Title</label><input type="text" name="doctitle_en" it3="data" placeholder="name" JS-value="this.doctitle_en||''" style="width:60%;vertical-align: baseline;"/><br>
+		<label>Url</label><input 
+	 type="text" name="url_en" it3="data" JS-value="this.url_en||''"  title="url in inglese" placeholder="url..." style="width:90%;vertical-align: baseline;"/><div class="multieditables" style="margin-left:10px;margin-right:15px;display:block;">
+	<label>Description</label><br/><div JS-id="this.$key+'-desc2'" name="description_en" it3="data" class="editable" style="background-color:#fff;display:inline-block;min-width:450px;width:100%;height:20vh;overflow:auto;resize:both"><!--JS{this.description_en||''}JS--></div><br/>
+	<label>Tables</label><br/><div JS-id="this.$key+'-tables2'" name="tables_en" it3="data" class="editable" style="background-color:#fff;display:inline-block;min-width:450px;width:100%;height:20vh;overflow:auto;resize:both"><!--JS{this.tables_en||''}JS--></div></div></div>
+	<input type="color" it3="data" name="c1" JS-value="this.c1" /><input type="color" it3="data" name="c2" JS-value="this.c2" /><br><input type="text" name="imgurl" JS-id="'imgurl-'+this.$key" it3="data" JS-value="this.imgurl||''"  JS-style="'background-image:url('+(this.imgurl||'noimg.png')+');background-color: transparent;'" JS-onclick="'app.openimgpicker(this,\''+this.$key+'\')'"/><br><button JS-onclick="'app.openimgedit(this.previousSibling.previousSibling,\''+this.$key+'\')'"><li class="fa fa-edit"></li></button><button
+	 JS-onclick="'app.removeimg(\''+this.$key+'\')'"><li class="fa fa-close"></li></button><br>
+	 <label>Livello</label><input type="number" name="level" it3="data" JS-value="this.level||4" value="1" min="0" max="4" step="1" title="1=Livello di ingresso, 2=listato(brands):, 3=sottocategorie, 4=prodotti" style="vertical-align: text-bottom;"/><br>
+	<label>Ordinamento</label><input type="number" JS-value="this.sortint||'100'"  title="sort order" placeholder="100" min="0" max="200" step="1" style="vertical-align: text-bottom;"/><input 
+	name="bkgsize" it3="data" type="hidden" JS-id="'DLG'+this.$key+'-bkgsize'" JS-value="this.bkgsize"/><textarea
+	name="rels" it3="data:json" style="display:none" ><!--JS{JSON.stringify(this.rels)}JS--></textarea></div>
+</dialog>

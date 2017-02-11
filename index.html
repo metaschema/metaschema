@@ -1,0 +1,80 @@
+<!doctype html>
+<html><head><title>Loading...</title><meta charset="utf-8">
+	<meta name="description" content="firebase-moredb : search with text and link documents across collections in firebase">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">	
+	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Questrial' rel='stylesheet' type='text/css'>
+	<!--tinymce code snippet-->
+	<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.6/ace.js"></script>
+	<!--firebase code snippet-->
+	<script src="https://www.gstatic.com/firebasejs/3.5.1/firebase.js"></script>
+<script>
+	// Initialize Metaschema (+firebase via config.js)
+	window.metabootstrapper=function(){
+		var j=document.createElement('script');j.setAttribute('src','config.js');j.setAttribute('type','text/javascript');document.head.appendChild(j);
+	};
+</script>
+<style>
+.mce-fontawesome-panel .mce-container-body>.mce-container,.mce-fontawesome-panel .mce-container-body>.mce-container>.mce-container-body{height:auto!important;width:670px}.mce-fontawesome-panel .mce-container-body>.mce-container{position:static;margin-top:10px;margin-left:10px}.mce-fontawesome-panel-title{font-weight:700;margin-top:5px;margin-bottom:4px;cursor:pointer;padding:6px;border-bottom:1px solid transparent}.mce-fontawesome-panel-title:focus,.mce-fontawesome-panel-title:hover{background-color:rgba(0,0,0,.1)}.mce-fontawesome-panel-search .mce-fontawesome-panel-title:focus,.mce-fontawesome-panel-search .mce-fontawesome-panel-title:hover{background-color:transparent}.mce-fontawesome-panel-accordion-open .mce-fontawesome-panel-title{border-bottom-color:1px solid #eee}.mce-fontawesome-panel-accordion:first-child .mce-fontawesome-panel-title{margin-top:0}.mce-fontawesome-panel-content{transition:.5s height;overflow:hidden}.mce-fontawesome-panel .mce-icon-cell{position:relative;float:left;width:29px;height:29px}.mce-fontawesome-panel .fa{display:block;line-height:29px;font-family:FontAwesome;cursor:pointer;text-align:center;border-radius:3px}.mce-fontawesome-panel .fa:focus,.mce-fontawesome-panel .fa:hover{background-color:rgba(0,0,0,.1)}.mce-fontawesome-search-container{position:absolute;margin:10px 0 0 10px}.mce-fontawesome-search-container::before{font-family:FontAwesome;content:"\f002";position:absolute;top:0;left:0;line-height:30px;color:rgba(0,0,0,.4)}.mce-fontawesome-search-container-clear{position:absolute;display:none;top:0;right:0}.mce-fontawesome-panel-search .mce-fontawesome-search-container-clear{display:block}.mce-fontawesome-search-container-clear span{line-height:30px;color:rgba(0,0,0,.4)}.mce-fontawesome-search-container-clear:focus span,.mce-fontawesome-search-container-clear:hover span{color:rgba(0,0,0,.8)}.mce-fontawesome-search-container input{display:block;width:200px;height:30px;line-height:30px;margin:0;padding:0 25px;border:0 solid;border-bottom:1px solid rgba(0,0,0,.2);-moz-appearance:textfield;-webkit-appearance:textfield;appearance:textfield}.mce-fontawesome-search-container input::-webkit-input-placeholder{color:rgba(0,0,0,.4)}.mce-fontawesome-search-container input::-moz-placeholder{color:rgba(0,0,0,.4)}.mce-fontawesome-search-container input:-ms-input-placeholder{color:rgba(0,0,0,.4)}.mce-fontawesome-search-noresults{text-align:center;color:rgba(0,0,0,.4);position:absolute;left:0;right:0;top:calc(50% - 8px)}.mce-i-flag{display:inline-block;font-family:FontAwesome;font-style:normal;font-weight:400;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;margin-right:1px;position:relative;top:1px}.mce-i-flag:before{content:"\f024"}
+</style>
+	<!--fontawesome hotlink by github cdn-->
+	<link href="https://cdn.rawgit.com/FortAwesome/Font-Awesome/master/css/font-awesome.min.css" rel="stylesheet" />
+	<!--firebase oxygen library-->
+	<script src="https://rawgit.com/metaschema/oxyzen/master/oxyzen.js"></script>
+	<!--style for this app-->
+	<link href="shared/app.css" rel="stylesheet" />
+	<link href="shared/ionicons.min.css" rel="stylesheet"/>
+	<!--script for this app-->
+	<script type="text/javascript" src="shared/app.js"></script>
+	<script type="text/javascript" src="shared/it3.js"></script>
+	<script type="text/javascript" src="shared/tinymceplugin.min.js"></script>
+</head><body onload="metabootstrapper()">
+	<dialog id="uploadialog"><button class="closeupload" onclick="this.parentElement.close()"><i class="fa fa-close"></i></button>
+		<input value="upload file"  type="file" name="files[]" onchange="if(this.files){app.upload(this.files)};" multiple />
+		<div id="uploadlog"> </div>
+	</dialog><dialog id="filedialog"><button class="closeupload" onclick="this.parentElement.close()"><i class="fa fa-close" style="color:black"></i></button>
+			<input value="upload file" type="file" name="files[]" onchange="if(this.files){app.upload(this.files)};" multiple />
+	<input placeholder="cerca immagine.." type="text" onkeypress="app.filterimg(this.value,event);" />
+	<div id="fieldpicker"></div></dialog><dialog id="imgeditdialog"><button class="closeupload" onclick="app.saveimgedit(this.nextSibling);this.parentElement.close()"><i class="fa fa-close"></i></button><div id="fieldimg"></div><input type='range' min='0' max='200' value='100' id='bkgsize' onchange=""/><br><br><input id="bkgsizetxt" type="number" step="1" min="0" max="200" placeholder="..." onchange="document.getElementById('bkgsize').value=this.value;app.setbkgsize(document.getElementById('bkgsize').previousSibling,document.getElementById('bkgsize').value);document.getElementById('bkgsizetxt').value=document.getElementById('bkgsize').value" style="background-color:white;width:40%;margin-left:30%;text-align:center"/>
+    <script>document.getElementById('bkgsize').addEventListener('change',function() {
+    app.setbkgsize(document.getElementById('bkgsize').previousSibling,document.getElementById('bkgsize').value);document.getElementById('bkgsizetxt').value=document.getElementById('bkgsize').value
+});</script></dialog>
+	<div id="prelogindiv">Checking login status...</div>
+	<div id="logindiv" style="display:none">
+	<div class="info"><h3>login</h3></div>
+		<button onclick="app.login('google')"><i class="fa fa-google"></i></button><!--
+		<button onclick="app.login('facebook')"><i class="fa fa-facebook"></i></button>
+		<button onclick="app.login('twitter')"><i class="fa fa-twitter"></i></button>
+		<button onclick="app.login('github')"><i class="fa fa-github"></i></button>-->
+	</div><div id="hiddentarget"><dialog
+		class="dialog newobject" id="newdialog" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);">
+			<span style="display:none"><input type="text" id="othercollname" placeholder="collection"/><br/></span><select
+			id="collname" onchange="if(this.options[this.selectedIndex].value=='other'){this.previousSibling.style.display=''}else{this.previousSibling.style.display='none'}"><option value="products">products</option><option value="news">news</option><option value="tpl">template</option>
+			</select><button class="fr" onclick="this.parentElement.close()"><i class="fa fa-times"></i></button><button class="fr" onclick="app.newobject();this.parentElement.close();"><i class="fa fa-check"></i></button></dialog><dialog
+		class="dialog selobject" id="seldialog" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);">
+			<button onclick="this.parentElement.close()" tittle="ok / close"><i class="fa fa-check-square"></i></button></dialog><dialog
+		class="dialog newtag" id="newtagdialog" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);">
+			<input type="text" id="newtagname" placeholder="name"/>	<input type="color" id="newtagc1" /><input type="color" id="newtagc2" value="#6fa56f" />
+		<button onclick="app.newtag();this.parentElement.close()"><i class="fa fa-check"></i></button><button onclick="this.parentElement.close()"><i class="fa fa-times"></i></button>
+	</dialog></div>
+	<div id="metaschema-app" style="display:none"><div id="resizebar" class="noselect"></div><section id="leftwrap" class="noselect"><div class="top-bar" class="noselect"><button
+				onclick="it3.$$('newtagdialog').showModal()" class="fa-tagplus" title="Add a new tag..."><i class="icon ion-ios-pricetag-outline"> </i><i class="fa fa-plus-circle"> </i>
+				</button><button onclick="app.refreshtree()" title="Refresh the tag tree"><i class="icon ion-android-refresh"> </i></button>
+		</div><div id="tag-tree" ondrop="fix(event);app.tag_to_root('X%KEY','%TITLE')" ondragover="app.allowdrop(event);">loading...</div>
+		</section><section id="mainwrap"><div class="top-bar" class="noselect">
+			 <button onclick="app.toggletree(this)" title="Toggle the tag tree" class="pushed"><i class="icon ion-ios-arrow-back"></i>
+				</button><button onclick="app.gototab('homeview',this);" class="pushed tabs-b" title="Switch between home view and results view"><i class="icon ion-ios-home-outline"></i>
+				</button><button class="fa-docplus" onclick="it3.$$('newdialog').showModal()" title="Add document"><i class="icon ion-document"> </i><i class="fa fa-plus-circle"> </i>
+				</button><button class="tabs-b upload" onclick="it3.$$('uploadialog').showModal()" title="File upload"><i class="icon ion-upload"> </i>
+				</button><input	type="text" id="pattern" placeholder="search pattern..." onkeypress="if (event.which == 13 || event.keyCode == 13) {app.search(this.value);return false;}return true;"/><button
+					onclick="app.search(this.previousSibling.value);" title="perform search"><i class="icon ion-ios-search-strong"></i>
+				</button><a href="https://metaschema.io" target="_blank" id="customlink"><img
+					src="shared/noimg.png" style="height:40px;margin-top:7px;margin-left:200px" id="customlogo"><span style="line-height:50px;color:white"></span></a>
+				<div class="fr"><button onclick="app.logout();return false;" title="perform search"><i title="logout" class="icon ion-log-out"></i>
+				</button><button class="button" onclick="it3.toggleFullScreen();this.classList.toggle('pushed');this.childNodes[0].classList.toggle('ion-arrow-expand');this.childNodes[0].classList.toggle('ion-arrow-shrink');" title="fullscreen..."><i class="icon ion-arrow-expand"> </i>
+				</button><a href="https://wwweoitecne.firebaseio.com/.json?print=pretty&format=export&download=wwweoitecne-export.json" target="_blank"><button title="Backup" id="backup-icon"><i class="icon ion-ios-flower-outline"></i></button></a></div></div>
+				<div id="homeview"><i class="fr fa fa-user" id="username" style=""></i>Try search...</div><div id="resultsview"></div><div	id="detailsview"></div>
+		</section><section id="rightwrap" class="fly-out">
+		<!--roba a scomparsa laterale -->
+</section></div><script>app.listenResize();</script></body>

@@ -1,0 +1,23 @@
+<dialog class="dialog objdialog" JS-id="'DLG'+this.$key">
+	<!--TT{eoi/meta-dlg-handler-lang.xml}TT-->
+	<div class="dialog-content">
+	<div JS-class="'tab-content tab-content'+this.$key+' _it'" JS-id="'tab-content'+this.$key+'_it'">
+		<label>Titolo</label><input type="text" name="doctitle" it3="data" placeholder="name" JS-value="this.doctitle" style="width:60%;vertical-align: baseline;"/><br>
+		<label>Url</label><input 
+	 type="text" name="url" it3="data" JS-value="this.url||''"  title="url della tag" placeholder="url..." style="width:90%;vertical-align: baseline;"/>
+	<div class="multieditables" style="margin-left:10px;margin-right:15px;display:block;">
+	<label>Descrizione</label><br/><div JS-id="this.$key+'-desc1'" name="description_it" it3="data" class="editable" style="background-color:#fff;display:inline-block;min-width:450px;width:100%;height:20vh;overflow:auto;resize:both"><!--JS{this.description_it||''}JS--></div><br/>
+	</div></div>
+	<div JS-class="'tab-content _en tab-content'+this.$key+''"  JS-id="'tab-content'+this.$key+'_en'" style="display:none">	
+	<label>Title</label><input type="text" name="doctitle_en" it3="data" placeholder="name" JS-value="this.doctitle_en||''" style="width:60%;vertical-align: baseline;"/><br>
+		<label>Url</label><input 
+	 type="text" name="url_en" it3="data" JS-value="this.url_en||''"  title="url in inglese" placeholder="url..." style="width:90%;vertical-align: baseline;"/><div class="multieditables" style="margin-left:10px;margin-right:15px;display:block;">
+	<label>Description</label><br/><div JS-id="this.$key+'-desc2'" name="description_en" it3="data" class="editable" style="background-color:#fff;display:inline-block;min-width:450px;width:100%;height:20vh;overflow:auto;resize:both"><!--JS{this.description_en||''}JS--></div><br/>
+	</div></div>
+	<input type="date" it3="data" name="date" JS-value="this.date||''" style="height:18px;vertical-align:top;" />
+	<input JS-id="'imgurl-'+this.$key" type="text" it3="data" name="imgurl" JS-value="this.imgurl||''" JS-style="'background-image:url('+(this.imgurl||'noimg.png')+');background-color: transparent;'" JS-onclick="'app.openimgpicker(this,\''+this.$key+'\')'"/><br/><button 
+		JS-onclick="'app.openimgedit(this.previousSibling.previousSibling,\''+this.$key+'\')'"><li class="fa fa-edit"></li></button><button
+		JS-onclick="'app.removeimg(\''+this.$key+'\')'"><li class="fa fa-close"></li></button><br/>
+	<input name="bkgsize" it3="data" type="hidden" JS-id="'DLG'+this.$key+'-bkgsize'" JS-value="this.bkgsize"/><textarea
+	name="rels" it3="data:json" style="display:none" ><!--JS{JSON.stringify(this.rels||false)}JS--></textarea></div>
+</dialog>

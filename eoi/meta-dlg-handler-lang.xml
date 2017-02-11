@@ -1,0 +1,7 @@
+<div class="dialoghandler" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);"><!--JS{this.$key}JS--><button 
+style="    margin-left: 6vw;" JS-class="'langsel langsel'+this.$key+' langsel_it'" JS-id="'langsel_it_'+this.$key+''" JS-onclick="'app.langsel(\'it\',\''+this.$key+'\')'">ITA  </button><button 
+JS-class="'langsel langsel'+this.$key+' langsel_en not'" JS-id="'langsel_en_'+this.$key+''" JS-onclick="'app.langsel(\'en\',\''+this.$key+'\')'">ENG  </button><button
+	onclick="app.dialog_close(this.parentElement.parentElement.id)" style="float:right"><i class="fa fa-times"></i></button><button
+	JS-onclick="'app.dialog(\''+this.$key+'\',true)'" style="float:right"><i class="fa fa-code"></i></button><button
+	JS-onclick="'app._save(\''+this.$key+'\',\''+this.parent.replace('\'','\\\'')+'\',\''+(this.ptitle||'').replace('\'','\\\'')+'\');app.dialog_close(this.parentElement.parentElement.id)'" style="float:right"><i class="fa fa-floppy-o"></i></button><button
+	JS-onclick="'if(confirm(\'Eliminare davvero '+(this.doctitle||'').replace('\'','\\\'')+'?\')){f$.db.del(\''+this.$key+'\');app.dialog_close(this.parentElement.parentElement.id)}'" style="float:right"><i class="fa fa-trash-o"></i></button></div>
