@@ -14,7 +14,7 @@ window.METACONFIG={
 	resdir:'eoi',
 	preloads:['eoi/dlg-json.xml','eoi/dlg-file.xml','eoi/dlg-tag.xml','eoi/dlg-news.xml','eoi/dlg-products.xml','eoi/dlg-tpl.xml',
 		'eoi/meta-dlg-handler-lang.xml','eoi/meta-dlg-handler.xml','eoi/meta-tag-link.xml'],
-	searchcolls:['tag','products','news','file'],
+	searchcolls:['tag','players','news','file'],
 	TABLESPECIALCOLS:{
 	'parent':function(doc){return it3.preloaded[METACONFIG.resdir+'/meta-tag-link.xml'].replace(/%KEY/g,doc.parent).replace(/%TITLE/g,doc['ptitle']||'').replace(/%JSTITLE/g,(doc['ptitle']||'').replace('\'','\\\''))},
 	'collection':function(doc){return doc.$key.substr(0,doc.$key.indexOf('-'))},
