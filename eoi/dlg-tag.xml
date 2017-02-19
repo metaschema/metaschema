@@ -20,5 +20,5 @@
 	 <label>Livello</label><input type="number" name="level" it3="data" JS-value="this.level||4" value="1" min="0" max="4" step="1" title="1=Livello di ingresso, 2=listato(brands):, 3=sottocategorie, 4=prodotti" style="vertical-align: text-bottom;"/><br>
 	<label>Ordinamento</label><input type="number" JS-value="this.sortint||'100'"  title="sort order" placeholder="100" min="0" max="200" step="1" style="vertical-align: text-bottom;"/><input 
 	name="bkgsize" it3="data" type="hidden" JS-id="'DLG'+this.$key+'-bkgsize'" JS-value="this.bkgsize"/><textarea
-	name="rels" it3="data:json" style="display:none" ><!--JS{JSON.stringify(this.rels)}JS--></textarea></div>
+	name="rels" it3="data:json" style="display:none" ><!--JS{JSON.stringify(this.rels||false)}JS--></textarea></div>
 </dialog>
