@@ -5,7 +5,7 @@ This app is just gui, all functionalities are 100% based on our library **Oxyzen
 - supports document linking in different collections
 - textual searches as in LIKE "%foo%", [until new native query tools are developed]
 - DEMO : https://cdn.rawgit.com/metaschema/oxyzen/master/index.html
-- A WEBSITE USING OXYZEN : eoitecne.it (Try the search function) - yes pure static - firebaseonly - no elastic.
+- A WEBSITE USING OXYZEN : http://eoitecne.it (Try the search function) - yes pure static - firebaseonly - no elastic.
 
 # Why?
 
