@@ -1,3 +1,8 @@
+### Donate BTC
+18FnmcTUiix8xiehTdddRtwn5Drcs7y924  
+### Donate ETH
+0xd8a614dd5814fa4be9eb4155277da02bc6efa1e1  
+
 # Metaschema
 
 This app is just gui, all functionalities are 100% based on our library **Oxyzen** (https://github.com/metaschema/oxyzen).
