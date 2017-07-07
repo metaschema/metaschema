@@ -1,7 +1,4 @@
-### Donate BTC
-18FnmcTUiix8xiehTdddRtwn5Drcs7y924  
-### Donate ETH
-0xd8a614dd5814fa4be9eb4155277da02bc6efa1e1  
+
 
 # Metaschema
 
