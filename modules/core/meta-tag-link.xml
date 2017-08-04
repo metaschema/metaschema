@@ -1,0 +1,1 @@
+<a href="#" title="%KEY" onclick="it3.fix(event);return app.dialog('%KEY')" draggable="true" ondragstart="app.drag('%KEY','%JSTITLE')" ondragover="event.preventDefault()" ondrop="fix(event);app.drop('%KEY','%JSTITLE')">%TITLE</a>

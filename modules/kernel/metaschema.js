@@ -1,8 +1,4 @@
-<!doctype html>
-<html><head><title>Loading...</title><meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">	
-<script>
-	m$={/*it3*/
+m$={/*it3*/
 	load:function(url,_elm,_onfinish,_onstep,_onerror,_mem){var req=this._req();var $this=this;req.onreadystatechange=function(ev){
 		$this._doload(ev,_elm,_onfinish,_onstep,_onerror,_mem);};if(!_elm){req.open("GET",url,true);req.send('');}
 		else{var hasfile=false;if(!hasfile){req.open("POST",url,true);req.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
@@ -35,19 +31,5 @@
 	},
 	atoms:{
 		'script':function(req,resurl){var o=document.createElement('script');o.setAttribute('type','text/javascript');o.innerText=req.responseText;document.getElementsByTagName('head')[0].appendChild(o)}
-},	onload:function(){
-
-}};
-</script>
-	<!--fontawesome hotlink by github cdn-->
-	<link href="https://cdn.rawgit.com/FortAwesome/Font-Awesome/master/css/font-awesome.min.css" rel="stylesheet" />
-	<!--firebase oxygen library-->
-	<!--style for this app-->
-	<link href="shared/app.css" rel="stylesheet" />
-	<link href="shared/ionicons.min.css" rel="stylesheet"/>
-</head><body onload="metabootstrapper()"><div id="hiddentarget"></div><div id="prelogindiv">
-	Checking login status...</div><div id="logindiv" style="display:none">
-	<div class="info"><h3>login</h3></div>
-		<button onclick="app.login('google')"><i class="fa fa-google"></i></button><!--<button onclick="app.login('facebook')"><i class="fa fa-facebook"></i></button><button onclick="app.login('twitter')"><i class="fa fa-twitter"></i></button><button onclick="app.login('github')"><i class="fa fa-github"></i></button>-->
-	</div><div id="metaschema-app" style="display:none">	
-	</div><script>app.listenResize();</script></body>
+	},
+};

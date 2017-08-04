@@ -9,7 +9,7 @@ var config = {
 /*END OF FIREBASE SNIPPET    - !!! IMPORTANT !!! REMOVE THE HTML TAGS WHEN PASTING - LEAVE ONLY THE JAVASCRIPT CODE !!! */
 window.METACONFIG={
 	title:'admin - metaschema',
-	customlink:'https://eoitecne.it',
+	customlink:'https://metaschema.io',
 	backupuri:'https://wwweoitecne.firebaseio.com/.json?print=pretty&format=export&download=wwweoitecne-export.json',
 	resdir:'eoi',
 	preloads:['eoi/dlg-json.xml','eoi/dlg-file.xml','eoi/dlg-tag.xml','eoi/dlg-news.xml','eoi/dlg-products.xml','eoi/dlg-tpl.xml',

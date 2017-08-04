@@ -1,0 +1,8 @@
+<dialog class="dialog objdialog" JS-id="'DLG'+this.$key">
+	<div class="dialoghandler" draggable="true" ondragstart="app.dialog_drag_start(event)" ondrop="app.dialog_drop(event)" ondragover="app.dialog_drag_over(event);"><!--JS{this.$key}JS--><button
+	onclick="app.dialog_close(this.parentElement.parentElement.id)" style="float:right"><i class="fa fa-times"></i></button><button
+	JS-onclick="'app.dialog(\''+this.$key+'\',false)'" style="float:right"><i class="fa fa-refresh"></i></button><button
+	JS-onclick="'app.saveobj(\''+this.$key+'\',\''+this.parent+'\',\''+this.ptitle+'\');app.dialog_close(this.parentElement.parentElement.id)'" style="float:right"><i class="fa fa-floppy-o"></i></button><button
+	JS-onclick="'if(confirm(\'Eliminare davvero '+this.doctitle.replace('\'','\\\'')+'?\')){f$.db.del(\''+this.$key+'\');app.dialog_close(this.parentElement.parentElement.id)}'" style="float:right"><i class="fa fa-trash-o"></i></button></div>
+	<textarea JS-id="'DLG-JSON-'+this.$key" style="margin-top:5vh"><!--JS{JSON.stringify(this,' ',' ')}JS--></textarea>
+</dialog>
