@@ -2,7 +2,11 @@
 <html><head><title>Loading...</title><meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">	
 <script>
-	m$={/*it3*/
+	m$={/*it3.js functions*/
+	$$:function(e){if(typeof e=='string'){e=document.querySelectory(e);}return e;},
+		att:function(e,a,_v){/*{R:'value',DESC:'gets or sets an attribute in any document node',e:{T:'node',DESC:'The element from to read or set the attribute'},a:{T:'string',DESC:'the name of the attribute'},_v:{T:'value',DESC:'If provided, the element\'s attribute will be set to this value'}}*/
+		if(e){if(_v){e.setAttribute(a,_v);}else{return e.getAttribute(a)}}return false},getdoc:function(n){while(n.nodeType!=9){n=n.parentNode;}return n;},
+	ins:function(p,tag,aa,_html,b){var i;var elm=document.createElement(tag);if(_html){elm.innerHTML=_html;}p=this.$$(p);if(aa){for(i=0;i<aa.length;i+=2){this.att(elm,aa[i],aa[i+1]);}}if(p){if(b==true){return p.insertBefore(elm,p.firstChild);}else if(b){return p.insertBefore(elm,b);}else{return p.appendChild(elm);}}else{return elm}},
 	load:function(url,_elm,_onfinish,_onstep,_onerror,_mem){var req=this._req();var $this=this;req.onreadystatechange=function(ev){
 		$this._doload(ev,_elm,_onfinish,_onstep,_onerror,_mem);};if(!_elm){req.open("GET",url,true);req.send('');}
 		else{var hasfile=false;if(!hasfile){req.open("POST",url,true);req.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
@@ -10,44 +14,36 @@
 			else{console.log('todo:file upload');}}return false;},
 	_req:function(){var rq=false;if(window.XMLHttpRequest&&!(window.ActiveXObject)){try{rq=new XMLHttpRequest();}catch(exk){rq=false;}}else if(window.ActiveXObject){try{rq=new ActiveXObject("Msxml2.XMLHTTP");}catch(ex){try{rq=new ActiveXObject("Microsoft.XMLHTTP");}catch(exx){rq=false;}}}if(!rq){console.log('This browser is neither w3c or mozilla compatible*[2008], uno.xml javascript framework will not work.');}return rq;},
  	_doload:function(ev,_elm,_onfinish,_onstep,_onerror,_mem){var req=(ev.currentTarget||ev.target||ev.srcElement);if(req.readyState>1&&req.readyState<4){if(req.status==200){if(_onstep)_onstep(req);}
-		}else if(req.readyState==4){if(req.status==200){_onfinish(req,_mem);}else{console.log('Request failed');console.log(req);if(_onerror){_onerror(req)}}}},
-		
+		}else if(req.readyState==4){if(req.status==200){_onfinish(req,_mem);}else{console.log('Request failed');console.log(req);if(_onerror){_onerror(req)}}}},	
 	/**/
 	config:{},modules:{},modscript:'',moddata:'',resources:0,resources_toload:0,resources_loaded:0,
 	modinstall:function(module,next){if(module.name){this._modinstall(module,next);}else{var _this=this;
-		this.load(module+'/m$-manifest.js',false,function(res){var mod={};try{mod=eval(res.responseText);}catch(ex){throw new error('Cannot eval module manifest from '+module+'/m$-manifest.js')}_this._modinstall(mod);});}},
+		this.load(module+'/m$-manifest.js',false,function(res){var mod={};try{eval('mod='+res.responseText);}catch(ex){throw new Error('Cannot eval module manifest from '+module+'/m$-manifest.js')}_this._modinstall(mod);});}},
 	_modinstall:function(module,next){var x;var direct=true;var toinstall=[module];	
 		if(module.depends){for(x=0;x<module.depends.length;x++){if(!modules[module.depends[x]]){direct=false;toinstall.push(module.depends[x]);}}}
 		if(direct){this._singlemodinstall(module,next)}else{
 			/*TODO: QUEUED INSTALL*/
-			throw new error('First you have to install '+toinstall.join(', ')+'.');			
+			throw new Error('First you have to install '+toinstall.join(', ')+'.');			
 	}	},
-	_singlemodinstall:function(module,next){
-		if(!module.is_metaschema_module){throw new error('The object is not a metaschema module');}
-		var x;var _this;this.modules[module.name]=module;this.modules[module.name]._toinstall=0;this.modules[module.name]._installed=0;
-		for(x in module.resources){this.modules[module.name]._toinstall++;this.resources_toload++;
-			this.load(module.resources[x],false,function(req){_this._atominstall_end(module.name,'xmldata',req,module.resources[x],next);});
-	}	},
-	_atominstall_end:function(modulename,restype,res,resurl,next){
-		if(this._atoms[restype]){this._atoms[restype](res,resurl)}
+	_singlemodinstall:function(module,next){var x;var _this=this;;this.modules[module.name]=module;this.modules[module.name]._toinstall=0;this.modules[module.name]._installed=0;
+		for(x in module.resources){this.modules[module.name]._toinstall++;this.resources_toload++;this.load(x,false,function(req){_this._atominstall_end(module.name,module.resources[x],req,x,next);});}},
+	_atominstall_end:function(modulename,restype,res,resurl,next){if(this.atoms[restype]){this.atoms[restype](res,resurl)}
 		this.modules[modulename]._installed++;this.resources_loaded++;
-		if(this.modules[modulename]._installed==this.modules[modulename]._toinstall){this.modules[modulename].fullyinstalled=true;next()}
+		if(this.modules[modulename]._installed==this.modules[modulename]._toinstall){this.modules[modulename].fullyinstalled=true;if(next){next()}}
 	},
 	atoms:{
-		'script':function(req,resurl){var o=document.createElement('script');o.setAttribute('type','text/javascript');o.innerText=req.responseText;document.getElementsByTagName('head')[0].appendChild(o)}
-},	onload:function(){
+		'script':function(req,resurl){m$.ins(document.getElementsByTagName('head')[0],'script',['type','text/javascript'],req.responseText);},
+		'style':function(req,resurl){m$.ins(document.getElementsByTagName('head')[0],'link',['rel','stylesheet','type','text/css'],req.responseText);}
+},	
 
-}};
+	onpageload:function(){if(!this.configsource){this.configsource='config.js'}this.load(this.configsource,false,this.onconfigload);},
+	onconfigload:function(req){var s=req.responseText;s+='\nm$.onconfigloaded();';m$.ins(document.body,'script',['type','text/javascript'],s);},
+	onconfigloaded:function(){m$._mq=[];m$._modulequeue();},
+	_modulequeue:function(){var flag=true;for(var x=0;x<m$.config.modules.length;x++){if(m$._mq.indexOf(x)<0){m$._mq.push(x);flag=false;m$.modinstall(m$.config.modules[x],this._modulequeue);break;}}if(flag){m$.onmodulesloaded()}},
+	onmodulesloaded:function(){
+		console.log('OK - TRIGGER ACTION');
+	},	
+	};
 </script>
-	<!--fontawesome hotlink by github cdn-->
-	<link href="https://cdn.rawgit.com/FortAwesome/Font-Awesome/master/css/font-awesome.min.css" rel="stylesheet" />
-	<!--firebase oxygen library-->
-	<!--style for this app-->
-	<link href="shared/app.css" rel="stylesheet" />
-	<link href="shared/ionicons.min.css" rel="stylesheet"/>
-</head><body onload="metabootstrapper()"><div id="hiddentarget"></div><div id="prelogindiv">
-	Checking login status...</div><div id="logindiv" style="display:none">
-	<div class="info"><h3>login</h3></div>
-		<button onclick="app.login('google')"><i class="fa fa-google"></i></button><!--<button onclick="app.login('facebook')"><i class="fa fa-facebook"></i></button><button onclick="app.login('twitter')"><i class="fa fa-twitter"></i></button><button onclick="app.login('github')"><i class="fa fa-github"></i></button>-->
-	</div><div id="metaschema-app" style="display:none">	
-	</div><script>app.listenResize();</script></body>
+</head><body onload="m$.onpageload()">
+</body></html>

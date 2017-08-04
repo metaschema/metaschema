@@ -9,7 +9,10 @@
     'website': "http://metaschema.io/",
     'depends': false,
     'incompatible': false,
-	'styles':['https://cdn.rawgit.com/FortAwesome/Font-Awesome/master/css/font-awesome.min.css'],
-    'directly_installable': true,
-    'application': true
+	resources:{
+		'https://cdn.rawgit.com/FortAwesome/Font-Awesome/master/css/font-awesome.min.css':'style',
+	},
+    'is_installable': true,
+    'is_application': true
+    'is_meta': false
 }
