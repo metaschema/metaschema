@@ -11,6 +11,7 @@
 m$.config={
 	title:'metaschema - the client javascript tree',
 	modules:[
-		'modules/fontawesome'
+		'modules/fontawesome',
+		'modules/meta-database'
 	],
 };
