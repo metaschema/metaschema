@@ -9,8 +9,11 @@
     'website': "http://metaschema.io/",
     'depends': false,
     'incompatible': false,
-    'is_meta': false
+    'is_meta': false,
     'is_installable': true,
     'is_application': true,
     'modules': false,
+	resources:{
+		'google-firebase.js':'script',
+	}
 }

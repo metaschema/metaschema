@@ -15,13 +15,10 @@
 	_req:function(){var rq=false;if(window.XMLHttpRequest&&!(window.ActiveXObject)){try{rq=new XMLHttpRequest();}catch(exk){rq=false;}}else if(window.ActiveXObject){try{rq=new ActiveXObject("Msxml2.XMLHTTP");}catch(ex){try{rq=new ActiveXObject("Microsoft.XMLHTTP");}catch(exx){rq=false;}}}if(!rq){console.log('This browser is neither w3c or mozilla compatible*[2008], uno.xml javascript framework will not work.');}return rq;},
  	_doload:function(ev,_elm,_onfinish,_onstep,_onerror,_mem){var req=(ev.currentTarget||ev.target||ev.srcElement);if(req.readyState>1&&req.readyState<4){if(req.status==200){if(_onstep)_onstep(req);}
 		}else if(req.readyState==4){if(req.status==200){_onfinish(req,_mem);}else{console.log('Request failed');console.log(req);if(_onerror){_onerror(req)}}}},
-	
-	_luid:0,_nluid:-1,upad:function(input,BASE){return input ? BASE.substr(0, 4 - Math.ceil(input / 10)) + input : BASE;},
-	getuid:function(){var d=new Date();var nuid=d.getFullYear()+this.upad(d.getMonth()+1,'00')+this.upad(d.getDate,'00')+this.upad(d.getHours(),'00')+this.upad(d.getMinutes(),'00')+this.upad(d.getSeconds(),'00')+this.upad(d.getMilliseconds(),'000')+'-'+(m$._nluid++);
-		if(m$._nluid==10){m$._nluid=-1}
-		m$._luid=nuid;
-		return m$._luid;
-	},
+
+	_luid:0,_nluid:-1,
+	getuid:function(){var d=new Date();var nuid=d.getFullYear()+(d.getMonth()+1).toString().padStart(2,'0')+d.getDate().toString().padStart(2,'0')+d.getHours().toString().padStart(2,'0')+d.getMinutes().toString().padStart(2,'0')+d.getSeconds().toString().padStart(2,'0')+d.getMilliseconds().toString().padStart(3,'0')+'-'+(m$._nluid++);
+		if(m$._nluid==10){m$._nluid=-1}m$._luid=nuid;return nuid;},
 	
 	/* -------------------------------------------------------------------------------------------- */
 	config:{},modules:{},modscript:'',moddata:'',resources:0,resources_toload:0,resources_loaded:0,
